@@ -1,0 +1,20 @@
+<% provide(:title, "自治体情報編集") %>
+<h1><%= @hvalue[:N03_004] %>の情報編集</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <div class="col-md-6 col-md-offset-3">
+    <%= form_for @hvalue, :url => {:action => 'update'}, :html => {:class => "form-horizontal center"} do |f| %>
+      <%= f.label "自治体名(固定)", class: "col-md-4 control-label" %>
+      <%= f.select :N03_004, [@hvalue[:N03_004]], :selected => @hvalue[:N03_004], class: "form-control" %>
+
+      <% @column.each do |i| %>
+      <%= f.label "サービス名: #{i}", class: "col-md-4 control-label" %>
+      <%= f.select i, @value, :selected => @hvalue[i], class: "form-control" %>
+      <% end %>
+      
+      <%= f.submit "Save changes", class: "btn btn-primary" %>
+    <% end %>
+   </div>
+  </div>
+</div>

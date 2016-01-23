@@ -1,0 +1,350 @@
+<div id="map"></div>
+
+<script type="text/javascript">
+
+    var div = d3.select("body").append("div")
+  .attr("class", "tooltip")
+  .style("opacity", 0);
+
+    var div2 = d3.select("body").append("div")
+  .attr("class", "tooltip2")
+  .style("opacity", 0);
+
+    // file読み込み制御用
+    var readTopofileDone = false;
+    var readAttrfileDone = false;
+    // filedata格納変数
+    var topodata;
+    var attrdata;
+    // mapの設定値
+    var map_width = 900;
+    var map_height = 750;
+    var svg;
+    // map読み込み完了フラグ
+    var drawMapDone = false;
+
+    var color = ["#ffffff", "#b3e6ff", "#b3ffff", "#b3fff2", "#b3ffd9", "#b3ffcc", "#b3ffb3", "#bfffb3", "#d9ffb3", "#e6ffb3", "#ffffb3", "#fff2b3", "#ffd9b3", "#ffccb3", "#ffb3bf", "#ffb3d9", "#ffb3e6", "#ffb3ff", "#f2b3ff", "#d9b3ff", "#ccb3ff", "#b3b3ff", "#b3bfff", "#b3d9ff"]
+
+    // 配列の最大値を求める関数を定義しておく
+    Array.prototype.max = function () {
+        return Math.max.apply(Math, this);
+    };
+    Array.prototype.min = function () {
+        return Math.min.apply(Math, this);
+    };
+    // 数値かどうかを判定する関数を定義しておく
+    function isNumeric(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+
+    var attrHash = new Object();
+    var elementsHash = new Object();
+    var maxHash = new Object();
+    var minHash = new Object();
+
+    function readTopofile(json) {
+        topodata = json;
+        readTopofileDone = true;
+    }
+    function readAttrfile(json) {
+        attrdata = json;
+        readAttrfileDone = true;
+    }
+    
+    d3.json("hokkaido/hokkaido_map", function(error, json) {
+        if(error) return console.warn(error);
+            readTopofile(json);
+            if (readTopofileDone && readAttrfileDone) {
+                main(topodata, attrdata);
+            }
+        });
+    
+    d3.json("hokkaido/hokkaido_value", function(error, json) {
+        if(error) return console.warn(error);
+            readAttrfile(json);
+            if (readTopofileDone && readAttrfileDone) {
+                main(topodata, attrdata);
+                changeShowKey('vender','');
+            }
+        });
+    
+    function main(topo, attr) {
+        
+        var labelLineHight = 16;
+        
+        // attr情報をIDをkeyとするhash tableに変換する
+        // idをKeyとしたhashテーブル＆property毎のhashテーブルを作成する
+        attr.forEach(function(e){
+            attrHash[e.cityid]=e;
+            for (var k in e) {
+                if( k in elementsHash) {
+                    elementsHash[k].push(e[k]);
+                } else {
+                    elementsHash[k] = [e[k]];
+                }
+            }
+        });
+        for (var k in elementsHash) {
+            if (isNumeric(elementsHash[k][0])) {
+                maxHash[k] = elementsHash[k].max();
+                minHash[k] = elementsHash[k].min();
+            }
+        }
+
+         // svgを追加
+        svg = d3.select("body #map").append("svg")
+                .attr("width", map_width)
+                .attr("height", map_height);
+        var g = svg.append("g");
+        
+        // 北海道のmapを描画する
+        var hokkaido = topojson.object(topo, topo.objects.hokkaido);
+        console.log(hokkaido);
+        
+        // 北海道の中心を指定したメルカトル図法で10万分の1で描画する
+        var projection = d3.geo.mercator()
+                .center([142.45,43.5])
+                .scale(7400)
+                .translate([map_width / 2, map_height / 2]);
+        
+        // pathを作成する
+        var path = d3.geo.path().projection(projection);
+        g.append("path")
+          .datum(hokkaido)
+          .attr("d", path);
+        
+        // classを指定する
+        g.selectAll(".hokkaido")
+            .data(hokkaido.geometries)
+        .enter().append("path")
+            .attr("class", function(d) {
+                return "hokkaido " + d.properties.N03_004;
+                })
+            .attr("d", path)
+
+        // zoom and pan
+        var zoom = d3.behavior.zoom()
+        .on("zoom",function() {
+            g.attr("transform","translate("+ 
+                d3.event.translate.join(",")+")scale("+d3.event.scale+")");
+            g.selectAll("circle")
+            .attr("d", path.projection(projection));
+            g.selectAll("path")  
+            .attr("d", path.projection(projection));
+        });
+        svg.call(zoom)
+
+        // 内部境界に線を引く
+        g.append("path")
+           .datum(topojson.mesh(topo, topo.objects.hokkaido, function(a, b) { return a !== b; }))
+           .attr("d", path)
+           .attr("class", "subunit-boundary");
+
+        // ベース色指定しておく
+        g.selectAll(".hokkaido")
+            .attr("fill", "#CEF6CE");
+        
+        // 市町村名のラベル貼り
+        g.selectAll(".cityname-label")
+            .data(hokkaido.geometries)
+          .enter()
+            .append("text")
+                .attr("class", function(d) {
+                    return "cityname-label "+d.properties.N03_004; /* class名にidを付与 */
+                    })
+                .attr("transform", function(d) {
+                    // 文字をpath中央から、文字高さ1/2分高い位置に貼る
+                    var pos = path.centroid(d);
+                    pos[1] -= labelLineHight / 8;
+                    return "translate(" + pos + ")";
+                })
+                .attr("dy", ".35em")
+                .text(function(d) {
+                    return attrHash[d.properties.N03_004].N03_004;
+                });
+
+        // 値ラベル貼り
+        g.selectAll(".stat-label")
+            .data(hokkaido.geometries)
+          .enter()
+            .append("text")
+                .attr("class", function(d) {
+                    return "stat-label "+d.properties.N03_004; // class名にidを付与
+                    })
+                .attr("transform", function(d) {
+                    // 文字をpath中央から、文字高さ1/2分高い位置に貼る
+                    var pos = path.centroid(d);
+                    pos[1] += labelLineHight / 4;
+                    return "translate(" + pos + ")";
+                })
+                .attr("dy", ".35em");
+        
+        // CSSで一旦display:noneを指定しているので、各区の先頭object上のみラベルを表示する
+        for (var k in attrHash) {
+            svg.select(".cityname-label."+k).style("display", "block");
+            svg.select(".stat-label."+k).style("display", "block");
+        }
+
+        drawMapDone = true;
+    }
+
+    function changeShowKey(showKey, unit) {
+        
+        if (drawMapDone == false) {
+            return;
+        }
+        
+        // 色塗り
+        var showElements = elementsHash[showKey].slice(0);
+        showElements.sort(function(a, b){ return a - b; });
+
+        var areaGrad = d3.scale.linear()
+                        .domain([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23])
+                        .range([color[0], color[1], color[2], color[3], color[4], color[5], color[6], color[7], color[8], color[9], color[10], color[11], color[12], color[13], color[14], color[15], color[16], color[17], color[18], color[19], color[20], color[21], color[22], color[23]]);
+        
+        for (var k in attrHash) {
+            e = attrHash[k];
+            svg.selectAll("."+k)
+            .attr("fill", areaGrad(e[showKey]))
+            .on("mouseover", function(d) {
+                var vender = ( attrHash[d.properties.N03_004].vender == 1 ) ? "a、" : "";
+                var eac = ( attrHash[d.properties.N03_004].eac == 1 ) ? "b、" : "";
+                var frs = ( attrHash[d.properties.N03_004].frs == 1 ) ? "c、" : "";
+                var eps = ( attrHash[d.properties.N03_004].eps == 1 ) ? "d、" : "";
+                var ca = ( attrHash[d.properties.N03_004].ca == 1 ) ? "e、" : "";
+                var pa = ( attrHash[d.properties.N03_004].pa == 1 ) ? "f、" : "";
+                var gw = ( attrHash[d.properties.N03_004].gw == 1 ) ? "g、" : "";
+                var cms = ( attrHash[d.properties.N03_004].cms == 1 ) ? "h、" : "";
+                var mail = ( attrHash[d.properties.N03_004].mail == 1 ) ? "i、" : "";
+                var bu = ( attrHash[d.properties.N03_004].bu == 1 ) ? "j、" : "";
+                var rs = ( attrHash[d.properties.N03_004].rs == 1 ) ? "k、" : "";
+                var ps = ( attrHash[d.properties.N03_004].ps == 1 ) ? "l、" : "";
+                var fn = ( attrHash[d.properties.N03_004].fn == 1 ) ? "m、" : "";
+                var ns = ( attrHash[d.properties.N03_004].ns == 1 ) ? "n、" : "";
+                var ss = ( attrHash[d.properties.N03_004].ss == 1 ) ? "o、" : "";
+                var ft = ( attrHash[d.properties.N03_004].ft == 1 ) ? "p、" : "";
+                var et = ( attrHash[d.properties.N03_004].et == 1 ) ? "q、" : "";
+                var ib = ( attrHash[d.properties.N03_004].ib == 1 ) ? "r" : "";
+                var service = vender + eac + frs + eps + ca + pa + gw + cms + mail + bu + rs + ps + fn + ns + ss + ft + et + ib;
+                // serviceの末尾に"、"がある場合は削除
+                var serviceAfter = ( service.substr( (service.length-1) )  == "、" ) ? service.substr( 0 , (service.length-1) ) : service;
+                var content = "";
+                content += "<center>"+ attrHash[d.properties.N03_004].N03_004 + "</center>";
+                content += "<center>" + "【" + showKey + "の契約会社】" + "</center>";
+                content += "<center>" + attrHash[d.properties.N03_004][showKey] + "</center>";
+                content += "<center>"+ "【HARPとの契約サービス】" + "</center>";
+                content += serviceAfter
+                d3.select(this).transition().duration(200)
+                .style("opacity", 1);div.transition().duration(200)
+                .style("opacity", 1)
+                div.html(content)
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY -70) + "px");
+            })
+            .on("mouseout", function() {
+                d3.select(this)
+                .transition().duration(200)
+                .style("opacity", 1.0);
+                div.transition().duration(200)
+                .style("opacity", 0);
+            })
+            svg.select(".cityname-label."+k).attr("fill", "black");
+        }
+            
+
+        //円グラフ用にデータをカウント
+        var legend = {};
+        for(var i in attrHash) {
+            f = attrHash[i];
+            if(!legend[f[showKey]]){
+                legend[f[showKey]] = 0;
+            }
+            legend[f[showKey]]++;
+        }
+
+        //データセットをループで作成
+        var data4 = [];
+        for (var l = 0; l < color.length; l++) {
+            data4.push({
+                name: l,
+                value: legend[l],
+                color: color[l]
+            });
+        }
+
+        //data4からundefined以外を拾ってデータセットを作成
+        var data3 = [];
+        for (var j = 0; j < data4.length; j++) {
+            if (data4[j].value !== undefined) {
+            data3.push(data4[j]);
+        }}
+
+        //円グラフの半径
+        var radius = 100;
+        var svg2 = svg.append("g")
+            .attr("transform", "translate(" + [160, 120] + ")");
+        var arc = d3.svg.arc()
+                .outerRadius(radius)
+                .innerRadius(0);
+        var pie = d3.layout.pie()
+                .sort(null)
+                .value(function(d){  return d.value ; });
+        var g2 = svg2.selectAll(".fan")
+                .data(pie(data3))
+                .enter()
+                .append("g")
+                .attr("class", "fan")
+
+        //円グラフ描写
+        g2.append("path")
+            .attr("d", arc)
+            .attr("fill", function(d){  return d.data.color; })
+            .on("mouseover", function (d) {
+                d3.select(this).transition().duration(200)
+                .style("opacity", 1);div2.transition().duration(200)
+                .style("opacity", 1)
+                var per = (d.value/179)*100;
+                var per2 = per.toFixed(1);
+                var content = "";
+                content += "<center>"+ d.data.name + "</center>";
+                content += d.value + "/179自治体(" + per2 + "%)"
+                div2.html(content)
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY -40) + "px");
+            })
+            .on("mouseout", function() {
+                d3.select(this)
+                .transition().duration(200)
+                .style("opacity", 1.0);
+                div2.transition().duration(200)
+                .style("opacity", 0);
+            })
+        
+        //円グラフの名前
+        g2.append("text")
+            .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+            .style("text-anchor", "middle")
+            .text(function(d) { return d.data.name; });
+    }
+
+</script>
+<div id="menu">
+    <button onclick="changeShowKey('vender','')">a</button>
+    <button onclick="changeShowKey('eac','')">b</button>
+    <button onclick="changeShowKey('frs','')">c</button>
+    <button onclick="changeShowKey('eps','')">d</button>
+    <button onclick="changeShowKey('ca','')">e</button>
+    <button onclick="changeShowKey('pa','')">f</button>
+    <button onclick="changeShowKey('gw','')">g</button>
+    <button onclick="changeShowKey('cms','')">h</button>
+    <button onclick="changeShowKey('mail','')">i</button>
+    <button onclick="changeShowKey('bu','')">j</button>
+    <button onclick="changeShowKey('rs','')">k</button>
+    <button onclick="changeShowKey('ps','')">l</button>
+    <button onclick="changeShowKey('fn','')">m</button>
+    <button onclick="changeShowKey('ns','')">n</button>
+    <button onclick="changeShowKey('ss','')">o</button>
+    <button onclick="changeShowKey('ft','')">p</button>
+    <button onclick="changeShowKey('et','')">q</button>
+    <button onclick="changeShowKey('ib','')">r</button>
+</div>

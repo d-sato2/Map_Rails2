@@ -1,0 +1,15 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <%= link_to "勢力図？", root_path, id: "logo" %>
+      <nav>
+        <ul class="nav pull-right">
+          <li><%= link_to "Hokkaido_Map", root_path %></li>
+          <li><%= link_to "データ更新", :controller => "hokkaido", :action => "edit2" %></li>
+          <li><%= link_to "更新情報", :controller => "hokkaido", :action => "info" %></li>
+          <li><%= link_to "csv, excelダウンロード", hokkaido_csv_path %></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>

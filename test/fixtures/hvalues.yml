@@ -1,0 +1,47 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cityid: MyString
+  N03_004: MyString
+  ttl: 1
+  gw: 1
+  frs: 1
+  ib: 1
+  ft: 1
+  rs: 1
+  ss: 1
+  eac: 1
+  eps: 1
+  bu: 1
+  pa: 1
+  et: 1
+  mail: 1
+  vender: 1
+  ns: 1
+  cms: 1
+  ca: 1
+  fn: 1
+  ps: 1
+
+two:
+  cityid: MyString
+  N03_004: MyString
+  ttl: 1
+  gw: 1
+  frs: 1
+  ib: 1
+  ft: 1
+  rs: 1
+  ss: 1
+  eac: 1
+  eps: 1
+  bu: 1
+  pa: 1
+  et: 1
+  mail: 1
+  vender: 1
+  ns: 1
+  cms: 1
+  ca: 1
+  fn: 1
+  ps: 1
