@@ -85,7 +85,7 @@ class HokkaidoController < ApplicationController
     
     def hokkaido_value
         data = Hvalue.all
-        render json: data.to_json(:except => [:id, :created_at, :updated_at])
+        render json: data.to_json(:except => [:created_at, :updated_at])
     end
     
     def move_edit

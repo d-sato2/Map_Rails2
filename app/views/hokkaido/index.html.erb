@@ -121,6 +121,10 @@
                 return "hokkaido " + d.properties.N03_004;
                 })
             .attr("d", path)
+            .on("click", function(d) {
+                var url = "http://localhost:3000/hokkaido/" + attrHash[d.properties.N03_004].id + "/edit";
+                window.location = url;
+            })
 
         // zoom and pan
         var zoom = d3.behavior.zoom()
