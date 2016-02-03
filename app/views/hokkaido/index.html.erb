@@ -1,4 +1,31 @@
-<div id="map"></div>
+<div class="row">
+    <div class="col-md-1">
+        <div class="btn-group-vertical" role="group" aria-label="Left Align">
+            <button class="btn btn-default" onclick="changeShowKey('vender','')">a</button>
+            <button class="btn btn-default" onclick="changeShowKey('eac','')">b</button>
+            <button class="btn btn-default" onclick="changeShowKey('frs','')">c</button>
+            <button class="btn btn-default" onclick="changeShowKey('eps','')">d</button>
+            <button class="btn btn-default" onclick="changeShowKey('ca','')">e</button>
+            <button class="btn btn-default" onclick="changeShowKey('pa','')">f</button>
+            <button class="btn btn-default" onclick="changeShowKey('gw','')">g</button>
+            <button class="btn btn-default" onclick="changeShowKey('cms','')">h</button>
+            <button class="btn btn-default" onclick="changeShowKey('mail','')">i</button>
+            <button class="btn btn-default" onclick="changeShowKey('bu','')">j</button>
+            <button class="btn btn-default" onclick="changeShowKey('rs','')">k</button>
+            <button class="btn btn-default" onclick="changeShowKey('ps','')">l</button>
+            <button class="btn btn-default" onclick="changeShowKey('fn','')">m</button>
+            <button class="btn btn-default" onclick="changeShowKey('ns','')">n</button>
+            <button class="btn btn-default" onclick="changeShowKey('ss','')">o</button>
+            <button class="btn btn-default" onclick="changeShowKey('ft','')">p</button>
+            <button class="btn btn-default" onclick="changeShowKey('et','')">q</button>
+            <button class="btn btn-default" onclick="changeShowKey('ib','')">r</button>
+        </div>
+    </div>
+    <div class="col-md-7" id="map" style="width:914px; height:750px;"></div>
+    <div class="col-md-4" style="overflow:auto; width:300px; height:750px; border:1px solid #333333;">
+        <?include("http://www.yahoo.co.jp");?>
+    </div>
+<div>
 
 <script type="text/javascript">
 
@@ -122,7 +149,7 @@
                 })
             .attr("d", path)
             .on("click", function(d) {
-                var url = "https://floating-shore-55043.herokuapp.com/hokkaido/" + attrHash[d.properties.N03_004].id + "/edit";
+                var url = "http://localhost:3000/hokkaido/" + attrHash[d.properties.N03_004].id + "/edit";
                 window.location = url;
             })
 
@@ -332,23 +359,3 @@
     }
 
 </script>
-<div id="menu">
-    <button onclick="changeShowKey('vender','')">a</button>
-    <button onclick="changeShowKey('eac','')">b</button>
-    <button onclick="changeShowKey('frs','')">c</button>
-    <button onclick="changeShowKey('eps','')">d</button>
-    <button onclick="changeShowKey('ca','')">e</button>
-    <button onclick="changeShowKey('pa','')">f</button>
-    <button onclick="changeShowKey('gw','')">g</button>
-    <button onclick="changeShowKey('cms','')">h</button>
-    <button onclick="changeShowKey('mail','')">i</button>
-    <button onclick="changeShowKey('bu','')">j</button>
-    <button onclick="changeShowKey('rs','')">k</button>
-    <button onclick="changeShowKey('ps','')">l</button>
-    <button onclick="changeShowKey('fn','')">m</button>
-    <button onclick="changeShowKey('ns','')">n</button>
-    <button onclick="changeShowKey('ss','')">o</button>
-    <button onclick="changeShowKey('ft','')">p</button>
-    <button onclick="changeShowKey('et','')">q</button>
-    <button onclick="changeShowKey('ib','')">r</button>
-</div>
