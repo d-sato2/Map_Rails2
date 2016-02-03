@@ -33,6 +33,7 @@ class HokkaidoController < ApplicationController
                   ["会社No.13", "13"], ["会社No.14", "14"], ["会社No.15", "15"], ["会社No.16", "16"], ["会社No.17", "17"], ["会社No.18", "18"], 
                   ["会社No.19", "19"], ["会社No.20", "20"], ["会社No.21", "21"], ["会社No.22", "22"], ["会社No.23", "23"], ["不明", "0"], ]
         @column = [:vender, :eac, :frs, :eps, :ca, :pa, :gw, :cms, :mail, :bu, :rs, :ps, :fn, :ns, :ss, :ft, :et, :ib]
+        render :layout => false
     end
     
     def update
@@ -41,10 +42,10 @@ class HokkaidoController < ApplicationController
         if @hvalue.update_attributes(hvalue_params) 
             # moji = @hvalue.previous_changes() 
             flash[:success] = params[:hvalue][:N03_004] + "の情報を更新しました"
-            redirect_to :action => "edit2"
+            redirect_to :action => "edit"
         else
             flash[:error] = "変更に失敗しました"
-            render 'edit2'
+            render 'edit'
         end
     end
     

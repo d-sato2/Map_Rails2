@@ -149,7 +149,7 @@
             .attr("d", path)
             .on("click", function(d) {
                 var url = "http://localhost:3000/hokkaido/" + attrHash[d.properties.N03_004].id + "/edit";
-                window.location = url;
+                frames[0].location.href = url;
             })
 
         // zoom and pan
