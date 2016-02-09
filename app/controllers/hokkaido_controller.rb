@@ -37,10 +37,8 @@ class HokkaidoController < ApplicationController
     end
     
     def update
-        # render :json => params[:hvalue]
         @hvalue = Hvalue.find_by(N03_004: params[:hvalue][:N03_004])
         if @hvalue.update_attributes(hvalue_params) 
-            # moji = @hvalue.previous_changes() 
             flash[:success] = params[:hvalue][:N03_004] + "の情報を更新しました"
             redirect_to :action => "edit"
         else

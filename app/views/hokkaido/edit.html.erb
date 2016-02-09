@@ -3,7 +3,7 @@
 <%= csrf_meta_tags %>
 <body style = "padding-top: 0px; background-color: transparent;" >
   <% provide(:title, "自治体情報編集") %>
-  <h1 style = "margin-top: 20px; margin-bottom: 10px;"><%= @hvalue[:N03_004] %>の情報編集</h1>
+  <h1 style = "margin-top: 20px; margin-bottom: 10px;"><%= @hvalue[:N03_004] %></h1>
   <%= form_for @hvalue, url: {:action => 'update'}, html: {class: "form-horizontal center"} do |f| %>
     <div class="form-group form-group-xs">
       <%= f.label "自治体名(固定)", {class: 'col-xs-6 control-label', style: "width: 154px; background-color:transparent;"} %>
@@ -19,6 +19,11 @@
         </div>
       </div>
     <% end %>
-    <%= f.submit "Save changes", {class: "btn btn-primary center-block"} %>
+    <input type="submit" name="commit" value="Save changes" class="btn btn-primary center-block" >
   <% end %>
+  <script type="text/javascript">
+    function _submit(){
+     parent.location.reload();
+    }
+  </script>
 </body>
