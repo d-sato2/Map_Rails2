@@ -1,31 +1,31 @@
 Rails.application.routes.draw do
-  resources :hokkaido,   only: [:edit, :update]
+  resources :hokkaido, only: [:edit, :update]
   root 'hokkaido#index'
   get 'hokkaido/hokkaido_map'
   get 'hokkaido/hokkaido_value'
-  
-  get "hokkaido/edit2" => 'hokkaido#edit2'
-  post "hokkaido/edit2" => 'hokkaido#edit2'
-  patch "hokkaido/edit2" => 'hokkaido#edit2'
-  post "hokkaido/update" => 'hokkaido#update'
-  patch "hokkaido/update" => 'hokkaido#update'
-  
-  get "hokkaido/info" => 'hokkaido#info'
-  post "hokkaido/info" => 'hokkaido#info'
-  
+
+  get 'hokkaido/edit2' => 'hokkaido#edit2'
+  post 'hokkaido/edit2' => 'hokkaido#edit2'
+  patch 'hokkaido/edit2' => 'hokkaido#edit2'
+  post 'hokkaido/update' => 'hokkaido#update'
+  patch 'hokkaido/update' => 'hokkaido#update'
+
+  get 'hokkaido/info' => 'hokkaido#info'
+  post 'hokkaido/info' => 'hokkaido#info'
+
   get 'hokkaido/show/:id' => 'hokkaido#show'
-  get "hokkaido/move_show" => 'hokkaido#move_show'
-  post "hokkaido/move_show" => 'hokkaido#move_show'
-  
-  get "hokkaido/csv" => 'hokkaido#csv'
-  
-  get "hokkaido/search" => 'hokkaido#search'
-  
-  get "hokkaido/move_edit" => 'hokkaido#move_edit'
-  post "hokkaido/move_edit" => 'hokkaido#move_edit'
-  
-  get "hokkaido/select_bureau" => 'hokkaido#select_bureau'
-  post "hokkaido/select_bureau" => 'hokkaido#select_bureau'
+  get 'hokkaido/move_show' => 'hokkaido#move_show'
+  post 'hokkaido/move_show' => 'hokkaido#move_show'
+
+  get 'hokkaido/csv' => 'hokkaido#csv'
+
+  get 'hokkaido/search' => 'hokkaido#search'
+
+  get 'hokkaido/move_edit' => 'hokkaido#move_edit'
+  post 'hokkaido/move_edit' => 'hokkaido#move_edit'
+
+  get 'hokkaido/select_bureau' => 'hokkaido#select_bureau'
+  post 'hokkaido/select_bureau' => 'hokkaido#select_bureau'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
