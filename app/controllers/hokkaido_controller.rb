@@ -7,9 +7,9 @@ class HokkaidoController < ApplicationController
   end
 
   def edit2
-    @bureau_for_select = [%W(\u77F3\u72E9 \u77F3\u72E9), %W(\u7A7A\u77E5 \u7A7A\u77E5), %W(\u5F8C\u5FD7 \u5F8C\u5FD7), %W(\u80C6\u632F \u80C6\u632F), %W(\u65E5\u9AD8 \u65E5\u9AD8), %W(\u6E21\u5CF6 \u6E21\u5CF6),
-                          %W(\u6A9C\u5C71 \u6A9C\u5C71), %W(\u4E0A\u5DDD \u4E0A\u5DDD), %W(\u7559\u840C \u7559\u840C), %W(\u5B97\u8C37 \u5B97\u8C37), %W(\u30AA\u30DB\u30FC\u30C4\u30AF \u30AA\u30DB\u30FC\u30C4\u30AF), %W(\u5341\u52DD \u5341\u52DD),
-                          %W(\u91E7\u8DEF \u91E7\u8DEF), %W(\u6839\u5BA4 \u6839\u5BA4)]
+    @bureau_for_select = [["石狩", "石狩"], ["空知", "空知"], ["後志", "後志"], ["胆振", "胆振"], ["日高", "日高"], ["渡島", "渡島"], 
+               ["檜山", "檜山"], ["上川", "上川"], ["留萌", "留萌"], ["宗谷", "宗谷"], ["オホーツク", "オホーツク"], ["十勝", "十勝"], 
+               ["釧路", "釧路"], ["根室", "根室"]]
 
     @bureau = Hvalue.new unless params.key?(:bureau)
 
@@ -44,9 +44,9 @@ class HokkaidoController < ApplicationController
   end
 
   def info
-    @bureau_for_select = [%W(\u77F3\u72E9 \u77F3\u72E9), %W(\u7A7A\u77E5 \u7A7A\u77E5), %W(\u5F8C\u5FD7 \u5F8C\u5FD7), %W(\u80C6\u632F \u80C6\u632F), %W(\u65E5\u9AD8 \u65E5\u9AD8), %W(\u6E21\u5CF6 \u6E21\u5CF6),
-                          %W(\u6A9C\u5C71 \u6A9C\u5C71), %W(\u4E0A\u5DDD \u4E0A\u5DDD), %W(\u7559\u840C \u7559\u840C), %W(\u5B97\u8C37 \u5B97\u8C37), %W(\u30AA\u30DB\u30FC\u30C4\u30AF \u30AA\u30DB\u30FC\u30C4\u30AF), %W(\u5341\u52DD \u5341\u52DD),
-                          %W(\u91E7\u8DEF \u91E7\u8DEF), %W(\u6839\u5BA4 \u6839\u5BA4)]
+    @bureau_for_select = [["石狩", "石狩"], ["空知", "空知"], ["後志", "後志"], ["胆振", "胆振"], ["日高", "日高"], ["渡島", "渡島"], 
+               ["檜山", "檜山"], ["上川", "上川"], ["留萌", "留萌"], ["宗谷", "宗谷"], ["オホーツク", "オホーツク"], ["十勝", "十勝"], 
+               ["釧路", "釧路"], ["根室", "根室"]]
 
     @bureau = Hvalue.new unless params.key?(:bureau)
 
