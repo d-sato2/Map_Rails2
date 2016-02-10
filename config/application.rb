@@ -26,7 +26,7 @@ module Workspace
     config.active_record.raise_in_transactional_callbacks = true
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     config.action_dispatch.default_headers = {
-        'X-Frame-Options' => 'ALLOWALL'
+      'X-Frame-Options' => 'ALLOWALL'
     }
   end
 end
