@@ -26,4 +26,17 @@
      parent.location.reload();
     }
   </script>
+  <div>
+    <p><%= @hvalue.N03_004 %>の更新履歴情報</p>
+      <% @versions.each do |version| %>
+      <%  change = version.changeset %>
+        <% if change.has_key?(:updated_at) %>
+          <% if @hvalue.N03_004 == version.reify.N03_004 %>
+            <%=  change.to_a[1][1][1] %><br> <%=  change.to_a[0][0] %>を
+            <%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
+            <br>
+          <% end %>
+        <% end %>
+      <% end %>
+  </div>
 </body>

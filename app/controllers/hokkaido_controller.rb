@@ -24,6 +24,7 @@ class HokkaidoController < ApplicationController
   end
 
   def edit
+    @versions = PaperTrail::Version.order('created_at DESC')
     @hvalue = Hvalue.find(params[:id])
     @value = [["会社No.1", '1'], ["会社No.2", '2'], ["会社No.3", '3'], ["会社No.4", '4'], ["会社No.5", '5'], ["会社No.6", '6'],
               ["会社No.7", '7'], ["会社No.8", '8'], ["会社No.9", '9'], ["会社No.10", '10'], ["会社No.11", '11'], ["会社No.12", '12'],
@@ -45,19 +46,7 @@ class HokkaidoController < ApplicationController
   end
 
   def info
-    @bureau_for_select = [["石狩", "石狩"], ["空知", "空知"], ["後志", "後志"], ["胆振", "胆振"], ["日高", "日高"], ["渡島", "渡島"], 
-               ["檜山", "檜山"], ["上川", "上川"], ["留萌", "留萌"], ["宗谷", "宗谷"], ["オホーツク", "オホーツク"], ["十勝", "十勝"], 
-               ["釧路", "釧路"], ["根室", "根室"]]
-
-    @bureau = Hvalue.new unless params.key?(:bureau)
-
-    if params.key?(:hvalue)
-      @bureau_test = Hvalue.search_bureau(params[:hvalue][:bureau])
-    end
-
-    @search = Hvalue.search(params[:search])
-
-    @hvalue = Hvalue.new unless params.key?(:N03_004)
+    @versions = PaperTrail::Version.order('created_at DESC')
   end
 
   def csv

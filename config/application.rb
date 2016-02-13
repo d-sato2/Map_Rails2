@@ -23,6 +23,9 @@ module Workspace
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
+    config.active_record.time_zone_aware_attributes = false
     config.active_record.raise_in_transactional_callbacks = true
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     config.action_dispatch.default_headers = {
