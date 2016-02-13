@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'paper_trail', '~> 4.0.0'
 gem 'tzinfo-data'
 gem 'bootstrap-sass', '3.2.0.0'
 gem 'pry-rails'

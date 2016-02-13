@@ -27,7 +27,7 @@
     </div>
     <div class="col-md-7" id="map" style="width:924px; height:750px;"></div>
     <div class="col-md-4" style="width:350px; height:750px;">
-        <iframe src="https://map-rails.herokuapp.com/hokkaido/1/edit" frameborder="0" height="750"></iframe>
+        <iframe src="http://localhost:3000/hokkaido/1/edit" frameborder="0" height="750"></iframe>
     </div>
 </div>
 
@@ -153,7 +153,8 @@
                 })
             .attr("d", path)
             .on("click", function(d) {
-                var url = "https://map-rails.herokuapp.com/hokkaido/" + attrHash[d.properties.N03_004].id + "/edit";
+                var now = window.location.href
+                var url = now + "/hokkaido/" + attrHash[d.properties.N03_004].id + "/edit";
                 frames[0].location.href = url;
             })
 

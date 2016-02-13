@@ -1,2 +1,16 @@
-<%= @hvalue.N03_004 %>の更新履歴情報
-未実装
+<div class="container">
+  <h1><%= @hvalue.N03_004 %>の更新履歴情報</h1>
+
+  <ul>
+    <% @versions.each do |version| %>
+    <%  change = version.changeset %>
+	    <% if change.has_key?(:updated_at)%>
+		    <%=  change.to_a[1][1][1] %> : 
+		    <%= version.reify.N03_004 %>の<%=  change.to_a[0][0] %>を
+		    <%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
+		    <br>
+		<% end %>
+    <% end %>
+  </ul>
+</div>
+<%= debug @versions %>

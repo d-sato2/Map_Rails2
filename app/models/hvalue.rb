@@ -1,6 +1,9 @@
 require 'csv'
 
 class Hvalue < ActiveRecord::Base
+
+  has_paper_trail
+
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
       csv << csv_column_names

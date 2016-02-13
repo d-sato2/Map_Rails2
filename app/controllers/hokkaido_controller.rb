@@ -4,6 +4,7 @@ class HokkaidoController < ApplicationController
 
   def show
     @hvalue = Hvalue.find(params[:id])
+    @versions = PaperTrail::Version.order('created_at DESC')
   end
 
   def edit2

@@ -11,31 +11,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_160_101_034_710) do
-  create_table 'hvalues', force: :cascade do |t|
-    t.string   'cityid'
-    t.string   'N03_004'
-    t.string   'bureau'
-    t.integer  'ttl'
-    t.integer  'gw'
-    t.integer  'frs'
-    t.integer  'ib'
-    t.integer  'ft'
-    t.integer  'rs'
-    t.integer  'ss'
-    t.integer  'eac'
-    t.integer  'eps'
-    t.integer  'bu'
-    t.integer  'pa'
-    t.integer  'et'
-    t.integer  'mail'
-    t.integer  'vender'
-    t.integer  'ns'
-    t.integer  'cms'
-    t.integer  'ca'
-    t.integer  'fn'
-    t.integer  'ps'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+ActiveRecord::Schema.define(version: 20160213061719) do
+
+  create_table "hvalues", force: :cascade do |t|
+    t.string   "cityid"
+    t.string   "N03_004"
+    t.string   "bureau"
+    t.integer  "ttl"
+    t.integer  "gw"
+    t.integer  "frs"
+    t.integer  "ib"
+    t.integer  "ft"
+    t.integer  "rs"
+    t.integer  "ss"
+    t.integer  "eac"
+    t.integer  "eps"
+    t.integer  "bu"
+    t.integer  "pa"
+    t.integer  "et"
+    t.integer  "mail"
+    t.integer  "vender"
+    t.integer  "ns"
+    t.integer  "cms"
+    t.integer  "ca"
+    t.integer  "fn"
+    t.integer  "ps"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",                         null: false
+    t.integer  "item_id",                           null: false
+    t.string   "event",                             null: false
+    t.string   "whodunnit"
+    t.text     "object",         limit: 1073741823
+    t.datetime "created_at"
+    t.text     "object_changes", limit: 1073741823
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+
 end
