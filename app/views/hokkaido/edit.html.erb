@@ -1,6 +1,7 @@
 <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 <%= csrf_meta_tags %>
+
 <body style = "padding-top: 0px; background-color: transparent;" >
   <% provide(:title, "自治体情報編集") %>
   <h1 style = "margin-top: 20px; margin-bottom: 10px;"><%= @hvalue[:N03_004] %></h1>
@@ -32,8 +33,9 @@
       <%  change = version.changeset %>
         <% if change.has_key?(:updated_at) %>
           <% if @hvalue.N03_004 == version.reify.N03_004 %>
-            <%=  change.to_a[1][1][1] %><br> <%=  change.to_a[0][0] %>を
-            <%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
+            <% time = change.to_a[1][1][1] %>
+            <%=  time.year %>年<%=  time.month %>月<%=  time.day %>日<%=  time.hour %>時<%=  time.min %>分<br>
+            <%=  change.to_a[0][0] %>を<%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
             <br>
           <% end %>
         <% end %>

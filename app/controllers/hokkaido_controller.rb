@@ -1,5 +1,6 @@
 class HokkaidoController < ApplicationController
   def index
+    @search = Hvalue.search(params[:search])
   end
 
   def show
@@ -11,7 +12,6 @@ class HokkaidoController < ApplicationController
     @bureau_for_select = [["石狩", "石狩"], ["空知", "空知"], ["後志", "後志"], ["胆振", "胆振"], ["日高", "日高"], ["渡島", "渡島"], 
                ["檜山", "檜山"], ["上川", "上川"], ["留萌", "留萌"], ["宗谷", "宗谷"], ["オホーツク", "オホーツク"], ["十勝", "十勝"], 
                ["釧路", "釧路"], ["根室", "根室"]]
-
     @bureau = Hvalue.new unless params.key?(:bureau)
 
     if params.key?(:hvalue)
@@ -19,7 +19,6 @@ class HokkaidoController < ApplicationController
     end
 
     @search = Hvalue.search(params[:search])
-
     @hvalue = Hvalue.new unless params.key?(:N03_004)
   end
 
@@ -32,15 +31,16 @@ class HokkaidoController < ApplicationController
               ["会社No.19", '19'], ["会社No.20", '20'], ["会社No.21", '21'], ["会社No.22", '22'], ["会社No.23", '23'], %W(\u4E0D\u660E 0)]
     @column = [:vender, :eac, :frs, :eps, :ca, :pa, :gw, :cms, :mail, :bu, :rs, :ps, :fn, :ns, :ss, :ft, :et, :ib]
     render layout: false
+    @search = Hvalue.search(params[:search])
   end
 
   def update
     @hvalue = Hvalue.find_by(N03_004: params[:hvalue][:N03_004])
     if @hvalue.update_attributes(hvalue_params)
-      flash[:success] = params[:hvalue][:N03_004] + "の情報を更新しました"
+      # flash[:success] = params[:hvalue][:N03_004] + "の情報を更新しました"
       redirect_to action: 'edit'
     else
-      flash[:error] = "変更に失敗しました"
+      # flash[:error] = "変更に失敗しました"
       render 'edit'
     end
   end

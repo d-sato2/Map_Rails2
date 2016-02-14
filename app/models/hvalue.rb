@@ -25,7 +25,7 @@ class Hvalue < ActiveRecord::Base
     if search
       Hvalue.where('N03_004 like ?', "%#{search}%")
     else
-      Hvalue.none
+      Hvalue.all
     end
   end
 

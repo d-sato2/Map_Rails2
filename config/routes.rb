@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
-  resources :hokkaido, only: [:edit, :update]
+  resources :hokkaido, only: [:edit, :update, :index]
   root 'hokkaido#index'
   get 'hokkaido/hokkaido_map'
   get 'hokkaido/hokkaido_value'
+
+
+  get 'hokkaido/index' => 'hokkaido#index'
+  post 'hokkaido/index' => 'hokkaido#index'
+  patch 'hokkaido/index' => 'hokkaido#index'
+
 
   get 'hokkaido/edit2' => 'hokkaido#edit2'
   post 'hokkaido/edit2' => 'hokkaido#edit2'
@@ -18,8 +24,6 @@ Rails.application.routes.draw do
   post 'hokkaido/move_show' => 'hokkaido#move_show'
 
   get 'hokkaido/csv' => 'hokkaido#csv'
-
-  get 'hokkaido/search' => 'hokkaido#search'
 
   get 'hokkaido/move_edit' => 'hokkaido#move_edit'
   post 'hokkaido/move_edit' => 'hokkaido#move_edit'
