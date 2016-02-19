@@ -244,7 +244,7 @@
 
         for (var k in attrHash) {
             e = attrHash[k];
-            svg.selectAll("."+k)
+            svg.selectAll(".hokkaido."+k)
             .attr("fill", areaGrad(e[showKey]))
             .on("mouseover", function(d) {
                 var vender = ( attrHash[d.properties.N03_004].vender == 1 ) ? "a、" : "";
@@ -274,23 +274,23 @@
                 content += "<center>" + attrHash[d.properties.N03_004][showKey] + "</center>";
                 content += "<center>"+ "【HARPとの契約サービス】" + "</center>";
                 content += serviceAfter
-                d3.select(this).transition().duration(200)
-                .style("opacity", 1);div.transition().duration(200)
+                d3.select(this)
+                .transition().duration(100).attr("fill", "red")
+                .style("opacity", 1);div.transition().duration(100)
                 .style("opacity", 1)
                 div.html(content)
                 .style("left", (d3.event.pageX +10) + "px")
-                .style("top", (d3.event.pageY -120) + "px");
+                .style("top", (d3.event.pageY -100) + "px");
             })
-            .on("mouseout", function() {
+            .on("mouseout", function(d) {
                 d3.select(this)
-                .transition().duration(200)
+                .transition().duration(200).attr("fill", areaGrad(attrHash[d.properties.N03_004][showKey]))
                 .style("opacity", 1.0);
                 div.transition().duration(200)
                 .style("opacity", 0);
             })
             svg.select(".cityname-label."+k).attr("fill", "black");
         }
-
 
         //円グラフ用にデータをカウント
         var legend = {};
@@ -326,6 +326,11 @@
         var arc = d3.svg.arc()
                 .outerRadius(radius)
                 .innerRadius(0);
+
+        var arcOver = d3.svg.arc()
+                .outerRadius(radius + 50)
+                .innerRadius(0);
+
         var pie = d3.layout.pie()
                 .sort(null)
                 .value(function(d){  return d.value ; });
@@ -340,8 +345,10 @@
             .attr("d", arc)
             .attr("fill", function(d){  return d.data.color; })
             .on("mouseover", function (d) {
-                d3.select(this).transition().duration(200)
-                .style("opacity", 1);div2.transition().duration(200)
+                d3.select(this).transition().duration(100)
+                .attr("d", arcOver)
+                .style("opacity", 1);
+                div2.transition().duration(100)
                 .style("opacity", 1)
                 var per = (d.value/179)*100;
                 var per2 = per.toFixed(1);
@@ -354,9 +361,10 @@
             })
             .on("mouseout", function() {
                 d3.select(this)
-                .transition().duration(200)
-                .style("opacity", 1.0);
-                div2.transition().duration(200)
+                .transition().duration(100)
+                .attr("d", arc)
+                .style("opacity", 1.0)
+                div2.transition().duration(100)
                 .style("opacity", 0);
             })
 
