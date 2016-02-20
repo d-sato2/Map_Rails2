@@ -5,7 +5,7 @@
   <div class="col-md-4">
     <%= form_tag hokkaido_edit2_path, :method => 'get' do %>
        <%= text_field_tag :search, params[:search] %>
-       <%= submit_tag "検索", :N03_004 => nil, class: "btn btn-primary" %>
+       <%= submit_tag "検索", :n03_004 => nil, class: "btn btn-primary" %>
     <% end %>
   </div>
   <% if params.has_key?(:search) then %>
