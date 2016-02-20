@@ -25,13 +25,16 @@
             <%= link_to "Excel", hokkaido_csv_path(format: "xls"), class: "btn btn-large btn-primary" %>
         </div>
     </div>
-    <div class="col-md-7" id="map" style="width:924px; height:750px;"></div>
+    <div class="col-md-7" style="width:924px; height:760px;">
+        <iframe src="https://map-rails3.herokuapp.com/hokkaido/show/1" frameborder="0" height="60" width="924" overflow-x="hidden"></iframe>
+        <div class="col-md-7" id="map" style="width:924px; height:700px;"></div>
+    </div>
     <div class="col-md-4" style="width:350px; height:750px;">
     <%= form_tag hokkaido_edit2_path, :method => 'get' do %>
        <%= text_field_tag :search, params[:search] %>
        <%= submit_tag "自治体検索", :N03_004 => nil, class: "btn btn-primary" %>
     <% end %>
-        <iframe src="https://map-rails3.herokuapp.com/hokkaido/1/edit" frameborder="0" height="750"></iframe>
+        <iframe src="https://map-rails3.herokuapp.com/hokkaido/1/edit" frameborder="0" height="800" overflow-x="hidden"></iframe>
     </div>
 </div>
 
@@ -53,12 +56,12 @@
     var attrdata;
     // mapの設定値
     var map_width = 860;
-    var map_height = 750;
+    var map_height = 700;
     var svg;
     // map読み込み完了フラグ
     var drawMapDone = false;
 
-    var color = ["#ffffff", "#b3e6ff", "#b3ffff", "#b3fff2", "#b3ffd9", "#b3ffcc", "#b3ffb3", "#bfffb3", "#d9ffb3", "#e6ffb3", "#ffffb3", "#fff2b3", "#ffd9b3", "#ffccb3", "#ffb3bf", "#ffb3d9", "#ffb3e6", "#ffb3ff", "#f2b3ff", "#d9b3ff", "#ccb3ff", "#b3b3ff", "#b3bfff", "#b3d9ff"]
+    var color = ["#ffffff", "#29D2F3", "#b3ffff", "#b3fff2", "#b3ffd9", "#b3ffcc", "#b3ffb3", "#bfffb3", "#d9ffb3", "#e6ffb3", "#ffffb3", "#fff2b3", "#ffd9b3", "#ffccb3", "#ffb3bf", "#ffb3d9", "#ffb3e6", "#ffb3ff", "#f2b3ff", "#d9b3ff", "#ccb3ff", "#b3b3ff", "#b3bfff", "#b3d9ff"]
 
     // 配列の最大値を求める関数を定義しておく
     Array.prototype.max = function () {
@@ -132,14 +135,13 @@
                 .attr("height", map_height);
         var g = svg.append("g");
 
-        // 北海道のmapを描画する
+        // 北海道のmapを読み込み
         var hokkaido = topojson.object(topo, topo.objects.hokkaido);
-        console.log(hokkaido);
 
-        // 北海道の中心を指定したメルカトル図法で10万分の1で描画する
+        // 北海道の中心を指定したメルカトル図法でサイズ指定
         var projection = d3.geo.mercator()
                 .center([142.55,43.5])
-                .scale(7400)
+                .scale(7000)
                 .translate([map_width / 2, map_height / 2]);
 
         // pathを作成する
@@ -148,7 +150,7 @@
           .datum(hokkaido)
           .attr("d", path);
 
-        // classを指定する
+        // classを指定して描画
         g.selectAll(".hokkaido")
             .data(hokkaido.geometries)
         .enter().append("path")
@@ -158,8 +160,10 @@
             .attr("d", path)
             .on("click", function(d) {
                 var now = window.location.href
-                var url = now + "/hokkaido/" + attrHash[d.properties.N03_004].id + "/edit";
-                frames[0].location.href = url;
+                var url1 = now + "/hokkaido/" + "show/" + attrHash[d.properties.N03_004].id;
+                var url2 = now + "/hokkaido/" + attrHash[d.properties.N03_004].id + "/edit";
+                frames[0].location.href = url1;
+                frames[1].location.href = url2;
             })
 
         // zoom and pan
@@ -199,25 +203,10 @@
                     return "translate(" + pos + ")";
                 })
                 .attr("dy", ".35em")
+                .style("font-size", "9px")
                 .text(function(d) {
                     return attrHash[d.properties.N03_004].N03_004;
                 });
-
-        // 値ラベル貼り
-        g.selectAll(".stat-label")
-            .data(hokkaido.geometries)
-          .enter()
-            .append("text")
-                .attr("class", function(d) {
-                    return "stat-label "+d.properties.N03_004; // class名にidを付与
-                    })
-                .attr("transform", function(d) {
-                    // 文字をpath中央から、文字高さ1/2分高い位置に貼る
-                    var pos = path.centroid(d);
-                    pos[1] += labelLineHight / 4;
-                    return "translate(" + pos + ")";
-                })
-                .attr("dy", ".35em");
 
         // CSSで一旦display:noneを指定しているので、各区の先頭object上のみラベルを表示する
         for (var k in attrHash) {
@@ -370,7 +359,7 @@
 
         //円グラフの名前
         g2.append("text")
-            .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+            .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")";})
             .style("text-anchor", "middle")
             .text(function(d) { return d.data.name; });
     }

@@ -1,16 +1,26 @@
-<div class="container">
-  <h1>更新履歴情報</h1>
-
-  <ul>
-    <% @versions.each do |version| %>
-    <%  change = version.changeset %>
-	    <% if change.has_key?(:updated_at) %>
-		    <%=  change.to_a[1][1][1] %> : 
-		    <%= version.reify.N03_004 %>の<%=  change.to_a[0][0] %>を
-		    <%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
-		    <br>
-		<% end %>
-    <% end %>
-  </ul>
-</div>
-参考URL: http://www.sitepoint.com/versioning-papertrail/
+<head>
+  <title>Workspace</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body style = "padding-top: 0px; background-color: transparent;" >
+	<div class="row" style="width:924px; height:800px;">
+		<div class="col-sm-4">
+			<p><%= @hvalue.N03_004 %>の更新履歴</p>
+		</div>
+		<div class="col-sm-8">
+			<% @versions.each do |version| %>
+				<%  change = version.changeset %>
+				<% if version.reify %>
+					<% if @hvalue.N03_004 == version.reify.N03_004 %>
+					<% time = change.to_a[1][1][1] %>
+					<%=  time.year %>年<%=  time.month %>月<%=  time.day %>日<%=  time.hour %>時<%=  time.min %>分
+					<%=  change.to_a[0][0] %>を<%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
+					<br>
+					<% end %>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</body>
