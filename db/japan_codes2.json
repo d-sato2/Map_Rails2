@@ -1,0 +1,190 @@
+[
+  {
+    "city_id": "id010006", 
+    "name_local": "北海道"
+  }, 
+  {
+    "city_id": "id020001", 
+    "name_local": "青森県"
+  }, 
+  {
+    "city_id": "id030007", 
+    "name_local": "岩手県"
+  }, 
+  {
+    "city_id": "id040002", 
+    "name_local": "宮城県"
+  }, 
+  {
+    "city_id": "id050008", 
+    "name_local": "秋田県"
+  }, 
+  {
+    "city_id": "id060003", 
+    "name_local": "山形県"
+  }, 
+  {
+    "city_id": "id070009", 
+    "name_local": "福島県"
+  }, 
+  {
+    "city_id": "id080004", 
+    "name_local": "茨城県"
+  }, 
+  {
+    "city_id": "id090000", 
+    "name_local": "栃木県"
+  }, 
+  {
+    "city_id": "id100005", 
+    "name_local": "群馬県"
+  }, 
+  {
+    "city_id": "id110001", 
+    "name_local": "埼玉県"
+  }, 
+  {
+    "city_id": "id120006", 
+    "name_local": "千葉県"
+  }, 
+  {
+    "city_id": "id130001", 
+    "name_local": "東京都"
+  }, 
+  {
+    "city_id": "id140007", 
+    "name_local": "神奈川県"
+  }, 
+  {
+    "city_id": "id150002", 
+    "name_local": "新潟県"
+  }, 
+  {
+    "city_id": "id160008", 
+    "name_local": "富山県"
+  }, 
+  {
+    "city_id": "id170003", 
+    "name_local": "石川県"
+  }, 
+  {
+    "city_id": "id180009", 
+    "name_local": "福井県"
+  }, 
+  {
+    "city_id": "id190004", 
+    "name_local": "山梨県"
+  }, 
+  {
+    "city_id": "id200000", 
+    "name_local": "長野県"
+  }, 
+  {
+    "city_id": "id210005", 
+    "name_local": "岐阜県"
+  }, 
+  {
+    "city_id": "id220001", 
+    "name_local": "静岡県"
+  }, 
+  {
+    "city_id": "id230006", 
+    "name_local": "愛知県"
+  }, 
+  {
+    "city_id": "id240001", 
+    "name_local": "三重県"
+  }, 
+  {
+    "city_id": "id250007", 
+    "name_local": "滋賀県"
+  }, 
+  {
+    "city_id": "id260002", 
+    "name_local": "京都府"
+  }, 
+  {
+    "city_id": "id270008", 
+    "name_local": "大阪府"
+  }, 
+  {
+    "city_id": "id280003", 
+    "name_local": "兵庫県"
+  }, 
+  {
+    "city_id": "id290009", 
+    "name_local": "奈良県"
+  }, 
+  {
+    "city_id": "id300004", 
+    "name_local": "和歌山県"
+  }, 
+  {
+    "city_id": "id310000", 
+    "name_local": "鳥取県"
+  }, 
+  {
+    "city_id": "id320005", 
+    "name_local": "島根県"
+  }, 
+  {
+    "city_id": "id330001", 
+    "name_local": "岡山県"
+  }, 
+  {
+    "city_id": "id340006", 
+    "name_local": "広島県"
+  }, 
+  {
+    "city_id": "id350001", 
+    "name_local": "山口県"
+  }, 
+  {
+    "city_id": "id360007", 
+    "name_local": "徳島県"
+  }, 
+  {
+    "city_id": "id370002", 
+    "name_local": "香川県"
+  }, 
+  {
+    "city_id": "id380008", 
+    "name_local": "愛媛県"
+  }, 
+  {
+    "city_id": "id390003", 
+    "name_local": "高知県"
+  }, 
+  {
+    "city_id": "id400009", 
+    "name_local": "福岡県"
+  }, 
+  {
+    "city_id": "id410004", 
+    "name_local": "佐賀県"
+  }, 
+  {
+    "city_id": "id420000", 
+    "name_local": "長崎県"
+  }, 
+  {
+    "city_id": "id430005", 
+    "name_local": "熊本県"
+  }, 
+  {
+    "city_id": "id440001", 
+    "name_local": "大分県"
+  }, 
+  {
+    "city_id": "id450006", 
+    "name_local": "宮崎県"
+  }, 
+  {
+    "city_id": "id460001", 
+    "name_local": "鹿児島県"
+  }, 
+  {
+    "city_id": "id470007", 
+    "name_local": "沖縄県"
+  }
+]

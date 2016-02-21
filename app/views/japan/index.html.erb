@@ -1,0 +1,112 @@
+<div id="map"></div>
+
+<script type="text/javascript">
+
+    // file読み込み制御用
+    var readTopofileDone = false;
+    var readAttrfileDone = false;
+    // filedata格納変数
+    var topodata;
+    var attrdata;
+
+    var map_width = 500;
+    var map_height = 650;
+    var svg;
+
+    function readTopofile(json) {
+        topodata = json;
+        readTopofileDone = true;
+    }
+    function readAttrfile(json) {
+        attrdata = json;
+        readAttrfileDone = true;
+    }
+
+    d3.json("japan/japan_map", function(error, json) {
+        if(error) return console.warn(error);
+            readTopofile(json);
+            if (readTopofileDone && readAttrfileDone) {
+                main(topodata, attrdata);
+            }
+        });
+
+    d3.json("japan/japan_value.json", function(error, json) {
+        if(error) return console.warn(error);
+            readAttrfile(json);
+            if (readTopofileDone && readAttrfileDone) {
+                main(topodata, attrdata);
+            }
+        });
+
+    function main(topo, attr) {
+
+        var labelLineHight = 16;
+        // 属性情報を入れ直すためのHash Table
+        var attrHash = new Object();
+
+        // attr情報を、IDをkeyとするhash-tableに変換する
+        // idをKeyとしたhashテーブル＆property毎のhashテーブルを作成する
+        attr.forEach(function(e){
+            attrHash[e.city_id]=e;
+            console.log(e.city_id);
+            console.log(e.name_local);
+        });
+        console.log(attrHash);
+
+         // svgを追加
+        svg = d3.select("body #map").append("svg")
+                .attr("width", map_width)
+                .attr("height", map_height);
+
+        // 横浜市のmapを描画する
+        var japan = topojson.object(topo, topo.objects.japan);
+        console.log(japan);
+
+        // 横浜市を中心に指定したメルカトル図法で10万分の1で描画する
+        var projection = d3.geo.mercator()
+                .center([136.59,36.45])
+                .scale(1500)
+                .translate([map_width / 2, map_height / 2]);
+
+        // pathを作成する
+        var path = d3.geo.path().projection(projection);
+        svg.append("path")
+          .datum(japan)
+          .attr("d", path);
+
+        // 色を塗る
+        svg.selectAll("path").attr("fill", "#bee59e");
+
+        // 内部境界に線を引く
+        svg.append("path")
+           .datum(topojson.mesh(topo, topo.objects.japan, function(a, b) { return a !== b; }))
+           .attr("d", path)
+           .attr("class", "subunit-boundary");
+
+        // 区コードのラベル貼り
+        var city_labels = new Array();
+        svg.selectAll(".cityname-label")
+            .data(japan.geometries)
+          .enter()
+            .append("text")
+                .attr("class", function(d) {
+                    if(!(city_labels.indexOf(d.properties.name_local) > -1)) {
+                        city_labels.push(d.properties.name_local);
+                    }
+                    return "cityname-label "+d.properties.name_local; /* class名にidを付与 */
+                    })
+                .attr("transform", function(d) {
+                    return "translate(" + path.centroid(d) + ")";
+                })
+                .attr("dy", ".35em")
+                .text(function(d) {
+                    return attrHash[d.properties.name_local].name_local;
+                    console.log(attrHash)
+                });
+
+        // 各最初のエリアのみラベルを表示する
+        for (var i in city_labels) {
+            svg.select(".cityname-label."+city_labels[i]).style("display", "block");
+        }
+    }
+</script>

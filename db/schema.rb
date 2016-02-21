@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160213061719) do
+ActiveRecord::Schema.define(version: 20160221230354) do
 
   create_table "hvalues", force: :cascade do |t|
     t.string   "cityid"
@@ -36,6 +36,13 @@ ActiveRecord::Schema.define(version: 20160213061719) do
     t.integer  "ca"
     t.integer  "fn"
     t.integer  "ps"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "japans", force: :cascade do |t|
+    t.string   "city_id"
+    t.string   "name_local"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   resources :hokkaido, only: [:edit, :update, :index]
+  resources :japan, only: [:edit, :update, :index]
   root 'hokkaido#index'
   get 'hokkaido/hokkaido_map'
   get 'hokkaido/hokkaido_value'
+  get 'japan/japan_map'
+  get 'japan/japan_value'
 
   get 'hokkaido/version' => 'hokkaido#version'
 
