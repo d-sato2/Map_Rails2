@@ -60,6 +60,16 @@ class HokkaidoController < ApplicationController
     end
   end
 
+  def csv_version
+    @versions = PaperTrail::Version.where("length(object_changes) < 300").order('created_at DESC')
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @versions.to_csv }
+      format.xls { send_data @versions.to_csv(col_sep: "\t") }
+    end
+  end
+
   def hokkaido_map
     data = File.read('db/hokkaido_map.json')
     render json: data

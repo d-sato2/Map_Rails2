@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'hokkaido/hokkaido_map'
   get 'hokkaido/hokkaido_value'
 
+  get 'hokkaido/version' => 'hokkaido#version'
 
   get 'hokkaido/index' => 'hokkaido#index'
   post 'hokkaido/index' => 'hokkaido#index'
@@ -24,6 +25,8 @@ Rails.application.routes.draw do
   post 'hokkaido/move_show' => 'hokkaido#move_show'
 
   get 'hokkaido/csv' => 'hokkaido#csv'
+
+  get 'hokkaido/csv_version' => 'hokkaido#csv_version'
 
   get 'hokkaido/move_edit' => 'hokkaido#move_edit'
   post 'hokkaido/move_edit' => 'hokkaido#move_edit'
