@@ -23,7 +23,7 @@ class Hvalue < ActiveRecord::Base
 
   def self.search(search)
     if search.present?
-      Hvalue.where('N03_004 like ?', "%#{search}%")
+      Hvalue.where('n03_004 like ?', "%#{search}%")
     else
       Hvalue.none
     end
