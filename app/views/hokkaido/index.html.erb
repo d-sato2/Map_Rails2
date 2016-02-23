@@ -1,24 +1,11 @@
 <div class="row" name="test">
     <div class="col-md-1">
         <div class="btn-group-vertical" role="group" aria-label="Left Align">
-            <button class="btn btn-default" onclick="changeShowKey('vender','')">a</button>
-            <button class="btn btn-default" onclick="changeShowKey('eac','')">b</button>
-            <button class="btn btn-default" onclick="changeShowKey('frs','')">c</button>
-            <button class="btn btn-default" onclick="changeShowKey('eps','')">d</button>
-            <button class="btn btn-default" onclick="changeShowKey('ca','')">e</button>
-            <button class="btn btn-default" onclick="changeShowKey('pa','')">f</button>
-            <button class="btn btn-default" onclick="changeShowKey('gw','')">g</button>
-            <button class="btn btn-default" onclick="changeShowKey('cms','')">h</button>
-            <button class="btn btn-default" onclick="changeShowKey('mail','')">i</button>
-            <button class="btn btn-default" onclick="changeShowKey('bu','')">j</button>
-            <button class="btn btn-default" onclick="changeShowKey('rs','')">k</button>
-            <button class="btn btn-default" onclick="changeShowKey('ps','')">l</button>
-            <button class="btn btn-default" onclick="changeShowKey('fn','')">m</button>
-            <button class="btn btn-default" onclick="changeShowKey('ns','')">n</button>
-            <button class="btn btn-default" onclick="changeShowKey('ss','')">o</button>
-            <button class="btn btn-default" onclick="changeShowKey('ft','')">p</button>
-            <button class="btn btn-default" onclick="changeShowKey('et','')">q</button>
-            <button class="btn btn-default" onclick="changeShowKey('ib','')">r</button>
+            <% @service_btn.each do |i| %>
+                <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i[0]}','')" do %>
+                    <%= "#{i[1]}" %>
+                <% end %>
+            <% end %>
         </div>
         <div class="btn-group-vertical" role="group" style = "margin: 10px 0px 0px 0px;">
             <%= link_to "CSV", hokkaido_csv_path(format: "csv"), class: "btn btn-large btn-primary" %>
@@ -47,7 +34,7 @@
             </tbody>
         </div>
     <% end %>
-        <iframe src="http://localhost:3000/hokkaido/1/edit" frameborder="0" height="800" overflow-x="hidden"></iframe>
+        <iframe src="http://localhost:3000/hokkaido/1/edit" frameborder="0" height="800" scrolling="no"></iframe>
     </div>
 </div>
 
