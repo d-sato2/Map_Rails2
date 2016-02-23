@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="col-md-7" style="width:924px; height:760px;">
-        <iframe src="http://localhost:3000/hokkaido/show/1" frameborder="0" height="60" width="924" overflow-x="hidden"></iframe>
+        <iframe src="http://map-rails4.herokuapp.com/hokkaido/show/1" frameborder="0" height="60" width="924" overflow-x="hidden"></iframe>
         <div class="col-md-7" id="map" style="width:924px; height:700px;"></div>
     </div>
     <div class="col-md-4" style="width:350px; height:750px;">
@@ -34,12 +34,12 @@
             </tbody>
         </div>
     <% end %>
-        <iframe src="http://localhost:3000/hokkaido/1/edit" frameborder="0" height="800" scrolling="no"></iframe>
+        <iframe src="http://map-rails4.herokuapp.com/hokkaido/1/edit" frameborder="0" height="800" scrolling="no"></iframe>
     </div>
 </div>
 
 <script type="text/javascript">
-    var url = "http://localhost:3000"
+    var url = "http://map-rails4.herokuapp.com"
 
     function get_data(id){
         var url1 = url + "/hokkaido/" + "show/" + id;
