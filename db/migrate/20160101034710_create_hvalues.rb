@@ -2,7 +2,7 @@ class CreateHvalues < ActiveRecord::Migration
   def change
     create_table :hvalues do |t|
       t.string :cityid
-      t.string :N03_004
+      t.string :cityname
       t.string :bureau
       t.integer :ttl
       t.integer :gw

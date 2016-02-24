@@ -21,14 +21,14 @@
     <div class="col-md-4" style="width:350px; height:750px;">
     <%= form_tag '/hokkaido', :method => 'get' do %>
        <%= text_field_tag :search, params[:search] %>
-       <%= submit_tag "自治体検索", :n03_004 => nil, class: "btn btn-primary" %>
+       <%= submit_tag "自治体検索", :cityname => nil, class: "btn btn-primary" %>
     <% end %>
     <% if params.has_key?(:search) then %>
         <div>
             <tbody>
             <% @search.each do |hvalue| %>
                 <tr>
-                    <td><%= link_to hvalue.N03_004, '#' ,:onclick => "get_data(#{hvalue.id})" %></td>
+                    <td><%= link_to hvalue.cityname, '#' ,:onclick => "get_data(#{hvalue.id})" %></td>
                 </tr>
             <% end %>
             </tbody>
@@ -163,12 +163,12 @@
             .data(hokkaido.geometries)
         .enter().append("path")
             .attr("class", function(d) {
-                return "hokkaido " + d.properties.N03_004;
+                return "hokkaido " + d.properties.cityname;
                 })
             .attr("d", path)
             .on("click", function(d) {
-                var url1 = url + "/hokkaido/" + "show/" + attrHash[d.properties.N03_004].id;
-                var url2 = url + "/hokkaido/" + attrHash[d.properties.N03_004].id + "/edit";
+                var url1 = url + "/hokkaido/" + "show/" + attrHash[d.properties.cityname].id;
+                var url2 = url + "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit";
                 frames[0].location.href = url1;
                 frames[1].location.href = url2;
             })
@@ -209,7 +209,7 @@
           .enter()
             .append("text")
                 .attr("class", function(d) {
-                    return "cityname-label "+d.properties.N03_004; /* class名にidを付与 */
+                    return "cityname-label "+d.properties.cityname; /* class名にidを付与 */
                     })
                 .attr("transform", function(d) {
                     // 文字をpath中央から、文字高さ1/2分高い位置に貼る
@@ -220,7 +220,7 @@
                 .attr("dy", ".35em")
                 .style("font-size", "9px")
                 .text(function(d) {
-                    return attrHash[d.properties.N03_004].N03_004;
+                    return attrHash[d.properties.cityname].cityname;
                 });
 
         // CSSで一旦display:noneを指定しているので、各区の先頭object上のみラベルを表示する
@@ -251,31 +251,31 @@
             svg.selectAll(".hokkaido."+k)
             .attr("fill", areaGrad(e[showKey]))
             .on("mouseover", function(d) {
-                var vender = ( attrHash[d.properties.N03_004].vender == 1 ) ? "a、" : "";
-                var eac = ( attrHash[d.properties.N03_004].eac == 1 ) ? "b、" : "";
-                var frs = ( attrHash[d.properties.N03_004].frs == 1 ) ? "c、" : "";
-                var eps = ( attrHash[d.properties.N03_004].eps == 1 ) ? "d、" : "";
-                var ca = ( attrHash[d.properties.N03_004].ca == 1 ) ? "e、" : "";
-                var pa = ( attrHash[d.properties.N03_004].pa == 1 ) ? "f、" : "";
-                var gw = ( attrHash[d.properties.N03_004].gw == 1 ) ? "g、" : "";
-                var cms = ( attrHash[d.properties.N03_004].cms == 1 ) ? "h、" : "";
-                var mail = ( attrHash[d.properties.N03_004].mail == 1 ) ? "i、" : "";
-                var bu = ( attrHash[d.properties.N03_004].bu == 1 ) ? "j、" : "";
-                var rs = ( attrHash[d.properties.N03_004].rs == 1 ) ? "k、" : "";
-                var ps = ( attrHash[d.properties.N03_004].ps == 1 ) ? "l、" : "";
-                var fn = ( attrHash[d.properties.N03_004].fn == 1 ) ? "m、" : "";
-                var ns = ( attrHash[d.properties.N03_004].ns == 1 ) ? "n、" : "";
-                var ss = ( attrHash[d.properties.N03_004].ss == 1 ) ? "o、" : "";
-                var ft = ( attrHash[d.properties.N03_004].ft == 1 ) ? "p、" : "";
-                var et = ( attrHash[d.properties.N03_004].et == 1 ) ? "q、" : "";
-                var ib = ( attrHash[d.properties.N03_004].ib == 1 ) ? "r" : "";
+                var vender = ( attrHash[d.properties.cityname].vender == 1 ) ? "a、" : "";
+                var eac = ( attrHash[d.properties.cityname].eac == 1 ) ? "b、" : "";
+                var frs = ( attrHash[d.properties.cityname].frs == 1 ) ? "c、" : "";
+                var eps = ( attrHash[d.properties.cityname].eps == 1 ) ? "d、" : "";
+                var ca = ( attrHash[d.properties.cityname].ca == 1 ) ? "e、" : "";
+                var pa = ( attrHash[d.properties.cityname].pa == 1 ) ? "f、" : "";
+                var gw = ( attrHash[d.properties.cityname].gw == 1 ) ? "g、" : "";
+                var cms = ( attrHash[d.properties.cityname].cms == 1 ) ? "h、" : "";
+                var mail = ( attrHash[d.properties.cityname].mail == 1 ) ? "i、" : "";
+                var bu = ( attrHash[d.properties.cityname].bu == 1 ) ? "j、" : "";
+                var rs = ( attrHash[d.properties.cityname].rs == 1 ) ? "k、" : "";
+                var ps = ( attrHash[d.properties.cityname].ps == 1 ) ? "l、" : "";
+                var fn = ( attrHash[d.properties.cityname].fn == 1 ) ? "m、" : "";
+                var ns = ( attrHash[d.properties.cityname].ns == 1 ) ? "n、" : "";
+                var ss = ( attrHash[d.properties.cityname].ss == 1 ) ? "o、" : "";
+                var ft = ( attrHash[d.properties.cityname].ft == 1 ) ? "p、" : "";
+                var et = ( attrHash[d.properties.cityname].et == 1 ) ? "q、" : "";
+                var ib = ( attrHash[d.properties.cityname].ib == 1 ) ? "r" : "";
                 var service = vender + eac + frs + eps + ca + pa + gw + cms + mail + bu + rs + ps + fn + ns + ss + ft + et + ib;
                 // serviceの末尾に"、"がある場合は削除
                 var serviceAfter = ( service.substr( (service.length-1) )  == "、" ) ? service.substr( 0 , (service.length-1) ) : service;
                 var content = "";
-                content += "<center>"+ attrHash[d.properties.N03_004].N03_004 + "</center>";
+                content += "<center>"+ attrHash[d.properties.cityname].cityname + "</center>";
                 content += "<center>" + "【" + showKey + "の契約会社】" + "</center>";
-                content += "<center>" + attrHash[d.properties.N03_004][showKey] + "</center>";
+                content += "<center>" + attrHash[d.properties.cityname][showKey] + "</center>";
                 content += "<center>"+ "【HARPとの契約サービス】" + "</center>";
                 content += serviceAfter
                 d3.select(this)
@@ -288,7 +288,7 @@
             })
             .on("mouseout", function(d) {
                 d3.select(this)
-                .transition().duration(200).attr("fill", areaGrad(attrHash[d.properties.N03_004][showKey]))
+                .transition().duration(200).attr("fill", areaGrad(attrHash[d.properties.cityname][showKey]))
                 .style("opacity", 1.0);
                 div.transition().duration(200)
                 .style("opacity", 0);

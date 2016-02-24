@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20160221230354) do
 
   create_table "hvalues", force: :cascade do |t|
     t.string   "cityid"
-    t.string   "N03_004"
+    t.string   "cityname"
     t.string   "bureau"
     t.integer  "ttl"
     t.integer  "gw"

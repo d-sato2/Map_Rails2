@@ -4,8 +4,8 @@
     <% @versions.each do |version| %>
     <%  change = version.changeset %>
       <% if change.has_key?(:updated_at) %>
-        <%=  change.to_a[1][1][1] %> : 
-        <%= version.reify.N03_004 %>の<%=  change.to_a[0][0] %>を
+        <%=  change.to_a[1][1][1] %> :
+        <%= version.reify.cityname %>の<%=  change.to_a[0][0] %>を
         <%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
         <br>
     <% end %>

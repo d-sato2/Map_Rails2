@@ -2,7 +2,7 @@
 
 one:
   cityid: MyString
-  N03_004: MyString
+  cityname: MyString
   ttl: 1
   gw: 1
   frs: 1
@@ -25,7 +25,7 @@ one:
 
 two:
   cityid: MyString
-  N03_004: MyString
+  cityname: MyString
   ttl: 1
   gw: 1
   frs: 1

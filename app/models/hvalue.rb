@@ -14,16 +14,16 @@ class Hvalue < ActiveRecord::Base
   end
 
   def self.csv_column_names
-    %W(ID cityid \u81EA\u6CBB\u4F53\u540D 振興局 ttl gw frs ib ft rs ss eac eps bu pa et mail vender ns cms ca fn ps \u4F5C\u6210\u65E5\u6642 \u66F4\u65B0\u65E5\u6642)
+    %W(ID cityid cityname 振興局 ttl gw frs ib ft rs ss eac eps bu pa et mail vender ns cms ca fn ps \u4F5C\u6210\u65E5\u6642 \u66F4\u65B0\u65E5\u6642)
   end
 
   def csv_column_values
-    [id, cityid, N03_004, ttl, gw, frs, ib, ft, rs, ss, eac, eps, bu, pa, et, mail, vender, ns, cms, ca, fn, ps]
+    [id, cityid, cityname, ttl, gw, frs, ib, ft, rs, ss, eac, eps, bu, pa, et, mail, vender, ns, cms, ca, fn, ps]
   end
 
   def self.search(search)
     if search.present?
-      Hvalue.where('n03_004 like ?', "%#{search}%")
+      Hvalue.where('cityname like ?', "%#{search}%")
     else
       Hvalue.none
     end

@@ -1,7 +1,7 @@
 <%= form_tag hokkaido_search_path, :method => 'get' do %> <%#　projects_pathはモデル名で読みかえること %>
   <p>
     <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :N03_004 => nil %>
+    <%= submit_tag "Search", :cityname => nil %>
   </p>
 <% end %>
 
@@ -9,7 +9,7 @@
 <tbody>
     <% @search.each do |hvalue| %>
       <tr>
-        <td><%= hvalue.N03_004 %></td>
+        <td><%= hvalue.cityname %></td>
         <td><%= link_to 'Edit', edit_hokkaido_path(hvalue) %></td>
       </tr>
     <% end %>

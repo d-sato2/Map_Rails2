@@ -5,7 +5,7 @@
   <div class="col-md-4">
     <%= form_tag hokkaido_edit2_path, :method => 'get' do %>
        <%= text_field_tag :search, params[:search] %>
-       <%= submit_tag "検索", :n03_004 => nil, class: "btn btn-primary" %>
+       <%= submit_tag "検索", :cityname => nil, class: "btn btn-primary" %>
     <% end %>
   </div>
   <% if params.has_key?(:search) then %>
@@ -13,7 +13,7 @@
       <tbody>
         <% @search.each do |hvalue| %>
           <tr>
-             <td><%= link_to hvalue.N03_004, edit_hokkaido_path(hvalue) %></td>
+             <td><%= link_to hvalue.cityname, edit_hokkaido_path(hvalue) %></td>
           </tr>
         <% end %>
       </tbody>
@@ -26,7 +26,7 @@
   <div class="col-md-4">
     <%= form_for @hvalue, :url => {:action => 'move_edit'} do |f| %>
       <%= f.label "自治体名" %>
-      <%= f.collection_select :N03_004, Hvalue.all, :N03_004, :N03_004 %>
+      <%= f.collection_select :cityname, Hvalue.all, :cityname, :cityname %>
       <%= f.submit "自治体の情報を取得", class: "btn btn-primary" %>
     <% end %>
   </div>
@@ -47,7 +47,7 @@
         <p>選択した振興局：<%= params[:hvalue][:bureau] %></p>
         <% @bureau_test.each do |hvalue| %>
           <tr>
-             <td><%= link_to hvalue.N03_004, edit_hokkaido_path(hvalue) %></td>
+             <td><%= link_to hvalue.cityname, edit_hokkaido_path(hvalue) %></td>
           </tr>
         <% end %>
       </tbody>

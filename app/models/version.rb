@@ -18,7 +18,7 @@ module PaperTrail
 		end
 
 		def self.csv_column_names
-			%W(ID cityid \u81EA\u6CBB\u4F53\u540D 振興局 ttl gw frs ib ft rs ss eac eps bu pa et mail vender ns cms ca fn ps \u4F5C\u6210\u65E5\u6642 \u66F4\u65B0\u65E5\u6642)
+			%W(ID cityid cityname 振興局 ttl gw frs ib ft rs ss eac eps bu pa et mail vender ns cms ca fn ps \u4F5C\u6210\u65E5\u6642 \u66F4\u65B0\u65E5\u6642)
 		end
 
 		def csv_column_values

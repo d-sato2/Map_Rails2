@@ -23,7 +23,7 @@ class HokkaidoController < ApplicationController
     end
 
     @search = Hvalue.search(params[:search])
-    @hvalue = Hvalue.new unless params.key?(:N03_004)
+    @hvalue = Hvalue.new unless params.key?(:cityname)
   end
 
   def edit
@@ -39,9 +39,9 @@ class HokkaidoController < ApplicationController
   end
 
   def update
-    @hvalue = Hvalue.find_by(N03_004: params[:hvalue][:N03_004])
+    @hvalue = Hvalue.find_by(cityname: params[:hvalue][:cityname])
     if @hvalue.update_attributes(hvalue_params)
-      # flash[:success] = params[:hvalue][:N03_004] + "の情報を更新しました"
+      # flash[:success] = params[:hvalue][:cityname] + "の情報を更新しました"
       redirect_to action: 'edit'
     else
       # flash[:error] = "変更に失敗しました"
@@ -84,12 +84,12 @@ class HokkaidoController < ApplicationController
   end
 
   def move_edit
-    @hvalue = Hvalue.find_by(N03_004: params[:hvalue][:N03_004])
+    @hvalue = Hvalue.find_by(cityname: params[:hvalue][:cityname])
     redirect_to "/hokkaido/#{@hvalue.id}/edit"
   end
 
   def move_show
-    @hvalue = Hvalue.find_by(N03_004: params[:hvalue][:N03_004])
+    @hvalue = Hvalue.find_by(cityname: params[:hvalue][:cityname])
     redirect_to "/hokkaido/show/#{@hvalue.id}"
   end
 
