@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160221230354) do
+ActiveRecord::Schema.define(version: 20160227061229) do
 
   create_table "hvalues", force: :cascade do |t|
     t.string   "cityid"
@@ -36,8 +36,16 @@ ActiveRecord::Schema.define(version: 20160221230354) do
     t.integer  "ca"
     t.integer  "fn"
     t.integer  "ps"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "kiban"
+    t.integer  "el_kyodo"
+    t.integer  "kokaike"
+    t.integer  "koumu"
+    t.integer  "todoku"
+    t.text     "memo_kiban"
+    t.text     "memo_service"
+    t.integer  "kyougi"
   end
 
   create_table "japans", force: :cascade do |t|

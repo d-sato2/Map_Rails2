@@ -1,11 +1,22 @@
 <div class="row" name="test">
     <div class="col-md-1">
         <div class="btn-group-vertical" role="group" aria-label="Left Align">
-            <% @service_btn.each do |i| %>
-                <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i[0]}','')" do %>
-                    <%= "#{i[1]}" %>
+            <label><input type="radio" name="entryPlan" value="hoge1" onclick="entryChange1();" checked="checked" />基盤系</label>
+            <label><input type="radio" name="entryPlan" value="hoge2" onclick="entryChange1();" />サービス</label>
+            <div id="kiban">
+                <% @kiban_btn.each do |i| %>
+                    <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i[0]}','')" do %>
+                        <%= "#{i[1]}" %>
+                    <% end %>
                 <% end %>
-            <% end %>
+            </div>
+            <div  id="service">
+                <% @service_btn.each do |i| %>
+                    <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i[0]}','')" do %>
+                        <%= "#{i[1]}" %>
+                    <% end %>
+                <% end %>
+            </div>
         </div>
         <div class="btn-group-vertical" role="group" style = "margin: 10px 0px 0px 0px;">
             <%= link_to "自治体情報.xls", hokkaido_csv_path(format: "xls"), class: "btn btn-large btn-primary" %>
@@ -37,6 +48,19 @@
 </div>
 
 <script type="text/javascript">
+
+    function entryChange1(){
+        radio = document.getElementsByName('entryPlan') 
+        if(radio[0].checked) {
+            document.getElementById('kiban').style.display = "";
+            document.getElementById('service').style.display = "none";
+        }else if(radio[1].checked) {
+            document.getElementById('kiban').style.display = "none";
+            document.getElementById('service').style.display = "";
+        }
+    }
+    window.onload = entryChange1;
+
     var url = "http://map-rails4.herokuapp.com"
 
     function get_data(id){
