@@ -1,9 +1,11 @@
 class HokkaidoController < ApplicationController
   def index
     @search = Hvalue.search(params[:search])
-    @service_btn = [["vender", "a"], ["eac", "b"], ["frs", "c"], ["eps", "d"], ["ca", "e"], ["pa", "f"],
-           ["gw", "g"], ["cms", "h"], ["mail", "i"], ["bu", "j"], ["rs", "k"], ["ps", "l"],
+    @service_btn = [["eac", "b"], ["frs", "c"], ["eps", "d"], ["ca", "e"], ["pa", "f"], 
+           ["gw", "g"], ["cms", "h"], ["mail", "i"], ["bu", "j"], ["rs", "k"], ["ps", "l"], 
            ["fn", "m"], ["ns", "n"], ["ss", "o"], ["ft", "p"], ["et", "q"], ["ib", "r"]]
+    @kiban_btn = [["vender", "a-1"], ["kyougi", "a-2"], ["kiban", "a-3"], ["el_kyodo", "a-4"], 
+           ["kokaike", "a-5"], ["koumu", "a-6"], ["todoku", "a-7"]]
   end
 
   def show
