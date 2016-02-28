@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   resources :hokkaido, only: [:edit, :update, :index]
   resources :japan, only: [:edit, :update, :index]
   root 'hokkaido#index'
+
+  get "[object%20SVGAnimatedString]" => "hokkaido#edit"
+  get "hokkaido/[object%20SVGAnimatedString]" => "hokkaido#edit"
+
   get 'hokkaido/hokkaido_map'
   get 'hokkaido/hokkaido_value'
   get 'japan/japan_map'
