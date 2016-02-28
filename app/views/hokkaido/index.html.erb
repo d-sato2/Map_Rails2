@@ -1,3 +1,10 @@
+
+    <div id="product-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+        <%= link_to 'モーダルテスト', edit_hokkaido_path(1), remote: true, class: "btn btn-large btn-primary"%>
+    <tbody id="product-index" >
+  </tbody>
+</table>
+
 <div class="row" name="test">
     <div class="col-md-1">
         <div class="btn-group-vertical" role="group" aria-label="Left Align">
@@ -24,28 +31,31 @@
         </div>
     </div>
     <div class="col-md-7" style="width:924px; height:760px;">
-        <iframe src="http://map-rails4.herokuapp.com/hokkaido/show/1" frameborder="0" height="60" width="924" overflow-x="hidden"></iframe>
+        <iframe src="http://localhost:3001/hokkaido/show/1" frameborder="0" height="60" width="924" overflow-x="hidden"></iframe>
         <div class="col-md-7" id="map" style="width:924px; height:700px;"></div>
     </div>
     <div class="col-md-4" style="width:350px; height:750px;">
-    <%= form_tag '/hokkaido', :method => 'get' do %>
-       <%= text_field_tag :search, params[:search] %>
-       <%= submit_tag "自治体検索", :cityname => nil, class: "btn btn-primary" %>
-    <% end %>
-    <% if params.has_key?(:search) then %>
-        <div>
-            <tbody>
-            <% @search.each do |hvalue| %>
-                <tr>
-                    <td><%= link_to hvalue.cityname, '#' ,:onclick => "get_data(#{hvalue.id})" %></td>
-                </tr>
-            <% end %>
-            </tbody>
-        </div>
-    <% end %>
-        <iframe src="http://map-rails4.herokuapp.com/hokkaido/1/edit" frameborder="0" height="800" scrolling="no"></iframe>
+        <%= form_tag '/hokkaido', :method => 'get' do %>
+           <%= text_field_tag :search, params[:search] %>
+           <%= submit_tag "自治体検索", :cityname => nil, class: "btn btn-primary" %>
+        <% end %>
+        <% if params.has_key?(:search) then %>
+            <div>
+                <tbody>
+                <% @search.each do |hvalue| %>
+                    <tr>
+                        <td><%= link_to hvalue.cityname, '#' ,:onclick => "get_data(#{hvalue.id})" %></td>
+                    </tr>
+                <% end %>
+                </tbody>
+            </div>
+        <% end %>
+        <iframe src="http://localhost:3001/hokkaido/1/edit" frameborder="0" height="800" scrolling="no"></iframe>
     </div>
+
+
 </div>
+
 
 <script type="text/javascript">
 
@@ -61,7 +71,7 @@
     }
     window.onload = entryChange1;
 
-    var url = "http://map-rails4.herokuapp.com"
+    var url = "http://localhost:3001"
 
     function get_data(id){
         var url1 = url + "/hokkaido/" + "show/" + id;
@@ -187,10 +197,14 @@
             .attr("class", function(d) {
                 return "hokkaido " + d.properties.cityname;
                 })
+            .attr("data-remote", true)
+            .attr("href", function(d) {
+                return "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit";
+                })
             .attr("d", path)
             .on("click", function(d) {
                 var url1 = url + "/hokkaido/" + "show/" + attrHash[d.properties.cityname].id;
-                var url2 = url + "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit";
+                var url2 = url + "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit.js";
                 frames[0].location.href = url1;
                 frames[1].location.href = url2;
             })

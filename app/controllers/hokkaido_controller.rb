@@ -1,5 +1,9 @@
 class HokkaidoController < ApplicationController
+  protect_from_forgery except: :edit
   def index
+
+    @hvalues = Hvalue.all
+
     @search = Hvalue.search(params[:search])
     @service_btn = [["eac", "b"], ["frs", "c"], ["eps", "d"], ["ca", "e"], ["pa", "f"], 
            ["gw", "g"], ["cms", "h"], ["mail", "i"], ["bu", "j"], ["rs", "k"], ["ps", "l"], 

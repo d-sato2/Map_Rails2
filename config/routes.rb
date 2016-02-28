@@ -36,6 +36,8 @@ Rails.application.routes.draw do
 
   get 'hokkaido/select_bureau' => 'hokkaido#select_bureau'
   post 'hokkaido/select_bureau' => 'hokkaido#select_bureau'
+
+  get 'hokkaido/:id/edit.js.erb' => 'hokkaido#edit'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
