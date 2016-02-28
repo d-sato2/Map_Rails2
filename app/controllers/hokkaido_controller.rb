@@ -63,6 +63,7 @@ class HokkaidoController < ApplicationController
 
   def info
     @versions = PaperTrail::Version.order('created_at DESC')
+    render layout: false
   end
 
   def csv
