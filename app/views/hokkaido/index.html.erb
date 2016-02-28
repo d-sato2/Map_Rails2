@@ -1,4 +1,3 @@
-
     <div id="product-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
         <%= link_to 'モーダルテスト', edit_hokkaido_path(1), remote: true, class: "btn btn-large btn-primary"%>
     <tbody id="product-index" >
@@ -44,7 +43,7 @@
                 <tbody>
                 <% @search.each do |hvalue| %>
                     <tr>
-                        <td><%= link_to hvalue.cityname, '#' ,:onclick => "get_data(#{hvalue.id})" %></td>
+                        <td><%= link_to hvalue.cityname, edit_hokkaido_path(hvalue.id), remote: true %></td>
                     </tr>
                 <% end %>
                 </tbody>
@@ -52,8 +51,6 @@
         <% end %>
         <iframe src="http://localhost:3001/hokkaido/1/edit" frameborder="0" height="800" scrolling="no"></iframe>
     </div>
-
-
 </div>
 
 
@@ -72,13 +69,6 @@
     window.onload = entryChange1;
 
     var url = "http://localhost:3001"
-
-    function get_data(id){
-        var url1 = url + "/hokkaido/" + "show/" + id;
-        var url2 = url + "/hokkaido/" + id + "/edit";
-        frames[0].location.href = url1;
-        frames[1].location.href = url2;
-        }
 
     var div = d3.select("body").append("div")
   .attr("class", "tooltip")
@@ -190,23 +180,21 @@
           .datum(hokkaido)
           .attr("d", path);
 
-        // classを指定して描画
-        g.selectAll(".hokkaido")
+            g.selectAll("a")
             .data(hokkaido.geometries)
-        .enter().append("path")
+            .enter().append("a")　　
+            .attr("data-remote", true)
+            .attr("xlink:href", function(d) {
+                return "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit";
+                })
+            .append("path")
             .attr("class", function(d) {
                 return "hokkaido " + d.properties.cityname;
                 })
-            .attr("data-remote", true)
-            .attr("href", function(d) {
-                return "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit";
-                })
             .attr("d", path)
             .on("click", function(d) {
-                var url1 = url + "/hokkaido/" + "show/" + attrHash[d.properties.cityname].id;
-                var url2 = url + "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit.js";
-                frames[0].location.href = url1;
-                frames[1].location.href = url2;
+                var test =  attrHash[d.properties.cityname].id 
+                console.log(test)
             })
             .on("mouseover", function(d) {
                 d3.select(this)
@@ -216,6 +204,8 @@
                 d3.select(this)
                 .transition().duration(200).attr("fill", "#CEF6CE");
             })
+
+
 
         // zoom and pan
         var zoom = d3.behavior.zoom()
