@@ -43,7 +43,7 @@
                 <tbody>
                 <% @search.each do |hvalue| %>
                     <tr>
-                        <td><%= link_to hvalue.cityname, edit_hokkaido_path(hvalue.id), remote: true %></td>
+                        <td><%= link_to hvalue.cityname, '#' ,:onclick => "get_data(#{hvalue.id})" %></td>
                     </tr>
                 <% end %>
                 </tbody>
@@ -51,6 +51,8 @@
         <% end %>
         <iframe src="http://localhost:3001/hokkaido/1/edit" frameborder="0" height="800" scrolling="no"></iframe>
     </div>
+
+
 </div>
 
 
@@ -69,6 +71,13 @@
     window.onload = entryChange1;
 
     var url = "http://localhost:3001"
+
+    function get_data(id){
+        var url1 = url + "/hokkaido/" + "show/" + id;
+        var url2 = url + "/hokkaido/" + id + "/edit";
+        frames[0].location.href = url1;
+        frames[1].location.href = url2;
+        }
 
     var div = d3.select("body").append("div")
   .attr("class", "tooltip")
@@ -180,32 +189,26 @@
           .datum(hokkaido)
           .attr("d", path);
 
-            g.selectAll("a")
+        // classを指定して描画
+        g.selectAll(".hokkaido")
             .data(hokkaido.geometries)
-            .enter().append("a")　　
-            .attr("data-remote", true)
-            .attr("xlink:href", function(d) {
-                return "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit";
-                })
-            .append("path")
+        .enter().append("path")
             .attr("class", function(d) {
                 return "hokkaido " + d.properties.cityname;
                 })
+            .attr("data-remote", true)
+            .attr("href", function(d) {
+                return "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit";
+                })
             .attr("d", path)
-            .on("click", function(d) {
-                var test =  attrHash[d.properties.cityname].id 
-                console.log(test)
-            })
-            .on("mouseover", function(d) {
-                d3.select(this)
-                .transition().duration(200).attr("fill", "red");
+            .on("click", function() {
+                $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(2) }) %>")
+                $("#product-modal").modal("show")
             })
             .on("mouseout", function(d) {
                 d3.select(this)
                 .transition().duration(200).attr("fill", "#CEF6CE");
             })
-
-
 
         // zoom and pan
         var zoom = d3.behavior.zoom()
@@ -228,6 +231,9 @@
         // ベース色指定しておく
         g.selectAll(".hokkaido")
             .attr("fill", "#CEF6CE");
+
+
+        
 
         // 市町村名のラベル貼り
         g.selectAll(".cityname-label")
@@ -321,6 +327,902 @@
             })
             svg.select(".cityname-label."+k).attr("fill", "black");
         }
+
+     svg.selectAll(".hokkaido.id011002")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(1) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012025")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(2) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012033")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(3) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012041")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(4) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012050")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(5) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012068")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(6) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012076")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(7) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012084")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(8) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012092")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(9) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012106")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(10) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012114")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(11) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012122")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(12) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012131")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(13) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012149")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(14) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012157")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(15) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012165")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(16) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012173")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(17) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012181")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(18) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012190")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(19) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012203")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(20) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012211")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(21) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012220")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(22) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012238")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(23) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012246")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(24) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012254")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(25) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012262")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(26) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012271")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(27) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012289")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(28) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012297")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(29) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012301")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(30) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012319")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(31) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012335")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(32) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012343")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(33) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012351")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(34) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id012360")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(35) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013030")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(36) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013048")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(37) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013315")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(38) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013323")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(39) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013331")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(40) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013340")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(41) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013374")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(42) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013439")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(43) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013455")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(44) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013463")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(45) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013471")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(46) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013617")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(47) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013625")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(48) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013633")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(49) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013641")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(50) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013676")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(51) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013706")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(52) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013714")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(53) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013919")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(54) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013927")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(55) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013935")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(56) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013943")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(57) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013951")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(58) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013960")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(59) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013978")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(60) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013986")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(61) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id013994")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(62) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014001")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(63) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014010")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(64) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014028")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(65) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014036")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(66) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014044")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(67) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014052")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(68) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014061")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(69) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014079")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(70) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014087")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(71) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014095")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(72) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014231")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(73) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014249")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(74) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014257")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(75) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014273")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(76) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014281")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(77) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014290")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(78) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014303")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(79) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014311")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(80) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014320")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(81) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014338")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(82) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014346")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(83) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014362")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(84) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014371")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(85) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014389")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(86) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014524")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(87) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014532")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(88) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014541")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(89) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014559")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(90) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014567")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(91) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014575")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(92) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014583")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(93) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014591")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(94) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014605")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(95) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014613")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(96) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014621")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(97) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014630")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(98) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014648")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(99) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014656")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(100) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014681")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(101) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014699")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(102) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014702")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(103) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014711")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(104) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014729")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(105) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014818")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(106) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014826")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(107) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014834")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(108) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014842")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(109) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014851")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(110) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014869")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(111) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id014877")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(112) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015113")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(113) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015121")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(114) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015130")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(115) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015148")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(116) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015164")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(117) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015172")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(118) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015181")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(119) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015199")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(120) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015202")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(121) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015431")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(122) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015440")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(123) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015458")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(124) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015466")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(125) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015474")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(126) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015491")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(127) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015504")
+            .on("click", function() {
+                $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(128) }) %>")
+                $("#product-modal").modal("show")
+            })
+     svg.selectAll(".hokkaido.id015521")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(129) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015555")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(130) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015598")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(131) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015601")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(132) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015610")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(133) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015628")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(134) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015636")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(135) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015644")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(136) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015717")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(137) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015750")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(138) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015784")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(139) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015814")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(140) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015849")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(141) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015857")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(142) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id015865")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(143) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016012")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(144) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016021")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(145) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016047")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(146) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016071")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(147) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016080")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(148) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016098")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(149) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016101")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(150) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016314")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(151) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016322")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(152) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016331")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(153) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016349")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(154) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016357")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(155) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016365")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(156) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016373")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(157) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016381")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(158) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016390")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(159) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016411")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(160) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016420")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(161) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016438")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(162) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016446")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(163) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016454")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(164) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016462")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(165) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016471")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(166) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016489")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(167) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016497")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(168) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016616")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(169) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016624")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(170) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016632")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(171) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016641")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(172) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016659")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(173) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016675")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(174) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016683")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(175) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016918")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(176) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016926")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(177) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016934")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(178) }) %>")
+            $("#product-modal").modal("show")
+        })
+     svg.selectAll(".hokkaido.id016942")
+        .on("click", function() {
+            $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(179) }) %>")
+            $("#product-modal").modal("show")
+        })
 
         //円グラフ用にデータをカウント
         var legend = {};

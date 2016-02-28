@@ -1,2 +1,2 @@
-$("#product-modal").html("<%= escape_javascript(render 'modal') %>")
+$("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(2) }) %>")
 $("#product-modal").modal("show")
