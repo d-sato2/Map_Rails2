@@ -30,7 +30,6 @@
         </div>
     </div>
     <div class="col-md-7" style="width:924px; height:760px;">
-        <iframe src="http://localhost:3001/hokkaido/show/1" frameborder="0" height="60" width="924" overflow-x="hidden"></iframe>
         <div class="col-md-7" id="map" style="width:924px; height:700px;"></div>
     </div>
     <div class="col-md-4" style="width:350px; height:750px;">
@@ -49,7 +48,7 @@
                 </tbody>
             </div>
         <% end %>
-        <iframe src="http://localhost:3001/hokkaido/1/edit" frameborder="0" height="800" scrolling="no"></iframe>
+        <iframe src="http://localhost:3001/hokkaido/info" frameborder="0" height="800" scrolling="no"></iframe>
     </div>
 
 
@@ -201,9 +200,11 @@
                 return "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit";
                 })
             .attr("d", path)
-            .on("click", function() {
-                $("#product-modal").html("<%= escape_javascript(render partial: 'modal', locals: { hvalue: Hvalue.find(2) }) %>")
-                $("#product-modal").modal("show")
+            .on("mouseover", function(d) {
+                d3.select(this)
+                .transition().duration(100).attr("fill", "red")
+                .style("opacity", 1);div.transition().duration(100)
+                .style("opacity", 1)
             })
             .on("mouseout", function(d) {
                 d3.select(this)
