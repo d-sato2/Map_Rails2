@@ -1,20 +1,20 @@
 <div class="modal-dialog">
   <div class="modal-content" style="width:1000px; margin-left: -200px;">
-    <%= form_for @hvalue, url: {:action => 'update'}, html: {class: "form-horizontal center"}, remote: true do |f| %>
+    <%= form_for hvalue, url: {:action => 'update'}, html: {class: "form-horizontal center"}, remote: true do |f| %>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title"><%= @hvalue.cityname %></h4>
+        <h4 class="modal-title"><%= hvalue.cityname %></h4>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-md-6">
-            <p><%= @hvalue.cityname %>の更新履歴</p>
+            <p><%= hvalue.cityname %>の更新履歴</p>
             <% @versions.each do |version| %>
               <%  change = version.changeset %>
               <% if version.reify %>
-                <% if @hvalue.cityname == version.reify.cityname %>
+                <% if hvalue.cityname == version.reify.cityname %>
                   <% time = change.to_a[1][1][1] %>
                   <%=  time.year %>年<%=  time.month %>月<%=  time.day %>日<%=  time.hour %>時<%=  time.min %>分
                   <%=  change.to_a[0][0] %>を<%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
@@ -24,19 +24,19 @@
             <% end %>
           </div>
           <div class="col-md-6">
-            <p><%= @hvalue.cityname %>のサービスと契約会社</p>
+            <p><%= hvalue.cityname %>のサービスと契約会社</p>
             <div class="field">
               <div class="form-group form-group-xs">
                 <%= f.label "自治体名(固定)", {class: 'col-xs-6 control-label', style: "width: 154px; background-color:transparent;"} %>
                 <div class="col-xs-4">
-                  <%= f.select :cityname, [@hvalue[:cityname]], {:selected => @hvalue[:cityname]}, {:class => "form-control", style: "width: 116px; height: 2.2em; background-color:transparent;"} %>
+                  <%= f.select :cityname, [hvalue[:cityname]], {:selected => hvalue[:cityname]}, {:class => "form-control", style: "width: 116px; height: 2.2em; background-color:transparent;"} %>
                 </div>
               </div>
               <% @column.each do |i| %>
                 <div class="form-group form-group-xs">
                   <%= f.label "サービス名: #{i}", {class: 'col-xs-6 control-label', style: "width: 154px;"}%>
                   <div class="col-xs-4">
-                    <%= f.select i, @value, {:selected => @hvalue[i]}, {class: "form-control", style: "width: 116px; height: 2.2em; background-color:transparent;"} %>
+                    <%= f.select i, @value, {:selected => hvalue[i]}, {class: "form-control", style: "width: 116px; height: 2.2em; background-color:transparent;"} %>
                   </div>
                 </div>
               <% end %>
