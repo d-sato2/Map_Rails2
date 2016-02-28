@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'paper_trail', '~> 4.0.0'
 gem 'tzinfo-data'
-gem 'bootstrap-sass', '3.2.0.0'
+gem 'bootstrap-sass', '~> 3.3.5.1'
 gem 'pry-rails'
 gem 'rails', '4.2.4'
 gem 'sqlite3', groups: %w(test development), require: false
