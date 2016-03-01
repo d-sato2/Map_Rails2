@@ -1,11 +1,23 @@
+<div id="product-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <div class="row" name="test">
     <div class="col-md-1">
         <div class="btn-group-vertical" role="group" aria-label="Left Align">
-            <% @service_btn.each do |i| %>
-                <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i[0]}','')" do %>
-                    <%= "#{i[1]}" %>
+            <label><input type="radio" name="entryPlan" value="hoge1" onclick="entryChange1();" checked="checked" />基盤系</label>
+            <label><input type="radio" name="entryPlan" value="hoge2" onclick="entryChange1();" />サービス</label>
+            <div id="kiban">
+                <% @kiban_btn.each do |i| %>
+                    <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i[0]}','')" do %>
+                        <%= "#{i[1]}" %>
+                    <% end %>
                 <% end %>
-            <% end %>
+            </div>
+            <div  id="service">
+                <% @service_btn.each do |i| %>
+                    <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i[0]}','')" do %>
+                        <%= "#{i[1]}" %>
+                    <% end %>
+                <% end %>
+            </div>
         </div>
         <div class="btn-group-vertical" role="group" style = "margin: 10px 0px 0px 0px;">
             <%= link_to "自治体情報.xls", hokkaido_csv_path(format: "xls"), class: "btn btn-large btn-primary" %>
@@ -13,38 +25,50 @@
         </div>
     </div>
     <div class="col-md-7" style="width:924px; height:760px;">
-        <iframe src="http://map-rails4.herokuapp.com/hokkaido/show/1" frameborder="0" height="60" width="924" overflow-x="hidden"></iframe>
         <div class="col-md-7" id="map" style="width:924px; height:700px;"></div>
     </div>
     <div class="col-md-4" style="width:350px; height:750px;">
-    <%= form_tag '/hokkaido', :method => 'get' do %>
-       <%= text_field_tag :search, params[:search] %>
-       <%= submit_tag "自治体検索", :cityname => nil, class: "btn btn-primary" %>
-    <% end %>
-    <% if params.has_key?(:search) then %>
-        <div>
-            <tbody>
-            <% @search.each do |hvalue| %>
-                <tr>
-                    <td><%= link_to hvalue.cityname, '#' ,:onclick => "get_data(#{hvalue.id})" %></td>
-                </tr>
-            <% end %>
-            </tbody>
-        </div>
-    <% end %>
-        <iframe src="http://map-rails4.herokuapp.com/hokkaido/1/edit" frameborder="0" height="800" scrolling="no"></iframe>
+        <%= form_tag '/hokkaido', :method => 'get' do %>
+           <%= text_field_tag :search, params[:search] %>
+           <%= submit_tag "自治体検索", :cityname => nil, class: "btn btn-primary" %>
+        <% end %>
+        <% if params.has_key?(:search) then %>
+            <div>
+                <tbody>
+                <% @search.each do |hvalue| %>
+                    <tr>
+                        <td><%= link_to hvalue.cityname, '#' ,:onclick => "get_data(#{hvalue.id})" %></td>
+                    </tr>
+                <% end %>
+                </tbody>
+            </div>
+        <% end %>
+        <iframe src="http://localhost:3000/hokkaido/info" frameborder="0" height="800" scrolling="no"></iframe>
     </div>
 </div>
 
 <script type="text/javascript">
-    var url = "http://map-rails4.herokuapp.com"
+
+    function entryChange1(){
+        radio = document.getElementsByName('entryPlan')
+        if(radio[0].checked) {
+            document.getElementById('kiban').style.display = "";
+            document.getElementById('service').style.display = "none";
+        }else if(radio[1].checked) {
+            document.getElementById('kiban').style.display = "none";
+            document.getElementById('service').style.display = "";
+        }
+    }
+    window.onload = entryChange1;
+
+    var url = "http://localhost:3001"
 
     function get_data(id){
-        var url1 = url + "/hokkaido/" + "show/" + id;
-        var url2 = url + "/hokkaido/" + id + "/edit";
-        frames[0].location.href = url1;
-        frames[1].location.href = url2;
-        }
+            $.get( "/hokkaido/" + id + "/edit", function( data ) {
+            $( "#product-modal" ).html( data )
+            $("#product-modal").modal("show")
+        })
+    }
 
     var div = d3.select("body").append("div")
   .attr("class", "tooltip")
@@ -157,22 +181,25 @@
           .attr("d", path);
 
         // classを指定して描画
-        g.selectAll(".hokkaido")
+         g.selectAll("a")
             .data(hokkaido.geometries)
-        .enter().append("path")
+            .enter().append("a")　
+            .append("path")
             .attr("class", function(d) {
                 return "hokkaido " + d.properties.cityname;
                 })
             .attr("d", path)
             .on("click", function(d) {
-                var url1 = url + "/hokkaido/" + "show/" + attrHash[d.properties.cityname].id;
-                var url2 = url + "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit";
-                frames[0].location.href = url1;
-                frames[1].location.href = url2;
+                    $.get( "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit", function( data ) {
+                    $( "#product-modal" ).html( data )
+                    $("#product-modal").modal("show")
+                })
             })
             .on("mouseover", function(d) {
                 d3.select(this)
-                .transition().duration(200).attr("fill", "red");
+                .transition().duration(100).attr("fill", "red")
+                .style("opacity", 1);div.transition().duration(100)
+                .style("opacity", 1)
             })
             .on("mouseout", function(d) {
                 d3.select(this)
@@ -200,6 +227,9 @@
         // ベース色指定しておく
         g.selectAll(".hokkaido")
             .attr("fill", "#CEF6CE");
+
+
+
 
         // 市町村名のラベル貼り
         g.selectAll(".cityname-label")
@@ -293,7 +323,6 @@
             })
             svg.select(".cityname-label."+k).attr("fill", "black");
         }
-
         //円グラフ用にデータをカウント
         var legend = {};
         for(var i in attrHash) {
