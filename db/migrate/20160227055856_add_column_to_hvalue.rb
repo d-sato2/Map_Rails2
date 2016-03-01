@@ -1,10 +1,6 @@
 class AddColumnToHvalue < ActiveRecord::Migration
   def change
-<<<<<<< HEAD
-    add_column :hvalues, :kyogi, :integer
-=======
     add_column :hvalues, :kyougi, :integer
->>>>>>> new_branch_name
     add_column :hvalues, :kiban, :integer
     add_column :hvalues, :el_kyodo, :integer
     add_column :hvalues, :kokaike, :integer
