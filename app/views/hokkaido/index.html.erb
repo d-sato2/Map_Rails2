@@ -37,11 +37,7 @@
                 <tbody>
                 <% @search.each do |hvalue| %>
                     <tr>
-<<<<<<< HEAD
-                        <td><%= link_to hvalue.cityname, edit_hokkaido_path(hvalue.id), remote: true %></td>
-=======
                         <td><%= link_to hvalue.cityname, '#' ,:onclick => "get_data(#{hvalue.id})" %></td>
->>>>>>> new_branch_name
                     </tr>
                 <% end %>
                 </tbody>
@@ -52,23 +48,6 @@
 </div>
 
 <script type="text/javascript">
-<<<<<<< HEAD
-
-    function entryChange1(){
-        radio = document.getElementsByName('entryPlan') 
-        if(radio[0].checked) {
-            document.getElementById('kiban').style.display = "";
-            document.getElementById('service').style.display = "none";
-        }else if(radio[1].checked) {
-            document.getElementById('kiban').style.display = "none";
-            document.getElementById('service').style.display = "";
-        }
-    }
-    window.onload = entryChange1;
-
-    var url = "http://localhost:3001"
-=======
->>>>>>> new_branch_name
 
     function entryChange1(){
         radio = document.getElementsByName('entryPlan')
@@ -202,34 +181,19 @@
           .attr("d", path);
 
         // classを指定して描画
-         g.selectAll("a")
+         g.selectAll(".hokkaido")
             .data(hokkaido.geometries)
-            .enter().append("a")　
-<<<<<<< HEAD
-            .attr("data-remote", true)
-            .attr("xlink:href", function(d) {
-                  return "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit";
-                  })
-=======
->>>>>>> new_branch_name
-            .append("path")
+            .enter().append("path")　
             .attr("class", function(d) {
                 return "hokkaido " + d.properties.cityname;
                 })
-            .attr("data-remote", true)
-            .attr("href", function(d) {
-                return "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit";
-                })
             .attr("d", path)
-<<<<<<< HEAD
-=======
             .on("click", function(d) {
                     $.get( "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit", function( data ) {
                     $( "#product-modal" ).html( data )
                     $("#product-modal").modal("show")
                 })
             })
->>>>>>> new_branch_name
             .on("mouseover", function(d) {
                 d3.select(this)
                 .transition().duration(100).attr("fill", "red")
@@ -262,13 +226,6 @@
         // ベース色指定しておく
         g.selectAll(".hokkaido")
             .attr("fill", "#CEF6CE");
-
-
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> new_branch_name
 
         // 市町村名のラベル貼り
         g.selectAll(".cityname-label")
