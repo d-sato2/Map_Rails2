@@ -1,6 +1,7 @@
 class HokkaidoController < ApplicationController
   protect_from_forgery except: :edit
   def index
+    @test = Hvalue.find(1)
 
     @hvalues = Hvalue.all
     @versions = PaperTrail::Version.order('created_at DESC')
@@ -11,10 +12,10 @@ class HokkaidoController < ApplicationController
               ["会社No.19", '19'], ["会社No.20", '20'], ["会社No.21", '21'], ["会社No.22", '22'], ["会社No.23", '23'], %W(\u4E0D\u660E 0)]
 
     @search = Hvalue.search(params[:search])
-    @service_btn = [["eac", "b"], ["frs", "c"], ["eps", "d"], ["ca", "e"], ["pa", "f"], 
-           ["gw", "g"], ["cms", "h"], ["mail", "i"], ["bu", "j"], ["rs", "k"], ["ps", "l"], 
+    @service_btn = [["eac", "b"], ["frs", "c"], ["eps", "d"], ["ca", "e"], ["pa", "f"],
+           ["gw", "g"], ["cms", "h"], ["mail", "i"], ["bu", "j"], ["rs", "k"], ["ps", "l"],
            ["fn", "m"], ["ns", "n"], ["ss", "o"], ["ft", "p"], ["et", "q"], ["ib", "r"]]
-    @kiban_btn = [["vender", "a-1"], ["kyougi", "a-2"], ["kiban", "a-3"], ["el_kyodo", "a-4"], 
+    @kiban_btn = [["vender", "a-1"], ["kyougi", "a-2"], ["kiban", "a-3"], ["el_kyodo", "a-4"],
            ["kokaike", "a-5"], ["koumu", "a-6"], ["todoku", "a-7"]]
   end
 
@@ -53,8 +54,12 @@ class HokkaidoController < ApplicationController
   def update
     @hvalue = Hvalue.find_by(cityname: params[:hvalue][:cityname])
     if @hvalue.update_attributes(hvalue_params)
+      if params[:id] == 'update'
+        redirect_to action: 'index'
+      else
       # flash[:success] = params[:hvalue][:cityname] + "の情報を更新しました"
       redirect_to action: 'edit'
+      end
     else
       # flash[:error] = "変更に失敗しました"
       render 'edit'

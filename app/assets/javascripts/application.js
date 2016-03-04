@@ -17,3 +17,16 @@
 //= require d3.min
 //= require topojson.v0.min
 //= require bootstrap
+//= require editable/bootstrap-editable
+//= require editable/rails
+
+$(document).ready(function() {
+    $('#username').editable({
+        type: 'text',
+        url: '/hokkaido/1',
+        title: 'Enter text',
+        ajaxOptions: {
+            type: 'post',
+            dataType: 'json'
+        }
+    });});
