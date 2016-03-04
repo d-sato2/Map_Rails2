@@ -9,19 +9,25 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-6">
-            <p><%= @hvalue.cityname %>の更新履歴</p>
-            <% @versions.each do |version| %>
-              <%  change = version.changeset %>
-              <% if version.reify %>
-                <% if @hvalue.cityname == version.reify.cityname %>
-                  <% time = change.to_a[1][1][1] %>
-                  <%=  time.year %>年<%=  time.month %>月<%=  time.day %>日<%=  time.hour %>時<%=  time.min %>分
-                  <%=  change.to_a[0][0] %>を<%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
-                  <br>
+          <div class="col-md-6" style="height: 100%;">
+            <div style="height: 50%;">
+              <p><%= @hvalue.cityname %>の備考欄</p>
+              <%= f.text_area :memo_service, :value => @hvalue.memo_service %>
+            </div>
+            <div style="height: 50%, overflow: scroll;">
+              <p><%= @hvalue.cityname %>の更新履歴</p>
+              <% @versions.each do |version| %>
+                <%  change = version.changeset %>
+                <% if version.reify %>
+                  <% if @hvalue.cityname == version.reify.cityname %>
+                    <% time = change.to_a[1][1][1] %>
+                    <%=  time.year %>年<%=  time.month %>月<%=  time.day %>日<%=  time.hour %>時<%=  time.min %>分
+                    <%=  change.to_a[0][0] %>を<%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
+                    <br>
+                  <% end %>
                 <% end %>
               <% end %>
-            <% end %>
+            </div>
           </div>
           <div class="col-md-6">
             <p><%= @hvalue.cityname %>のサービスと契約会社</p>

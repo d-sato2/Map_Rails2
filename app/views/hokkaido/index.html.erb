@@ -1,5 +1,6 @@
 <br><br><br><br><br>
         <a href="#" id="username">
+            <%= @test.memo_service %>
           <%= form_for @test, url: {:action => 'update'}  do |f| %>
               <%= f.text_field :memo_service %>
           <% end %>
@@ -7,7 +8,10 @@
         <%= form_for @test, url: {:action => 'update'}  do |f| %>
             <%= f.hidden_field :cityname, :value => @test.cityname %>
             <%= f.text_field :memo_service, :value => @test.memo_service %>
+            <%= f.submit %>
         <% end %>
+
+
 <div id="product-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <div class="row" name="test">
     <div class="col-md-1">

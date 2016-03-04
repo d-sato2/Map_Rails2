@@ -23,10 +23,15 @@
 $(document).ready(function() {
     $('#username').editable({
         type: 'text',
-        url: '/hokkaido/1',
+        name: 'memo_service',
+        url: '/hokkaido/update',
         title: 'Enter text',
         ajaxOptions: {
             type: 'post',
             dataType: 'json'
+        },
+        params: function(params) {
+            params.cityname = ;
+            return params;
         }
     });});
