@@ -4,8 +4,6 @@ class CreateHvalues < ActiveRecord::Migration
       t.string :cityid
       t.string :cityname
       t.string :bureau
-      t.text :memo_kiban
-      t.text :memo_service
       t.integer :ttl
       t.integer :gw
       t.integer :frs
@@ -25,12 +23,6 @@ class CreateHvalues < ActiveRecord::Migration
       t.integer :ca
       t.integer :fn
       t.integer :ps
-      t.integer :kyogi
-      t.integer :kiban
-      t.integer :el_kyodo
-      t.integer :kokaike
-      t.integer :koumu
-      t.integer :todoku
 
       t.timestamps null: false
     end

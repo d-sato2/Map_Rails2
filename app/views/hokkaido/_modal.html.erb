@@ -1,6 +1,7 @@
 <div class="modal-dialog">
   <div class="modal-content" style="width:1000px; margin-left: -200px;">
     <%= form_for @hvalue, url: {:action => 'update'}, html: {class: "form-horizontal center"}, remote: true do |f| %>
+    <%= f.hidden_field :cityname, :value => @hvalue.cityname %>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -9,37 +10,55 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-6">
-            <p><%= @hvalue.cityname %>の更新履歴</p>
-            <% @versions.each do |version| %>
-              <%  change = version.changeset %>
-              <% if version.reify %>
-                <% if @hvalue.cityname == version.reify.cityname %>
-                  <% time = change.to_a[1][1][1] %>
-                  <%=  time.year %>年<%=  time.month %>月<%=  time.day %>日<%=  time.hour %>時<%=  time.min %>分
-                  <%=  change.to_a[0][0] %>を<%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
-                  <br>
+          <div class="col-md-6" style="height: 100%;">
+            <div style="height: 50%;">
+              <p><%= @hvalue.cityname %>の備考欄</p>
+              <%= f.text_area :memo_service, :value => @hvalue.memo_service, :size => "60x15" %>
+            </div>
+            <div style="height: 50%, overflow: scroll;">
+              <p><%= @hvalue.cityname %>の更新履歴</p>
+              <% @versions.each do |version| %>
+                <%  change = version.changeset %>
+                <% if version.reify %>
+                  <% if @hvalue.cityname == version.reify.cityname %>
+                    <% time = change.to_a[1][1][1] %>
+                    <%=  time.year %>年<%=  time.month %>月<%=  time.day %>日<%=  time.hour %>時<%=  time.min %>分
+                    <%=  change.to_a[0][0] %>を<%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
+                    <br>
+                  <% end %>
                 <% end %>
               <% end %>
-            <% end %>
+            </div>
           </div>
           <div class="col-md-6">
             <p><%= @hvalue.cityname %>のサービスと契約会社</p>
+            <label><input type="radio" name="entryPlan" value="hoge1" onclick="entryChange1();" checked="checked" />基盤系</label>
+            <label><input type="radio" name="entryPlan" value="hoge2" onclick="entryChange1();" />サービス</label>
             <div class="field">
-              <div class="form-group form-group-xs">
-                <%= f.label "自治体名(固定)", {class: 'col-xs-6 control-label', style: "width: 154px; background-color:transparent;"} %>
-                <div class="col-xs-4">
-                  <%= f.select :cityname, [@hvalue[:cityname]], {:selected => @hvalue[:cityname]}, {:class => "form-control", style: "width: 116px; height: 2.2em; background-color:transparent;"} %>
-                </div>
-              </div>
-              <% @column.each do |i| %>
-                <div class="form-group form-group-xs">
-                  <%= f.label "サービス名: #{i}", {class: 'col-xs-6 control-label', style: "width: 154px;"}%>
-                  <div class="col-xs-4">
-                    <%= f.select i, @value, {:selected => @hvalue[i]}, {class: "form-control", style: "width: 116px; height: 2.2em; background-color:transparent;"} %>
+              <div id="kiban">
+                <% @service_column.each do |i| %>
+                  <div class="form-group form-group-xs">
+                    <div class="col-md-6">
+                      <%= f.label "サービス名: #{i}", {class: 'control-label', style: "width: 180px;"}%>
+                    </div>
+                    <div class="col-md-6">
+                      <%= f.select i, @value, {:selected => @hvalue[i]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
+                    </div>
                   </div>
-                </div>
-              <% end %>
+                <% end %>
+              </div>
+              <div id="service">
+                <% @kiban_column.each do |i| %>
+                  <div class="form-group form-group-xs">
+                    <div class="col-md-6">
+                      <%= f.label "サービス名: #{i}", {class: 'control-label', style: "width: 180px;"}%>
+                    </div>
+                    <div class="col-md-6">
+                      <%= f.select i, @value, {:selected => @hvalue[i]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
@@ -54,10 +73,7 @@
 </div>
   <script type="text/javascript">
     function _submit(){
-     parent.location.reload();
-    }
-<<<<<<< HEAD
+                var url = "http://localhost:3000/hokkaido/info"
+                frames[0].location.href = url;
+              }
   </script>
-=======
-  </script>
->>>>>>> new_branch_name
