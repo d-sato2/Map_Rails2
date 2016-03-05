@@ -19,6 +19,7 @@
 //= require bootstrap
 //= require editable/bootstrap-editable
 //= require editable/rails
+//= require jscolor
 
 $(document).ready(function() {
     $('#username').editable({

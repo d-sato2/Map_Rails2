@@ -1,8 +1,6 @@
 class HokkaidoController < ApplicationController
   protect_from_forgery except: :edit
   def index
-    @test = Hvalue.find(1)
-
     @hvalues = Hvalue.all
     @versions = PaperTrail::Version.order('created_at DESC')
     @column = [:vender, :eac, :frs, :eps, :ca, :pa, :gw, :cms, :mail, :bu, :rs, :ps, :fn, :ns, :ss, :ft, :et, :ib]
@@ -17,6 +15,7 @@ class HokkaidoController < ApplicationController
            ["fn", "m"], ["ns", "n"], ["ss", "o"], ["ft", "p"], ["et", "q"], ["ib", "r"]]
     @kiban_btn = [["vender", "a-1"], ["kyougi", "a-2"], ["kiban", "a-3"], ["el_kyodo", "a-4"],
            ["kokaike", "a-5"], ["koumu", "a-6"], ["todoku", "a-7"]]
+    @test = [[:vender, "a-1"], [:kyougi, "a-2"]]
   end
 
   def show

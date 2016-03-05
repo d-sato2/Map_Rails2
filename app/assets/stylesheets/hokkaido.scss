@@ -34,7 +34,7 @@ div.tooltip {
   position: absolute;
   text-align: center;
   padding: 2px;
-  font-size: 13px;
+  font-size: 20px;
   background: #EFFFD6;
   border: 1px;
   border-radius: 8px;
@@ -44,8 +44,18 @@ div.tooltip2 {
   position: absolute;
   text-align: center;
   padding: 2px;
-  font-size: 15px;
+  font-size: 20px;
   background: #A9D0F5;
+  border: 1px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+div.tooltip3 {
+  position: absolute;
+  text-align: center;
+  padding: 2px;
+  font-size: 20px;
+  background: #F6E3CE;
   border: 1px;
   border-radius: 8px;
   pointer-events: none;

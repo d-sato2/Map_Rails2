@@ -1,3 +1,4 @@
+<%= @test[1][0] %>
 <div id="product-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <div class="row" name="test">
     <div class="col-md-1">
@@ -76,6 +77,10 @@
 
     var div2 = d3.select("body").append("div")
   .attr("class", "tooltip2")
+  .style("opacity", 0);
+
+    var div3 = d3.select("body").append("div")
+  .attr("class", "tooltip3")
   .style("opacity", 0);
 
     // file読み込み制御用
@@ -161,8 +166,8 @@
 
          // svgを追加
         svg = d3.select("body #map").append("svg")
-                .attr("width", map_width)
-                .attr("height", map_height);
+                .attr("width", '100%')
+                .attr("height", '100%');
         var g = svg.append("g");
 
         // 北海道のmapを読み込み
@@ -170,7 +175,7 @@
 
         // 北海道の中心を指定したメルカトル図法でサイズ指定
         var projection = d3.geo.mercator()
-                .center([142.55,43.5])
+                .center([142.35,43.5])
                 .scale(7000)
                 .translate([map_width / 2, map_height / 2]);
 
@@ -262,6 +267,7 @@
             return;
         }
 
+
         // 色塗り
         var showElements = elementsHash[showKey].slice(0);
         showElements.sort(function(a, b){ return a - b; });
@@ -275,7 +281,13 @@
             svg.selectAll(".hokkaido."+k)
             .attr("fill", areaGrad(e[showKey]))
             .on("mouseover", function(d) {
-                var vender = ( attrHash[d.properties.cityname].vender == 1 ) ? "a、" : "";
+                var vender = ( attrHash[d.properties.cityname].vender == 1 ) ? "a-1、" : "";
+                var kyougi = ( attrHash[d.properties.cityname].kyougi== 1 ) ? "a-2、" : "";
+                var kiban = ( attrHash[d.properties.cityname].kiban== 1 ) ? "a-3、" : "";
+                var el_kyodo = ( attrHash[d.properties.cityname].el_kyodo== 1 ) ? "a-4、" : "";
+                var kokaike = ( attrHash[d.properties.cityname].kokaike== 1 ) ? "a-5、" : "";
+                var koumu = ( attrHash[d.properties.cityname].koumu== 1 ) ? "a-6、" : "";
+                var todoku = ( attrHash[d.properties.cityname].todoku== 1 ) ? "a-7、" : "";
                 var eac = ( attrHash[d.properties.cityname].eac == 1 ) ? "b、" : "";
                 var frs = ( attrHash[d.properties.cityname].frs == 1 ) ? "c、" : "";
                 var eps = ( attrHash[d.properties.cityname].eps == 1 ) ? "d、" : "";
@@ -293,21 +305,21 @@
                 var ft = ( attrHash[d.properties.cityname].ft == 1 ) ? "p、" : "";
                 var et = ( attrHash[d.properties.cityname].et == 1 ) ? "q、" : "";
                 var ib = ( attrHash[d.properties.cityname].ib == 1 ) ? "r" : "";
-                var service = vender + eac + frs + eps + ca + pa + gw + cms + mail + bu + rs + ps + fn + ns + ss + ft + et + ib;
+                var service = vender + kyougi + kiban + el_kyodo + kokaike + koumu + todoku + eac + frs + eps + ca + pa + gw + cms + mail + bu + rs + ps + fn + ns + ss + ft + et + ib;
                 // serviceの末尾に"、"がある場合は削除
                 var serviceAfter = ( service.substr( (service.length-1) )  == "、" ) ? service.substr( 0 , (service.length-1) ) : service;
                 var content = "";
                 content += "<center>"+ attrHash[d.properties.cityname].cityname + "</center>";
                 content += "<center>" + "【" + showKey + "の契約会社】" + "</center>";
                 content += "<center>" + attrHash[d.properties.cityname][showKey] + "</center>";
-                content += "<center>"+ "【HARPとの契約サービス】" + "</center>";
+                content += "<center>"+ "【HARP関連サービスの契約状況】" + "</center>";
                 content += serviceAfter
                 d3.select(this)
                 .transition().duration(100).attr("fill", "red")
                 .style("opacity", 1);div.transition().duration(100)
                 .style("opacity", 1)
                 div.html(content)
-                .style("left", (d3.event.pageX +10) + "px")
+                .style("left", (d3.event.pageX +30) + "px")
                 .style("top", (d3.event.pageY -100) + "px");
             })
             .on("mouseout", function(d) {
@@ -400,6 +412,53 @@
             .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")";})
             .style("text-anchor", "middle")
             .text(function(d) { return d.data.name; });
+
+        svg.selectAll("a").selectAll("text").remove()
+        svg.append("a").append("text") 
+            .attr("x", 700)
+            .attr("y", 40) 
+            .attr("font-size", "40px")
+            .text(showKey)   // プレーンテキストを表示
+            .on("mouseover", function() {
+                var vender = ( showKey == "vender" ) ? "venderの解説" : "";
+                var kyougi = ( showKey == "kyougi" ) ? "kyougiの解説" : "";
+                var kiban = ( showKey == "kiban" ) ? "kibanの解説" : "";
+                var el_kyodo = ( showKey == "el_kyodo" ) ? "el_kyodoの解説" : "";
+                var kokaike = ( showKey == "kokaike" ) ? "kokaikeの解説" : "";
+                var koumu = ( showKey == "koumu" ) ? "koumuの解説" : "";
+                var todoku = ( showKey == "todoku" ) ? "todokuの解説" : "";
+                var eac = ( showKey == "eac" ) ? "eacの解説" : "";
+                var frs = ( showKey == "frs" ) ? "frsの解説" : "";
+                var eps = ( showKey == "eps" ) ? "epsの解説" : "";
+                var ca = ( showKey == "ca" ) ? "caの解説" : "";
+                var pa = ( showKey == "pa" ) ? "paの解説" : "";
+                var gw = ( showKey == "gw" ) ? "gwの解説" : "";
+                var cms = ( showKey == "cms" ) ? "cmsの解説" : "";
+                var mail = ( showKey == "mail" ) ? "mailの解説" : "";
+                var bu = ( showKey == "bu" ) ? "buの解説" : "";
+                var rs = ( showKey == "rs" ) ? "rsの解説" : "";
+                var ps = ( showKey == "ps" ) ? "psの解説" : "";
+                var fn = ( showKey == "fn" ) ? "fnの解説" : "";
+                var ns = ( showKey == "ns" ) ? "nsの解説" : "";
+                var ss = ( showKey == "ss" ) ? "ssの解説" : "";
+                var ft = ( showKey == "ft" ) ? "ftの解説" : "";
+                var et = ( showKey == "et" ) ? "etの解説" : "";
+                var ib = ( showKey == "ib" ) ? "ibの解説" : "";
+                var service = vender + kyougi + kiban + el_kyodo + kokaike + koumu + todoku + eac + frs + eps + ca + pa + gw + cms + mail + bu + rs + ps + fn + ns + ss + ft + et + ib;
+                var content = "";
+                content += "<center>"+ service + "</center>";
+                d3.select(this)
+                .transition().duration(100)
+                .style("opacity", 1);div2.transition().duration(100)
+                .style("opacity", 1)
+                div2.html(content)
+                .style("left", (d3.event.pageX -100) + "px")
+                .style("top", (d3.event.pageY +40) + "px");
+            })
+            .on("mouseout", function(d) {
+                div2.transition().duration(200)
+                .style("opacity", 0);
+            })
     }
 
 </script>
