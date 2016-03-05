@@ -32,11 +32,11 @@
           </div>
           <div class="col-md-6">
             <p><%= @hvalue.cityname %>のサービスと契約会社</p>
-            <label><input type="radio" name="entryPlan" value="hoge1" onclick="entryChange1();" checked="checked" />基盤系</label>
+            <label><input type="radio" name="entryPlan" value="hoge1" onclick="entryChange1();" checked />基盤系</label>
             <label><input type="radio" name="entryPlan" value="hoge2" onclick="entryChange1();" />サービス</label>
             <div class="field">
               <div id="kiban">
-                <% @service_column.each do |i| %>
+                <% @kiban_column.each do |i| %>
                   <div class="form-group form-group-xs">
                     <div class="col-md-6">
                       <%= f.label "サービス名: #{i}", {class: 'control-label', style: "width: 180px;"}%>
@@ -48,7 +48,7 @@
                 <% end %>
               </div>
               <div id="service">
-                <% @kiban_column.each do |i| %>
+                <% @service_column.each do |i| %>
                   <div class="form-group form-group-xs">
                     <div class="col-md-6">
                       <%= f.label "サービス名: #{i}", {class: 'control-label', style: "width: 180px;"}%>
@@ -65,7 +65,7 @@
       </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "変更する", :class => "btn btn-primary" %>
+          <%= f.submit "変更する", :class => "btn btn-primary", :onclick => "_submit()" %>
         </div>
       </div>
     <% end %>
