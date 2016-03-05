@@ -280,6 +280,7 @@
             e = attrHash[k];
             svg.selectAll(".hokkaido."+k)
             .attr("fill", areaGrad(e[showKey]))
+            .attr("style", "cursor: pointer;")
             .on("mouseover", function(d) {
                 var vender = ( attrHash[d.properties.cityname].vender == 1 ) ? "a-1、" : "";
                 var kyougi = ( attrHash[d.properties.cityname].kyougi== 1 ) ? "a-2、" : "";
