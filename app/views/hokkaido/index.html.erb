@@ -1,4 +1,3 @@
-<%= @test[1][0] %>
 <div id="product-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <div class="row" name="test">
     <div class="col-md-1">
@@ -289,6 +288,8 @@
                 var kokaike = ( attrHash[d.properties.cityname].kokaike== 1 ) ? "a-5、" : "";
                 var koumu = ( attrHash[d.properties.cityname].koumu== 1 ) ? "a-6、" : "";
                 var todoku = ( attrHash[d.properties.cityname].todoku== 1 ) ? "a-7、" : "";
+                var kiban_kei =  kyougi + kiban + el_kyodo + kokaike + koumu + todoku + vender;
+
                 var eac = ( attrHash[d.properties.cityname].eac == 1 ) ? "b、" : "";
                 var frs = ( attrHash[d.properties.cityname].frs == 1 ) ? "c、" : "";
                 var eps = ( attrHash[d.properties.cityname].eps == 1 ) ? "d、" : "";
@@ -306,15 +307,18 @@
                 var ft = ( attrHash[d.properties.cityname].ft == 1 ) ? "p、" : "";
                 var et = ( attrHash[d.properties.cityname].et == 1 ) ? "q、" : "";
                 var ib = ( attrHash[d.properties.cityname].ib == 1 ) ? "r" : "";
-                var service = vender + kyougi + kiban + el_kyodo + kokaike + koumu + todoku + eac + frs + eps + ca + pa + gw + cms + mail + bu + rs + ps + fn + ns + ss + ft + et + ib;
-                // serviceの末尾に"、"がある場合は削除
-                var serviceAfter = ( service.substr( (service.length-1) )  == "、" ) ? service.substr( 0 , (service.length-1) ) : service;
+                var kiban_igai = eac + frs + eps + ca + pa + gw + cms + mail + bu + rs + ps + fn + ns + ss + ft + et + ib;
+                // の末尾に"、"がある場合は削除
+                var kiban_keiAfter = ( kiban_kei.substr( (kiban_kei.length-1) )  == "、" ) ? kiban_kei.substr( 0 , (kiban_kei.length-1) ) : kiban_kei;
+                var kiban_igaiAfter = ( kiban_igai.substr( (kiban_igai.length-1) )  == "、" ) ? kiban_igai.substr( 0 , (kiban_igai.length-1) ) : kiban_igai;
                 var content = "";
                 content += "<center>"+ attrHash[d.properties.cityname].cityname + "</center>";
                 content += "<center>" + "【" + showKey + "の契約会社】" + "</center>";
                 content += "<center>" + attrHash[d.properties.cityname][showKey] + "</center>";
-                content += "<center>"+ "【HARP関連サービスの契約状況】" + "</center>";
-                content += serviceAfter
+                content += "<center>"+ "【HARP基盤関連サービス】" + "</center>";
+                content += kiban_keiAfter
+                content += "<center>"+ "【HARP基盤関連以外のサービス】" + "</center>";
+                content += kiban_igaiAfter
                 d3.select(this)
                 .transition().duration(100).attr("fill", "red")
                 .style("opacity", 1);div.transition().duration(100)
@@ -421,43 +425,43 @@
             .attr("font-size", "40px")
             .text(showKey)   // プレーンテキストを表示
             .on("mouseover", function() {
-                var vender = ( showKey == "vender" ) ? "venderの解説" : "";
-                var kyougi = ( showKey == "kyougi" ) ? "kyougiの解説" : "";
-                var kiban = ( showKey == "kiban" ) ? "kibanの解説" : "";
-                var el_kyodo = ( showKey == "el_kyodo" ) ? "el_kyodoの解説" : "";
-                var kokaike = ( showKey == "kokaike" ) ? "kokaikeの解説" : "";
-                var koumu = ( showKey == "koumu" ) ? "koumuの解説" : "";
-                var todoku = ( showKey == "todoku" ) ? "todokuの解説" : "";
-                var eac = ( showKey == "eac" ) ? "eacの解説" : "";
-                var frs = ( showKey == "frs" ) ? "frsの解説" : "";
-                var eps = ( showKey == "eps" ) ? "epsの解説" : "";
-                var ca = ( showKey == "ca" ) ? "caの解説" : "";
-                var pa = ( showKey == "pa" ) ? "paの解説" : "";
-                var gw = ( showKey == "gw" ) ? "gwの解説" : "";
-                var cms = ( showKey == "cms" ) ? "cmsの解説" : "";
-                var mail = ( showKey == "mail" ) ? "mailの解説" : "";
-                var bu = ( showKey == "bu" ) ? "buの解説" : "";
-                var rs = ( showKey == "rs" ) ? "rsの解説" : "";
-                var ps = ( showKey == "ps" ) ? "psの解説" : "";
-                var fn = ( showKey == "fn" ) ? "fnの解説" : "";
-                var ns = ( showKey == "ns" ) ? "nsの解説" : "";
-                var ss = ( showKey == "ss" ) ? "ssの解説" : "";
-                var ft = ( showKey == "ft" ) ? "ftの解説" : "";
-                var et = ( showKey == "et" ) ? "etの解説" : "";
-                var ib = ( showKey == "ib" ) ? "ibの解説" : "";
+                var vender = ( showKey == "vender" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var kyougi = ( showKey == "kyougi" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var kiban = ( showKey == "kiban" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var el_kyodo = ( showKey == "el_kyodo" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var kokaike = ( showKey == "kokaike" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var koumu = ( showKey == "koumu" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var todoku = ( showKey == "todoku" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var eac = ( showKey == "eac" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var frs = ( showKey == "frs" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var eps = ( showKey == "eps" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var ca = ( showKey == "ca" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var pa = ( showKey == "pa" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var gw = ( showKey == "gw" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var cms = ( showKey == "cms" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var mail = ( showKey == "mail" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var bu = ( showKey == "bu" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var rs = ( showKey == "rs" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var ps = ( showKey == "ps" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var fn = ( showKey == "fn" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var ns = ( showKey == "ns" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var ss = ( showKey == "ss" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var ft = ( showKey == "ft" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var et = ( showKey == "et" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
+                var ib = ( showKey == "ib" ) ? "解説〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜": "";
                 var service = vender + kyougi + kiban + el_kyodo + kokaike + koumu + todoku + eac + frs + eps + ca + pa + gw + cms + mail + bu + rs + ps + fn + ns + ss + ft + et + ib;
                 var content = "";
                 content += "<center>"+ service + "</center>";
                 d3.select(this)
                 .transition().duration(100)
-                .style("opacity", 1);div2.transition().duration(100)
+                .style("opacity", 1);div3.transition().duration(100)
                 .style("opacity", 1)
-                div2.html(content)
-                .style("left", (d3.event.pageX -100) + "px")
-                .style("top", (d3.event.pageY +40) + "px");
+                div3.html(content)
+                .style("left", (d3.event.pageX -200) + "px")
+                .style("top", (d3.event.pageY +20) + "px");
             })
             .on("mouseout", function(d) {
-                div2.transition().duration(200)
+                div3.transition().duration(200)
                 .style("opacity", 0);
             })
     }
