@@ -199,6 +199,143 @@
            "stroke": "#fff"
         });
 
+        var isikari = d3.set(["id011002","id012173","id012246","id012319","id012343","id012351",
+                                "id012330", "id013030", "id013048"]);
+        var ohotuku = d3.set(["id012084", "id012114", "id012190", "id015431", "id015440", "id015458",
+                            "id015466", "id015474", "id015491", "id015504", "id015521", "id015555",
+                            "id015598", "id015601", "id015610", "id015628", "id015636", "id015644"]);
+        var sorachi = d3.set(["id012092", "id012106", "id012157", "id012165", "id012181", "id012220",
+                            "id012254", "id012262", "id012271", "id012289", "id014231", "id014249",
+                            "id014257", "id014273", "id014281", "id014290", "id014303", "id014311",
+                            "id014320", "id014338", "id014346", "id014362", "id014371", "id014389"]);
+        var kushiro = d3.set(["id012068", "id016616", "id016624", "id016632", "id016641", "id016659",
+                            "id016675", "id016683"]);
+        var koushi = d3.set(["id012033", "id013919", "id013927", "id013935", "id013943", "id013951",
+                           "id013960", "id013978", "id013986", "id013994", "id014001", "id014010",
+                           "id014028", "id014036", "id014044", "id014052", "id014061", "id014079",
+                           "id014087", "id014095"]);
+        var nemuro = d3.set(["id012238", "id016918", "id016926", "id016934", "id016942"]);
+        var souya = d3.set(["id012149", "id015113", "id015121", "id015130", "id015148", "id015164",
+                           "id015172", "id015181", "id015199", "id015202"]);
+        var tokachi = d3.set(["id012076", "id016314", "id016322", "id016331", "id016349", "id016357",
+                            "id016365", "id016373", "id016381", "id016390", "id016411", "id016420",
+                            "id016438", "id016446", "id016454", "id016462", "id016471", "id016489",
+                            "id016497"]);
+        var kamikawa = d3.set(["id012041", "id012203", "id012211", "id012297", "id014524", "id014532",
+                             "id014541", "id014559", "id014567", "id014575", "id014583", "id014591",
+                             "id014605", "id014613", "id014621", "id014630", "id014648", "id014656",
+                             "id014681", "id014699", "id014702", "id014711", "id014729"]);
+        var iburi = d3.set(["id012335", "id012050", "id012131", "id012301", "id015717", "id015750",
+                          "id015784", "id015814", "id015849", "id015857", "id015865"]);
+        var watarishima = d3.set(["id012025", "id012360", "id013315", "id013323", "id013331", "id013340",
+                                "id013374", "id013439", "id013455", "id013463", "id013471"]);
+        var hidaka = d3.set(["id016012", "id016021", "id016047", "id016071", "id016080", "id016098",
+                           "id016101"]);
+        var rumoi = d3.set(["id012122", "id014818", "id014826", "id014834", "id014842", "id014851",
+                          "id014869", "id014877"]);
+        var hiyama = d3.set(["id013617", "id013625", "id013633", "id013641", "id013676", "id013706",
+                           "id013714"]);
+
+       //マージエリア追加
+      svg.append("path")
+        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return isikari.has(d.properties["cityname"]); })))
+        .attr({
+          "d": path,
+          "fill": "none",
+          "stroke": "#000",
+        })
+      svg.append("path")
+        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return sorachi.has(d.properties["cityname"]); })))
+        .attr({
+          "d": path,
+          "fill": "none",
+          "stroke": "#000",
+        })
+        svg.append("path")
+        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return ohotuku.has(d.properties["cityname"]); })))
+        .attr({
+          "d": path,
+          "fill": "none",
+          "stroke": "#000",
+        })
+         svg.append("path")
+        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return kushiro.has(d.properties["cityname"]); })))
+        .attr({
+          "d": path,
+          "fill": "none",
+          "stroke": "#000",
+        })
+         svg.append("path")
+        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return koushi.has(d.properties["cityname"]); })))
+        .attr({
+          "d": path,
+          "fill": "none",
+          "stroke": "#000",
+        })
+         svg.append("path")
+        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return nemuro.has(d.properties["cityname"]); })))
+        .attr({
+          "d": path,
+          "fill": "none",
+          "stroke": "#000",
+        })
+         svg.append("path")
+        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return souya.has(d.properties["cityname"]); })))
+        .attr({
+          "d": path,
+          "fill": "none",
+          "stroke": "#000",
+        })
+         svg.append("path")
+        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return tokachi.has(d.properties["cityname"]); })))
+        .attr({
+          "d": path,
+          "fill": "none",
+          "stroke": "#000",
+        })
+         svg.append("path")
+        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return kamikawa.has(d.properties["cityname"]); })))
+        .attr({
+          "d": path,
+          "fill": "none",
+          "stroke": "#000",
+        })
+         svg.append("path")
+        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return watarishima.has(d.properties["cityname"]); })))
+        .attr({
+          "d": path,
+          "fill": "none",
+          "stroke": "#000",
+        })
+         svg.append("path")
+        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return hidaka.has(d.properties["cityname"]); })))
+        .attr({
+          "d": path,
+          "fill": "none",
+          "stroke": "#000",
+        })
+         svg.append("path")
+        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return iburi.has(d.properties["cityname"]); })))
+        .attr({
+          "d": path,
+          "fill": "none",
+          "stroke": "#000",
+        })
+         svg.append("path")
+        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return rumoi.has(d.properties["cityname"]); })))
+        .attr({
+          "d": path,
+          "fill": "none",
+          "stroke": "#000",
+        })
+         svg.append("path")
+        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return hiyama.has(d.properties["cityname"]); })))
+        .attr({
+          "d": path,
+          "fill": "none",
+          "stroke": "#000",
+        })
+
         // classを指定して描画
          g.selectAll(".hokkaido")
             .data(hokkaido.features)
@@ -236,8 +373,6 @@
         });
         svg.call(zoom)
 
-
-
         // CSSで一旦display:noneを指定しているので、各区の先頭object上のみラベルを表示する
         for (var k in attrHash) {
             svg.select(".cityname-label."+k).style("display", "block");
@@ -252,7 +387,6 @@
         if (drawMapDone == false) {
             return;
         }
-
 
         // 色塗り
         var showElements = elementsHash[showKey].slice(0);

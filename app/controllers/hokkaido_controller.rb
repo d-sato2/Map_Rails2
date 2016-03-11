@@ -1,6 +1,8 @@
 class HokkaidoController < ApplicationController
   protect_from_forgery except: :edit
   def index
+        @bureau_id = {"isikari" => ["id011002","id012173","id012246","id012319","id012343","id012351",
+                                "id012330", "id013030", "id013048"]}
     @names = { "vender" => "サー１", "kyougi" => "サー２", "kiban" => "サー３",
                 "el_kyodo" => "サー４", "kokaike" => "サー５", "koumu" => "サー６",
                 "todoku" => "サー７", "eac" => "サー８", "frs" => "サー９",
@@ -77,6 +79,7 @@ class HokkaidoController < ApplicationController
     @kyougi_value = [["参加", "参加"], ["不参加", "不参加"]]
     @kokaike_value = [["未導入", "未導入"], ["改訂", "改訂"], ["基準", "基準"], ["改訂（町村会）", "改訂（町村会）"], ["基準（町村会）", "基準（町村会）"]]
     @others_value = [["導入", "導入"], ["未導入", "未導入"]]
+
 
     @service_column = [:eac, :frs, :eps, :ca, :pa, :gw, :cms, :mail, :bu, :rs, :ps, :fn, :ns, :ss, :ft, :et, :ib]
 
