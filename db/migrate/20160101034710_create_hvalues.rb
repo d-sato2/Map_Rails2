@@ -4,25 +4,25 @@ class CreateHvalues < ActiveRecord::Migration
       t.string :cityid
       t.string :cityname
       t.string :bureau
-      t.integer :ttl
-      t.integer :gw
-      t.integer :frs
-      t.integer :ib
-      t.integer :ft
-      t.integer :rs
-      t.integer :ss
-      t.integer :eac
-      t.integer :eps
-      t.integer :bu
-      t.integer :pa
-      t.integer :et
-      t.integer :mail
-      t.integer :vender
-      t.integer :ns
-      t.integer :cms
-      t.integer :ca
-      t.integer :fn
-      t.integer :ps
+      t.string :ttl
+      t.string :gw
+      t.string :frs
+      t.string :ib
+      t.string :ft
+      t.string :rs
+      t.string :ss
+      t.string :eac
+      t.string :eps
+      t.string :bu
+      t.string :pa
+      t.string :et
+      t.string :mail
+      t.string :vender
+      t.string :ns
+      t.string :cms
+      t.string :ca
+      t.string :fn
+      t.string :ps
 
       t.timestamps null: false
     end

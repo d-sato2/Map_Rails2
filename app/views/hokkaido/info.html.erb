@@ -11,10 +11,22 @@
             <% time = change.to_a[1][1][1] %>
             <%=  time.year %>年<%=  time.month %>月<%=  time.day %>日<%=  time.hour %>時<%=  time.min %>分
             <br>
-          <%= version.reify.cityname %>の<%=  change.to_a[0][0] %>を
-          <%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
+            <a onclick="get_data(<%= version.reify.id %>)" href="#" >
+              <%= version.reify.cityname %>の「<%=  @names[change.to_a[0][0]] %>」を
+              <%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
+            </a>
           <br>
       <% end %>
       <% end %>
     </ul>
 </body>
+
+
+<script type="text/javascript">
+    function get_data(id){
+            $.get( "/hokkaido/" + id + "/edit", function( data ) {
+            $( "#product-modal" ,parent.document ).html( data )
+            $("#product-modal" ,parent.document).modal("show")
+        })
+    }
+</script>

@@ -11,41 +11,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160227061229) do
+ActiveRecord::Schema.define(version: 20160227055856) do
 
   create_table "hvalues", force: :cascade do |t|
     t.string   "cityid"
     t.string   "cityname"
     t.string   "bureau"
-    t.integer  "ttl"
-    t.integer  "gw"
-    t.integer  "frs"
-    t.integer  "ib"
-    t.integer  "ft"
-    t.integer  "rs"
-    t.integer  "ss"
-    t.integer  "eac"
-    t.integer  "eps"
-    t.integer  "bu"
-    t.integer  "pa"
-    t.integer  "et"
-    t.integer  "mail"
-    t.integer  "vender"
-    t.integer  "ns"
-    t.integer  "cms"
-    t.integer  "ca"
-    t.integer  "fn"
-    t.integer  "ps"
+    t.string   "ttl"
+    t.string   "gw"
+    t.string   "frs"
+    t.string   "ib"
+    t.string   "ft"
+    t.string   "rs"
+    t.string   "ss"
+    t.string   "eac"
+    t.string   "eps"
+    t.string   "bu"
+    t.string   "pa"
+    t.string   "et"
+    t.string   "mail"
+    t.string   "vender"
+    t.string   "ns"
+    t.string   "cms"
+    t.string   "ca"
+    t.string   "fn"
+    t.string   "ps"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.integer  "kiban"
-    t.integer  "el_kyodo"
-    t.integer  "kokaike"
-    t.integer  "koumu"
-    t.integer  "todoku"
+    t.string   "kyougi"
+    t.string   "kiban"
+    t.string   "el_kyodo"
+    t.string   "kokaike"
+    t.string   "koumu"
+    t.string   "todoku"
     t.text     "memo_kiban"
     t.text     "memo_service"
-    t.integer  "kyougi"
   end
 
   create_table "japans", force: :cascade do |t|

@@ -55,9 +55,14 @@ div.tooltip3 {
   text-align: center;
   padding: 2px;
   font-size: 20px;
-  max-width: 250px;
+  max-width: 400px;
   background: #F6E3CE;
   border: 1px;
   border-radius: 8px;
   pointer-events: none;
+}
+
+.state.selected {
+  fill: orange;
+  stroke: #000;
 }
