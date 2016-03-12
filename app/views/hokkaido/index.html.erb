@@ -273,7 +273,7 @@
             }
         });
 
-        /* 振興局の外枠作成用にいろいろいじったやつ
+        /*振興局の外枠作成用にいろいろいじったやつ
         var bureau_id = [];
         for(var i in attrHash) {
             var bureau_name = attrHash[i]["bureau"];
@@ -282,6 +282,7 @@
                 bureau_name :cityid_number
             })
         }
+        */
         var isikari = d3.set(["id011002","id012173","id012246","id012319","id012343","id012351",
                                 "id012330", "id013030", "id013048"]);
         var ohotuku = d3.set(["id012084", "id012114", "id012190", "id015431", "id015440", "id015458",
@@ -319,6 +320,8 @@
         var hiyama = d3.set(["id013617", "id013625", "id013633", "id013641", "id013676", "id013706",
                            "id013714"]);
 
+
+        /* 振興局の外枠をループで作成しようとしたやつ。なぜかできない。
         var bureau = [isikari, ohotuku, sorachi, kushiro, koushi, nemuro, souya, tokachi, kamikawa, iburi, watarishima, hidaka, rumoi, hiyama]
         for (var i in bureau.length) {
              svg.append("path")
@@ -329,118 +332,111 @@
                   "stroke": "#000",
                 })
         }
-
-       //マージエリア追加
-      svg.append("path")
-        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return isikari.has(d.properties["cityname"]); })))
-        .attr({
-          "d": path,
-          "fill": "none",
-          "stroke": "#000",
-        })
-      g.append("path")
-        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return sorachi.has(d.properties["cityname"]); })))
-        .attr({
-          "d": path,
-          "fill": "none",
-          "stroke": "#000",
-        })
-        g.append("path")
-        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return ohotuku.has(d.properties["cityname"]); })))
-        .attr({
-          "d": path,
-          "fill": "none",
-          "stroke": "#000",
-        })
-         g.append("path")
-        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return kushiro.has(d.properties["cityname"]); })))
-        .attr({
-          "d": path,
-          "fill": "none",
-          "stroke": "#000",
-        })
-         g.append("path")
-        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return koushi.has(d.properties["cityname"]); })))
-        .attr({
-          "d": path,
-          "fill": "none",
-          "stroke": "#000",
-        })
-         g.append("path")
-        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return nemuro.has(d.properties["cityname"]); })))
-        .attr({
-          "d": path,
-          "fill": "none",
-          "stroke": "#000",
-        })
-         g.append("path")
-        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return souya.has(d.properties["cityname"]); })))
-        .attr({
-          "d": path,
-          "fill": "none",
-          "stroke": "#000",
-        })
-         g.append("path")
-        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return tokachi.has(d.properties["cityname"]); })))
-        .attr({
-          "d": path,
-          "fill": "none",
-          "stroke": "#000",
-        })
-         g.append("path")
-        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return kamikawa.has(d.properties["cityname"]); })))
-        .attr({
-          "d": path,
-          "fill": "none",
-          "stroke": "#000",
-        })
-         g.append("path")
-        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return watarishima.has(d.properties["cityname"]); })))
-        .attr({
-          "d": path,
-          "fill": "none",
-          "stroke": "#000",
-        })
-         g.append("path")
-        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return hidaka.has(d.properties["cityname"]); })))
-        .attr({
-          "d": path,
-          "fill": "none",
-          "stroke": "#000",
-        })
-         g.append("path")
-        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return iburi.has(d.properties["cityname"]); })))
-        .attr({
-          "d": path,
-          "fill": "none",
-          "stroke": "#000",
-        })
-         g.append("path")
-        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return rumoi.has(d.properties["cityname"]); })))
-        .attr({
-          "d": path,
-          "fill": "none",
-          "stroke": "#000",
-        })
-         g.append("path")
-        .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return hiyama.has(d.properties["cityname"]); })))
-        .attr({
-          "d": path,
-          "fill": "none",
-          "stroke": "#000",
-        })
-        .append("text")
-        .attr("transform", function(d) {
-                        // 文字をpath中央から、文字高さ1/2分高い位置に貼る
-                        var pos = path.centroid(d);
-                        pos[1] -= labelLineHight / 8;
-                        return "translate(" + pos + ")";
-                    })
-                    .attr("dy", ".35em")
-                    .style("font-size", "9px")
-                    .text("AAA");
         */
 
+        //マージエリア追加
+        var bureauColor = "#8B4513"
+        var drawBureauBorderDone;
+        function drawBureauBorder(){
+                g.append("path")
+                .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return isikari.has(d.properties["cityname"]); })))
+                .attr({
+                  "d": path, "fill": "none", "stroke": bureauColor, "id": "bureauBorder"
+                })
+                g.append("path")
+                .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return sorachi.has(d.properties["cityname"]); })))
+                .attr({
+                  "d": path, "fill": "none", "stroke": bureauColor, "id": "bureauBorder"
+                })
+                g.append("path")
+                .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return ohotuku.has(d.properties["cityname"]); })))
+                .attr({
+                  "d": path, "fill": "none", "stroke": bureauColor, "id": "bureauBorder"
+                })
+                 g.append("path")
+                .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return kushiro.has(d.properties["cityname"]); })))
+                .attr({
+                  "d": path, "fill": "none", "stroke": bureauColor, "id": "bureauBorder"
+                })
+                 g.append("path")
+                .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return koushi.has(d.properties["cityname"]); })))
+                .attr({
+                  "d": path, "fill": "none", "stroke": bureauColor, "id": "bureauBorder"
+                })
+                 g.append("path")
+                .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return nemuro.has(d.properties["cityname"]); })))
+                .attr({
+                  "d": path, "fill": "none", "stroke": bureauColor, "id": "bureauBorder"
+                })
+                 g.append("path")
+                .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return souya.has(d.properties["cityname"]); })))
+                .attr({
+                  "d": path, "fill": "none", "stroke": bureauColor, "id": "bureauBorder"
+                })
+                 g.append("path")
+                .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return tokachi.has(d.properties["cityname"]); })))
+                .attr({
+                  "d": path, "fill": "none", "stroke": bureauColor, "id": "bureauBorder"
+                })
+                 g.append("path")
+                .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return kamikawa.has(d.properties["cityname"]); })))
+                .attr({
+                  "d": path, "fill": "none", "stroke": bureauColor, "id": "bureauBorder"
+                })
+                 g.append("path")
+                .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return watarishima.has(d.properties["cityname"]); })))
+                .attr({
+                  "d": path, "fill": "none", "stroke": bureauColor, "id": "bureauBorder"
+                })
+                 g.append("path")
+                .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return hidaka.has(d.properties["cityname"]); })))
+                .attr({
+                  "d": path, "fill": "none", "stroke": bureauColor, "id": "bureauBorder"
+                })
+                 g.append("path")
+                .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return iburi.has(d.properties["cityname"]); })))
+                .attr({
+                  "d": path, "fill": "none", "stroke": bureauColor, "id": "bureauBorder"
+                })
+                 g.append("path")
+                .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return rumoi.has(d.properties["cityname"]); })))
+                .attr({
+                  "d": path, "fill": "none", "stroke": bureauColor, "id": "bureauBorder"
+                })
+                 g.append("path")
+                .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return hiyama.has(d.properties["cityname"]); })))
+                .attr({
+                  "d": path, "fill": "none", "stroke": bureauColor, "id": "bureauBorder"
+                })
+            drawBureauBorderDone = true;
+        }
+        drawBureauBorder();
+
+        // 振興局境界線ON/OFF button
+        svg.append("text")
+        .attr("x", 610)
+        .attr("y", 620)
+        .attr("font-size", "30px")  
+        .attr("id", "bureauBorder_on_off")
+        .attr("style", "cursor: pointer;")
+        .style("fill", "#F66780")
+        .text("振興局の境界線 ON")      
+        .on("click", function(){
+            if(drawBureauBorderDone){
+                    d3.selectAll("#bureauBorder_on_off")
+                    .style("fill", "steelblue")         
+                    .text("振興局の境界線 OFF")
+                    d3.selectAll("#bureauBorder").remove();
+                    drawBureauBorderDone = false;
+            }
+            else{
+                d3.selectAll("#bureauBorder_on_off")
+                .style("fill", "#F66780")         
+                .text("振興局の境界線 ON")
+                drawBureauBorder();
+            }
+        });
+        
 
         // 市町村名のラベル貼り
         var drawCityNameDone;
@@ -524,11 +520,9 @@
         var showElements = elementsHash[showKey].slice(0);
         showElements.sort(function(a, b){ return a - b; });
 
-        svg.selectAll(".hokkaido").selectAll("cityColor").remove()
         for (var k in attrHash) {
             e = attrHash[k];
             svg.selectAll(".hokkaido."+k)
-            .attr("id", "cityColor")
             .attr("fill", areaGrad(e[showKey]))
             .attr("style", "cursor: pointer;")
             .on("mouseover", function(d) {
