@@ -207,13 +207,70 @@
             "d": path,
             "fill": "#ccc"
         });
-            //境界要素追加
-        g.append("path")
-            .datum(topojson.mesh(topo, topo.objects.hokkaido, function(a, b) { return a !== b; }))
-            .attr({
-          "d": path,
-           "fill": "none",
-           "stroke": "#fff"
+
+        // classを指定して描画
+         g.selectAll(".hokkaido")
+            .data(hokkaido.features)
+            .enter().append("path")　
+            .attr("class", function(d) {
+                return "hokkaido " + d.properties.cityname;
+                })
+            .attr("d", path)
+            .on("click", function(d) {
+                    $.get( "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit", function( data ) {
+                    $( "#product-modal" ).html( data )
+                    $("#product-modal").modal("show")
+                })
+            })
+            .on("mouseover", function(d) {
+                d3.select(this)
+                .transition().duration(100).attr("fill", "red")
+                .style("opacity", 1);div.transition().duration(100)
+                .style("opacity", 1)
+            })
+            .on("mouseout", function(d) {
+                d3.select(this)
+                .transition().duration(200).attr("fill", "#CEF6CE");
+            })
+
+        //境界要素追加
+        var drawBorderDone;
+        function drawBorder(){
+                g.append("path")
+                    .datum(topojson.mesh(topo, topo.objects.hokkaido, function(a, b) { return a !== b; }))
+                    .attr({
+                  "d": path,
+                  "id": "border",
+                   "fill": "none",
+                   "stroke": "#D3D3D3"
+                });
+            drawBorderDone = true;
+        }
+        drawBorder();
+
+        // 境界線ON/OFF button
+        svg.append("text")
+        .attr("x", 730)
+        .attr("y", 655)
+        .attr("font-size", "30px")  
+        .attr("id", "border_on_off")
+        .attr("style", "cursor: pointer;")
+        .style("fill", "#F66780")
+        .text("境界線 ON")      
+        .on("click", function(){
+            if(drawBorderDone){
+                    d3.selectAll("#border_on_off")
+                    .style("fill", "steelblue")         
+                    .text("境界線 OFF")
+                    d3.selectAll("#border").remove();
+                    drawBorderDone = false;
+            }
+            else{
+                d3.selectAll("#border_on_off")
+                .style("fill", "#F66780")         
+                .text("境界線 ON")
+                drawBorder();
+            }
         });
 
         /* 振興局の外枠作成用にいろいろいじったやつ
@@ -384,32 +441,10 @@
                     .text("AAA");
         */
 
-        // classを指定して描画
-         g.selectAll(".hokkaido")
-            .data(hokkaido.features)
-            .enter().append("path")　
-            .attr("class", function(d) {
-                return "hokkaido " + d.properties.cityname;
-                })
-            .attr("d", path)
-            .on("click", function(d) {
-                    $.get( "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit", function( data ) {
-                    $( "#product-modal" ).html( data )
-                    $("#product-modal").modal("show")
-                })
-            })
-            .on("mouseover", function(d) {
-                d3.select(this)
-                .transition().duration(100).attr("fill", "red")
-                .style("opacity", 1);div.transition().duration(100)
-                .style("opacity", 1)
-            })
-            .on("mouseout", function(d) {
-                d3.select(this)
-                .transition().duration(200).attr("fill", "#CEF6CE");
-            })
 
-            // 市町村名のラベル貼り
+        // 市町村名のラベル貼り
+        var drawCityNameDone;
+        function drawCityName(){
             g.selectAll(".cityname-label")
                 .data(hokkaido.features)
               .enter()
@@ -417,6 +452,7 @@
                     .attr("class", function(d) {
                         return "cityname-label "+d.properties.cityname; /* class名にidを付与 */
                         })
+                    .attr("id", "cityName")
                     .attr("transform", function(d) {
                         // 文字をpath中央から、文字高さ1/2分高い位置に貼る
                         var pos = path.centroid(d);
@@ -428,6 +464,39 @@
                     .text(function(d) {
                         return attrHash[d.properties.cityname].cityname;
                     });
+                    // CSSで一旦display:noneを指定しているので、各区の先頭object上のみラベルを表示する
+            for (var k in attrHash) {
+                svg.select(".cityname-label."+k).style("display", "block");
+                svg.select(".stat-label."+k).style("display", "block");
+            }
+            drawCityNameDone = true;
+        }
+        drawCityName();
+
+        // 市町村名のラベルON/OFF button
+        svg.append("text")
+        .attr("x", 700)
+        .attr("y", 690)
+        .attr("font-size", "30px")  
+        .attr("id", "city_on_off")
+        .attr("style", "cursor: pointer;")
+        .style("fill", "#F66780")
+        .text("自治体名 ON")      
+        .on("click", function(){
+            if(drawCityNameDone){
+                    d3.selectAll("#city_on_off")
+                    .style("fill", "steelblue")         
+                    .text("自治体名 OFF")
+                    d3.selectAll("#cityName").remove();
+                    drawCityNameDone = false;
+            }
+            else{
+                d3.selectAll("#city_on_off")
+                .style("fill", "#F66780")         
+                .text("自治体名 ON")
+                drawCityName();
+            }
+        });
 
         // zoom and pan
         var zoom = d3.behavior.zoom()
@@ -440,12 +509,6 @@
             .attr("d", path.projection(projection));
         });
         svg.call(zoom)
-
-        // CSSで一旦display:noneを指定しているので、各区の先頭object上のみラベルを表示する
-        for (var k in attrHash) {
-            svg.select(".cityname-label."+k).style("display", "block");
-            svg.select(".stat-label."+k).style("display", "block");
-        }
 
         drawMapDone = true;
     }
@@ -461,9 +524,11 @@
         var showElements = elementsHash[showKey].slice(0);
         showElements.sort(function(a, b){ return a - b; });
 
+        svg.selectAll(".hokkaido").selectAll("cityColor").remove()
         for (var k in attrHash) {
             e = attrHash[k];
             svg.selectAll(".hokkaido."+k)
+            .attr("id", "cityColor")
             .attr("fill", areaGrad(e[showKey]))
             .attr("style", "cursor: pointer;")
             .on("mouseover", function(d) {
@@ -644,6 +709,7 @@
                     "cms" : "サー１３", "mail" : "サー１４", "bu" : "サー１５",
                     "rs" : "サー１６", "ps" : "サー１７", "fn" : "サー１８",
                     "ns" : "サー１９", "ib" : "サー２０" }
+
         svg.selectAll("a").selectAll("text").remove()
         svg.append("a").append("text")
             .attr("x", 600)
