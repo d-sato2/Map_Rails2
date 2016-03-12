@@ -1,8 +1,8 @@
 class HokkaidoController < ApplicationController
   protect_from_forgery except: :edit
   def index
-        @bureau_id = {"isikari" => ["id011002","id012173","id012246","id012319","id012343","id012351",
-                                "id012330", "id013030", "id013048"]}
+    @bureau_id = {"isikari" => ["id011002","id012173","id012246","id012319","id012343","id012351",
+                            "id012330", "id013030", "id013048"]}
     @names = { "vender" => "サー１", "kyougi" => "サー２", "kiban" => "サー３",
                 "el_kyodo" => "サー４", "kokaike" => "サー５", "koumu" => "サー６",
                 "todoku" => "サー７", "eac" => "サー８", "frs" => "サー９",

@@ -38,7 +38,7 @@
                 <tbody>
                 <% @search.each do |hvalue| %>
                     <tr>
-                        <td><%= link_to hvalue.cityname, '#' ,:onclick => "get_data(#{hvalue.id})" %></td>
+                        <td><%= link_to hvalue.cityname, '#', :onMouseover => "changeCityColor()", :onMouseout => "backCityColor()" ,:onclick => "get_data(#{hvalue.id})", :class => "aaaaa", :id =>hvalue.cityid %></td>
                     </tr>
                 <% end %>
                 </tbody>
@@ -47,8 +47,27 @@
         <iframe src="http://localhost:3000/hokkaido/info" frameborder="0" height="800" scrolling="no"></iframe>
     </div>
 </div>
-
 <script type="text/javascript">
+
+    function changeCityColor(){
+        var cityid = d3.selectAll("a.aaaaa").attr("id")
+        d3.selectAll(".hokkaido."+cityid)
+        .transition().duration(100).attr("fill", "red")
+    }
+
+    var color = ["#ffffff", "#29D2F3", "#b3ffff", "#b3fff2", "#b3ffd9", "#b3ffcc",
+                "#b3ffb3", "#bfffb3", "#d9ffb3", "#e6ffb3", "#ffffb3", "#fff2b3",
+                "#ffd9b3", "#ffccb3", "#ffb3bf", "#ffb3d9", "#ffb3e6", "#ffb3ff",
+                "#f2b3ff", "#d9b3ff", "#ccb3ff", "#b3b3ff", "#b3bfff", "#b3d9ff"]
+    var areaGrad = d3.scale.ordinal()
+            .domain(["未導入", "導入", "不参加", "参加", "HARP", "HDC", "HID", "ズコーシャ", "三和", "TKC", "富士通", "HBA", "SEC", "iTEC", "TAS", "NEC", "北海HISYS", "アート", "アイネス", "CB", "HCC", "IBM", "SSE", "BMC", "町村会", "RKK", "その他", "改訂", "基準（町村会）", "改訂（町村会）", "基準（町村会）"])
+            .range([color[0], color[1], color[0], color[1], color[1], color[2], color[3], color[4], color[5], color[6], color[7], color[8], color[9], color[10], color[11], color[12], color[13], color[14], color[15], color[16], color[17], color[18], color[19], color[20], color[21], color[22], color[23], color[1], color[5], color[10], color[15]]);
+    var current_showKey;
+    function backCityColor(){
+        var cityid = d3.selectAll("a.aaaaa").attr("id")
+        d3.selectAll(".hokkaido."+cityid)
+        .transition().duration(100).attr("fill", areaGrad(attrHash[cityid][current_showKey]))
+    }
 
     function entryChange1(){
         radio = document.getElementsByName('entryPlan')
@@ -72,16 +91,16 @@
     }
 
     var div = d3.select("body").append("div")
-  .attr("class", "tooltip")
-  .style("opacity", 0);
+      .attr("class", "tooltip")
+      .style("opacity", 0);
 
     var div2 = d3.select("body").append("div")
-  .attr("class", "tooltip2")
-  .style("opacity", 0);
+      .attr("class", "tooltip2")
+      .style("opacity", 0);
 
     var div3 = d3.select("body").append("div")
-  .attr("class", "tooltip3")
-  .style("opacity", 0);
+      .attr("class", "tooltip3")
+      .style("opacity", 0);
 
     // file読み込み制御用
     var readTopofileDone = false;
@@ -96,7 +115,6 @@
     // map読み込み完了フラグ
     var drawMapDone = false;
 
-    var color = ["#ffffff", "#29D2F3", "#b3ffff", "#b3fff2", "#b3ffd9", "#b3ffcc", "#b3ffb3", "#bfffb3", "#d9ffb3", "#e6ffb3", "#ffffb3", "#fff2b3", "#ffd9b3", "#ffccb3", "#ffb3bf", "#ffb3d9", "#ffb3e6", "#ffb3ff", "#f2b3ff", "#d9b3ff", "#ccb3ff", "#b3b3ff", "#b3bfff", "#b3d9ff"]
 
     // 配列の最大値を求める関数を定義しておく
     Array.prototype.max = function () {
@@ -172,7 +190,6 @@
 
         // 北海道のmapを読み込み
         var hokkaido = topojson.feature(topo, topo.objects.hokkaido)
-        console.log(hokkaido)
 
         // 北海道の中心を指定したメルカトル図法でサイズ指定
         var projection = d3.geo.mercator()
@@ -199,6 +216,15 @@
            "stroke": "#fff"
         });
 
+        /* 振興局の外枠作成用にいろいろいじったやつ
+        var bureau_id = [];
+        for(var i in attrHash) {
+            var bureau_name = attrHash[i]["bureau"];
+            var cityid_number = attrHash[i]["cityid"]
+            bureau_id.push({
+                bureau_name :cityid_number
+            })
+        }
         var isikari = d3.set(["id011002","id012173","id012246","id012319","id012343","id012351",
                                 "id012330", "id013030", "id013048"]);
         var ohotuku = d3.set(["id012084", "id012114", "id012190", "id015431", "id015440", "id015458",
@@ -236,6 +262,17 @@
         var hiyama = d3.set(["id013617", "id013625", "id013633", "id013641", "id013676", "id013706",
                            "id013714"]);
 
+        var bureau = [isikari, ohotuku, sorachi, kushiro, koushi, nemuro, souya, tokachi, kamikawa, iburi, watarishima, hidaka, rumoi, hiyama]
+        for (var i in bureau.length) {
+             svg.append("path")
+                .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return bureau[i].has(d.properties["cityname"]); })))
+                .attr({
+                  "d": path,
+                  "fill": "#333",
+                  "stroke": "#000",
+                })
+        }
+
        //マージエリア追加
       svg.append("path")
         .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return isikari.has(d.properties["cityname"]); })))
@@ -244,97 +281,108 @@
           "fill": "none",
           "stroke": "#000",
         })
-      svg.append("path")
+      g.append("path")
         .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return sorachi.has(d.properties["cityname"]); })))
         .attr({
           "d": path,
           "fill": "none",
           "stroke": "#000",
         })
-        svg.append("path")
+        g.append("path")
         .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return ohotuku.has(d.properties["cityname"]); })))
         .attr({
           "d": path,
           "fill": "none",
           "stroke": "#000",
         })
-         svg.append("path")
+         g.append("path")
         .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return kushiro.has(d.properties["cityname"]); })))
         .attr({
           "d": path,
           "fill": "none",
           "stroke": "#000",
         })
-         svg.append("path")
+         g.append("path")
         .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return koushi.has(d.properties["cityname"]); })))
         .attr({
           "d": path,
           "fill": "none",
           "stroke": "#000",
         })
-         svg.append("path")
+         g.append("path")
         .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return nemuro.has(d.properties["cityname"]); })))
         .attr({
           "d": path,
           "fill": "none",
           "stroke": "#000",
         })
-         svg.append("path")
+         g.append("path")
         .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return souya.has(d.properties["cityname"]); })))
         .attr({
           "d": path,
           "fill": "none",
           "stroke": "#000",
         })
-         svg.append("path")
+         g.append("path")
         .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return tokachi.has(d.properties["cityname"]); })))
         .attr({
           "d": path,
           "fill": "none",
           "stroke": "#000",
         })
-         svg.append("path")
+         g.append("path")
         .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return kamikawa.has(d.properties["cityname"]); })))
         .attr({
           "d": path,
           "fill": "none",
           "stroke": "#000",
         })
-         svg.append("path")
+         g.append("path")
         .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return watarishima.has(d.properties["cityname"]); })))
         .attr({
           "d": path,
           "fill": "none",
           "stroke": "#000",
         })
-         svg.append("path")
+         g.append("path")
         .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return hidaka.has(d.properties["cityname"]); })))
         .attr({
           "d": path,
           "fill": "none",
           "stroke": "#000",
         })
-         svg.append("path")
+         g.append("path")
         .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return iburi.has(d.properties["cityname"]); })))
         .attr({
           "d": path,
           "fill": "none",
           "stroke": "#000",
         })
-         svg.append("path")
+         g.append("path")
         .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return rumoi.has(d.properties["cityname"]); })))
         .attr({
           "d": path,
           "fill": "none",
           "stroke": "#000",
         })
-         svg.append("path")
+         g.append("path")
         .datum(topojson.merge(topo, topo.objects.hokkaido.geometries.filter(function(d) { return hiyama.has(d.properties["cityname"]); })))
         .attr({
           "d": path,
           "fill": "none",
           "stroke": "#000",
         })
+        .append("text")
+        .attr("transform", function(d) {
+                        // 文字をpath中央から、文字高さ1/2分高い位置に貼る
+                        var pos = path.centroid(d);
+                        pos[1] -= labelLineHight / 8;
+                        return "translate(" + pos + ")";
+                    })
+                    .attr("dy", ".35em")
+                    .style("font-size", "9px")
+                    .text("AAA");
+        */
 
         // classを指定して描画
          g.selectAll(".hokkaido")
@@ -360,6 +408,26 @@
                 d3.select(this)
                 .transition().duration(200).attr("fill", "#CEF6CE");
             })
+
+            // 市町村名のラベル貼り
+            g.selectAll(".cityname-label")
+                .data(hokkaido.features)
+              .enter()
+                .append("text")
+                    .attr("class", function(d) {
+                        return "cityname-label "+d.properties.cityname; /* class名にidを付与 */
+                        })
+                    .attr("transform", function(d) {
+                        // 文字をpath中央から、文字高さ1/2分高い位置に貼る
+                        var pos = path.centroid(d);
+                        pos[1] -= labelLineHight / 8;
+                        return "translate(" + pos + ")";
+                    })
+                    .attr("dy", ".35em")
+                    .style("font-size", "9px")
+                    .text(function(d) {
+                        return attrHash[d.properties.cityname].cityname;
+                    });
 
         // zoom and pan
         var zoom = d3.behavior.zoom()
@@ -387,14 +455,11 @@
         if (drawMapDone == false) {
             return;
         }
+        current_showKey = showKey
 
         // 色塗り
         var showElements = elementsHash[showKey].slice(0);
         showElements.sort(function(a, b){ return a - b; });
-
-        var areaGrad = d3.scale.ordinal()
-                        .domain(["未導入", "導入", "不参加", "参加", "HARP", "HDC", "HID", "ズコーシャ", "三和", "TKC", "富士通", "HBA", "SEC", "iTEC", "TAS", "NEC", "北海HISYS", "アート", "アイネス", "CB", "HCC", "IBM", "SSE", "BMC", "町村会", "RKK", "その他", "改訂", "基準（町村会）", "改訂（町村会）", "基準（町村会）"])
-                        .range([color[0], color[1], color[0], color[1], color[1], color[2], color[3], color[4], color[5], color[6], color[7], color[8], color[9], color[10], color[11], color[12], color[13], color[14], color[15], color[16], color[17], color[18], color[19], color[20], color[21], color[22], color[23], color[1], color[5], color[10], color[15]]);
 
         for (var k in attrHash) {
             e = attrHash[k];
@@ -464,8 +529,6 @@
             }
             legend[f[showKey]]++;
         }
-
-
 
         //データセットをループで作成
         if (showKey == "vender"){
@@ -574,13 +637,13 @@
             .text(function(d) { return d.data.name; });
 
 
-    var names = { "vender" : "サー１", "kyougi" : "サー２", "kiban" : "サー３",
-                "el_kyodo" : "サー４", "kokaike" : "サー５", "koumu" : "サー６",
-                "todoku" : "サー７", "eac" : "サー８", "frs" : "サー９",
-                "eps" : "サー１０", "ca" : "サー１１", "gw" : "サー１２",
-                "cms" : "サー１３", "mail" : "サー１４", "bu" : "サー１５",
-                "rs" : "サー１６", "ps" : "サー１７", "fn" : "サー１８",
-                "ns" : "サー１９", "ib" : "サー２０" }
+        var names = { "vender" : "サー１", "kyougi" : "サー２", "kiban" : "サー３",
+                    "el_kyodo" : "サー４", "kokaike" : "サー５", "koumu" : "サー６",
+                    "todoku" : "サー７", "eac" : "サー８", "frs" : "サー９",
+                    "eps" : "サー１０", "ca" : "サー１１", "gw" : "サー１２",
+                    "cms" : "サー１３", "mail" : "サー１４", "bu" : "サー１５",
+                    "rs" : "サー１６", "ps" : "サー１７", "fn" : "サー１８",
+                    "ns" : "サー１９", "ib" : "サー２０" }
         svg.selectAll("a").selectAll("text").remove()
         svg.append("a").append("text")
             .attr("x", 600)
