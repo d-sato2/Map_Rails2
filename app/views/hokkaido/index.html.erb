@@ -413,6 +413,7 @@
         drawBureauBorder();
 
         // 振興局境界線ON/OFF button
+
         svg.append("text")
         .attr("x", 610)
         .attr("y", 620)
@@ -434,6 +435,66 @@
                 .style("fill", "#F66780")         
                 .text("振興局の境界線 ON")
                 drawBureauBorder();
+            }
+        });
+
+        var bureauName = [
+            {name:"空知総合", x:340, y:370},
+            {name:"石狩", x:285, y:430},
+            {name:"後志", x:210, y:450},
+            {name:"胆振", x:300, y:505},
+            {name:"日高", x:425, y:535},
+            {name:"渡島総合", x:210, y:610},
+            {name:"檜山", x:100, y:540},
+            {name:"檜山", x:130, y:630},
+            {name:"上川総合", x:390, y:250},
+            {name:"留萌", x:330, y:230},
+            {name:"宗谷総合", x:340, y:80},
+            {name:"オホーツク総合", x:530, y:270},
+            {name:"十勝総合", x:490, y:450},
+            {name:"釧路総合", x:630, y:420},
+            {name:"根室", x:730, y:350}
+        ]  
+
+        // 振興局名貼り付け
+        var drawBureauNameDone;
+        function drawBureauName(){
+                g.selectAll("bureauBorder")
+                .data(bureauName)
+                .enter()
+                .append("text")
+                .attr("id", "bureauName")
+                .attr("x", function(d){return d.x})
+                .attr("y", function(d){return d.y})
+                .attr("font-size", "25px")
+                .style("fill", bureauColor)
+                .text(function(d){return d.name});
+                drawBureauNameDone = true;
+        }
+        drawBureauName();
+
+        // 振興局名のラベルON/OFF button
+        svg.append("text")
+        .attr("x", 700)
+        .attr("y", 585)
+        .attr("font-size", "30px")  
+        .attr("id", "bureau_on_off")
+        .attr("style", "cursor: pointer;")
+        .style("fill", "#F66780")
+        .text("振興局名 ON")      
+        .on("click", function(){
+            if(drawBureauNameDone){
+                    d3.selectAll("#bureau_on_off")
+                    .style("fill", "steelblue")         
+                    .text("振興局名 OFF")
+                    d3.selectAll("#bureauName").remove();
+                    drawBureauNameDone = false;
+            }
+            else{
+                d3.selectAll("#bureau_on_off")
+                .style("fill", "#F66780")         
+                .text("振興局名 ON")
+                drawBureauName();
             }
         });
         
