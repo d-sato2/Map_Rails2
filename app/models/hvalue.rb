@@ -1,6 +1,7 @@
 require 'csv'
 
 class Hvalue < ActiveRecord::Base
+  has_many :hcontacts
 
   has_paper_trail
 

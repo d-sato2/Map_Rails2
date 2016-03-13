@@ -11,7 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160227055856) do
+ActiveRecord::Schema.define(version: 20160313104056) do
+
+  create_table "hcontacts", force: :cascade do |t|
+    t.string   "bureau"
+    t.string   "cityname"
+    t.string   "service"
+    t.string   "department"
+    t.string   "person"
+    t.string   "phone"
+    t.string   "mail"
+    t.text     "memo"
+    t.integer  "hvalue_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "mail2"
+  end
+
+  add_index "hcontacts", ["hvalue_id"], name: "index_hcontacts_on_hvalue_id"
 
   create_table "hvalues", force: :cascade do |t|
     t.string   "cityid"

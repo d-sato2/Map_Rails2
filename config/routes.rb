@@ -13,14 +13,6 @@ Rails.application.routes.draw do
 
   get 'hokkaido/version' => 'hokkaido#version'
 
-  get 'hokkaido/index' => 'hokkaido#index'
-  post 'hokkaido/index' => 'hokkaido#index'
-  patch 'hokkaido/index' => 'hokkaido#index'
-
-
-  get 'hokkaido/edit2' => 'hokkaido#edit2'
-  post 'hokkaido/edit2' => 'hokkaido#edit2'
-  patch 'hokkaido/edit2' => 'hokkaido#edit2'
   post 'hokkaido/update' => 'hokkaido#update'
   patch 'hokkaido/update' => 'hokkaido#update'
 
@@ -38,10 +30,10 @@ Rails.application.routes.draw do
   get 'hokkaido/move_edit' => 'hokkaido#move_edit'
   post 'hokkaido/move_edit' => 'hokkaido#move_edit'
 
-  get 'hokkaido/select_bureau' => 'hokkaido#select_bureau'
-  post 'hokkaido/select_bureau' => 'hokkaido#select_bureau'
-
   get 'hokkaido/:id/edit.js.erb' => 'hokkaido#edit'
+
+
+  get 'hokkaido/hcontact' => 'hokkaido#hcontact'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

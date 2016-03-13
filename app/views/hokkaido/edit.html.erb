@@ -10,6 +10,36 @@
       </div>
       <div class="modal-body">
         <div class="row">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>振興局</th>
+                <th>市町村</th>
+                <th>サービス</th>
+                <th>担当課</th>
+                <th>担当者</th>
+                <th>電話番号</th>
+                <th>mail</th>
+                <th>mail2</th>
+                <th>備考欄</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @hcontact.each do |hcontact| %>
+                <tr>
+                  <td><%= hcontact.bureau %></td>
+                  <td><%= hcontact.cityname %></td>
+                  <td><%= hcontact.service %></td>
+                  <td><%= hcontact.department %></td>
+                  <td><%= hcontact.person %></td>
+                  <td><%= hcontact.phone %></td>
+                  <td><%= mail_to hcontact.mail %></td>
+                  <td><%= mail_to hcontact.mail2 %></td>
+                  <td><%= hcontact.memo %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
           <div class="col-md-6" style="height: 100%;">
             <div style="height: 50%;">
               <p><%= @hvalue.cityname %>の備考欄</p>

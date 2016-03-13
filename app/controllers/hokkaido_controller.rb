@@ -56,6 +56,7 @@ class HokkaidoController < ApplicationController
   def edit
     @versions = PaperTrail::Version.order('created_at DESC')
     @hvalue = Hvalue.find(params[:id])
+    @hcontact = @hvalue.hcontacts
     @value = [["会社No.1", '1'], ["会社No.2", '2'], ["会社No.3", '3'], ["会社No.4", '4'], ["会社No.5", '5'], ["会社No.6", '6'],
               ["会社No.7", '7'], ["会社No.8", '8'], ["会社No.9", '9'], ["会社No.10", '10'], ["会社No.11", '11'], ["会社No.12", '12'],
               ["会社No.13", '13'], ["会社No.14", '14'], ["会社No.15", '15'], ["会社No.16", '16'], ["会社No.17", '17'], ["会社No.18", '18'],
@@ -102,6 +103,10 @@ class HokkaidoController < ApplicationController
                 "ns" => "サー１９", "ib" => "サー２０" }
     @versions = PaperTrail::Version.order('created_at DESC')
     render layout: false
+  end
+
+  def hcontact
+    @hcontact = Hcontact.all
   end
 
   def csv
