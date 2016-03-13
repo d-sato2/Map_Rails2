@@ -447,7 +447,7 @@
             {name:"渡島総合", x:210, y:610},
             {name:"檜山", x:100, y:540},
             {name:"檜山", x:130, y:630},
-            {name:"上川総合", x:390, y:250},
+            {name:"上川総合", x:400, y:280},
             {name:"留萌", x:330, y:230},
             {name:"宗谷総合", x:340, y:80},
             {name:"オホーツク総合", x:530, y:270},
@@ -471,7 +471,6 @@
                 .text(function(d){return d.name});
                 drawBureauNameDone = true;
         }
-        drawBureauName();
 
         // 振興局名のラベルON/OFF button
         svg.append("text")
@@ -480,8 +479,8 @@
         .attr("font-size", "30px")  
         .attr("id", "bureau_on_off")
         .attr("style", "cursor: pointer;")
-        .style("fill", "#F66780")
-        .text("振興局名 ON")      
+        .style("fill", "steelblue")
+        .text("振興局名 OFF")      
         .on("click", function(){
             if(drawBureauNameDone){
                     d3.selectAll("#bureau_on_off")
