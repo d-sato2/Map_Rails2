@@ -32,85 +32,85 @@
           </div>
           <div class="col-md-6">
             <p><%= @hvalue.cityname %>の契約状況</p>
-            <label><input type="radio" name="entryPlan" value="hoge1" onclick="entryChange1();" checked />HARP基盤関連</label>
-            <label><input type="radio" name="entryPlan" value="hoge2" onclick="entryChange1();" />HARP基盤関係なし</label>
+            <label><input type="radio" name="entryPlan" value="hoge1" onclick="entryChange1();" checked />hoge関連</label>
+            <label><input type="radio" name="entryPlan" value="hoge2" onclick="entryChange1();" />hoge関係なし</label>
             <div class="field">
               <div id="kiban">
                 <div class="form-group form-group-xs">
                   <div class="col-md-6">
-                    <%= f.label "HARP協議会", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー１", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :kyougi, @kyougi_value, {:selected => @hvalue[:kyougi]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "HARP基盤", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー２", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :kiban, @others_value, {:selected => @hvalue[:kiban]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "電子申請", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー３", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :eac, @others_value, {:selected => @hvalue[:eac]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "施設予約", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー４", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :frs, @others_value, {:selected => @hvalue[:frs]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "電子調達", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー５", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :eps, @others_value, {:selected => @hvalue[:eps]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "総合行政", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー６", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :ca, @others_value, {:selected => @hvalue[:ca]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "公会計", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー７", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :kokaike, @kokaike_value, {:selected => @hvalue[:kokaike]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "とどくん", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー８", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :todoku, @others_value, {:selected => @hvalue[:todoku]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "GW", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー９", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :gw, @others_value, {:selected => @hvalue[:gw]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "CMS", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー１０", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :cms, @others_value, {:selected => @hvalue[:cms]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "リソース", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー１１", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :rs, @others_value, {:selected => @hvalue[:rs]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "人事給与", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー１２", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :ps, @others_value, {:selected => @hvalue[:ps]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "ふるさと納税", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー１３", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :fn, @others_value, {:selected => @hvalue[:fn]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
@@ -119,43 +119,43 @@
               </div>
               <div id="service">
                   <div class="col-md-6">
-                    <%= f.label "eLTax", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー１４", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :el_kyodo, @others_value, {:selected => @hvalue[:el_kyodo]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "校務支援", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー１５", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :koumu, @others_value, {:selected => @hvalue[:koumu]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "任用支援", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー１６", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :ns, @others_value, {:selected => @hvalue[:ns]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "Mail", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー１７", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :mail, @others_value, {:selected => @hvalue[:mail]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "バックアップ", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー１８", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :bu, @others_value, {:selected => @hvalue[:bu]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "ICT-BCP", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー１９", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :ib, @others_value, {:selected => @hvalue[:ib]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                   </div>
                   <div class="col-md-6">
-                    <%= f.label "事業者（ベンダ）", {class: 'control-label', style: "width: 180px;"}%>
+                    <%= f.label "サー２０", {class: 'control-label', style: "width: 180px;"}%>
                   </div>
                   <div class="col-md-6">
                     <%= f.select :vender, @vender_value, {:selected => @hvalue[:vender]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>

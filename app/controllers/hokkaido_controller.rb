@@ -53,20 +53,6 @@ class HokkaidoController < ApplicationController
     render layout: false
   end
 
-  def edit2
-    @bureau_for_select = [["石狩", "石狩"], ["空知", "空知"], ["後志", "後志"], ["胆振", "胆振"], ["日高", "日高"], ["渡島", "渡島"],
-               ["檜山", "檜山"], ["上川", "上川"], ["留萌", "留萌"], ["宗谷", "宗谷"], ["オホーツク", "オホーツク"], ["十勝", "十勝"],
-               ["釧路", "釧路"], ["根室", "根室"]]
-    @bureau = Hvalue.new unless params.key?(:bureau)
-
-    if params.key?(:hvalue)
-      @bureau_test = Hvalue.search_bureau(params[:hvalue][:bureau])
-    end
-
-    @search = Hvalue.search(params[:search])
-    @hvalue = Hvalue.new unless params.key?(:cityname)
-  end
-
   def edit
     @versions = PaperTrail::Version.order('created_at DESC')
     @hvalue = Hvalue.find(params[:id])
@@ -156,10 +142,6 @@ class HokkaidoController < ApplicationController
   def move_show
     @hvalue = Hvalue.find_by(cityname: params[:hvalue][:cityname])
     redirect_to "/hokkaido/show/#{@hvalue.id}"
-  end
-
-  def select_bureau
-    @bureau_test = Hvalue.search_bureau(params[:hvalue][:bureau])
   end
 
   private
