@@ -33,10 +33,10 @@
       var cityid = $("a").attr("id")
       var cityColor = $(".hokkaido."+cityid ,parent.document).css("fill")
         $("a").mouseover(function(){
-            $(".hokkaido."+cityid ,parent.document).css("fill", "red");
+            $(".hokkaido."+cityid ,parent.document).attr("fill", "red");
         });
         $("a").mouseout(function(){
-            $(".hokkaido."+cityid ,parent.document).css("fill", cityColor);
+            $(".hokkaido."+cityid ,parent.document).attr("fill", cityColor);
         });
     });
 </script>

@@ -223,13 +223,13 @@
                 })
             })
             .on("mouseover", function(d) {
-                d3.select(this)
+                svg.selectAll(".hokkaido." + attrHash[d.properties.cityname].cityid)
                 .transition().duration(100).attr("fill", "red")
                 .style("opacity", 1);div.transition().duration(100)
                 .style("opacity", 1)
             })
             .on("mouseout", function(d) {
-                d3.select(this)
+                svg.selectAll(".hokkaido." + attrHash[d.properties.cityname].cityid)
                 .transition().duration(200).attr("fill", "#CEF6CE");
             })
 
@@ -622,7 +622,7 @@
                 content += "<center>" + "</center>";
                 content += "<center>"+ "-----------------hoge関係なし-----------------" + "</center>";
                 content += kiban_igaiAfter
-                d3.select(this)
+                svg.selectAll(".hokkaido." + attrHash[d.properties.cityname].cityid)
                 .transition().duration(100).attr("fill", "red")
                 .style("opacity", 1);div.transition().duration(100)
                 .style("opacity", 1)
@@ -631,7 +631,7 @@
                 .style("top", (d3.event.pageY -100) + "px");
             })
             .on("mouseout", function(d) {
-                d3.select(this)
+                svg.selectAll(".hokkaido." + attrHash[d.properties.cityname].cityid)
                 .transition().duration(200).attr("fill", areaGrad(attrHash[d.properties.cityname][showKey]))
                 .style("opacity", 1.0);
                 div.transition().duration(200)
