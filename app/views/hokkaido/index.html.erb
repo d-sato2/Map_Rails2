@@ -304,6 +304,40 @@
                 .transition().duration(200).attr("fill", "#CEF6CE");
             })
 
+        //自治体ON/OFFボタン用スペース作成
+        svg.append("rect")
+        .attr("x", 690)
+        .attr("y", 585)
+        .attr("height", 50)
+        .attr("width", 200)
+        .attr("rx", 20)
+        .attr("ry", 20)
+        .attr("fill", "#E6F8E0");
+        svg.append("text")
+        .attr("x", 760)
+        .attr("y", 595)
+        .attr("font-size", "20px")
+        .style("fill", "black")
+        .style("font-weight", "bold")
+        .text("自治体");
+
+        //振興局ON/OFFボタン用スペース作成
+        svg.append("rect")
+        .attr("x", 690)
+        .attr("y", 645)
+        .attr("height", 50)
+        .attr("width", 200)
+        .attr("rx", 20)
+        .attr("ry", 20)
+        .attr("fill", "#F5F6CE");
+        svg.append("text")
+        .attr("x", 760)
+        .attr("y", 655)
+        .attr("font-size", "20px")
+        .style("fill", "black")
+        .style("font-weight", "bold")
+        .text("振興局");
+
         //境界要素追加
         var drawBorderDone;
         function drawBorder(){
@@ -321,28 +355,29 @@
 
         // 境界線ON/OFF button
         svg.append("text")
-        .attr("x", 730)
-        .attr("y", 655)
-        .attr("font-size", "30px")
+        .attr("x", 780)
+        .attr("y", 620)
+        .attr("font-size", "20px")
         .attr("id", "border_on_off")
         .attr("style", "cursor: pointer;")
         .style("fill", "#F66780")
-        .text("境界線 ON")
+        .text("境界線ON")
         .on("click", function(){
             if(drawBorderDone){
                     d3.selectAll("#border_on_off")
                     .style("fill", "steelblue")
-                    .text("境界線 OFF")
+                    .text("境界線OFF")
                     d3.selectAll("#border").remove();
                     drawBorderDone = false;
             }
             else{
                 d3.selectAll("#border_on_off")
                 .style("fill", "#F66780")
-                .text("境界線 ON")
+                .text("境界線ON")
                 drawBorder();
             }
         });
+
 
         /*振興局の外枠作成用にいろいろいじったやつ
         var bureau_id = [];
@@ -486,25 +521,25 @@
         // 振興局境界線ON/OFF button
 
         svg.append("text")
-        .attr("x", 610)
-        .attr("y", 620)
-        .attr("font-size", "30px")
+        .attr("x", 780)
+        .attr("y", 680)
+        .attr("font-size", "20px")
         .attr("id", "bureauBorder_on_off")
         .attr("style", "cursor: pointer;")
         .style("fill", "#F66780")
-        .text("振興局の境界線 ON")
+        .text("境界線ON")
         .on("click", function(){
             if(drawBureauBorderDone){
                     d3.selectAll("#bureauBorder_on_off")
                     .style("fill", "steelblue")
-                    .text("振興局の境界線 OFF")
+                    .text("境界線OFF")
                     d3.selectAll("#bureauBorder").remove();
                     drawBureauBorderDone = false;
             }
             else{
                 d3.selectAll("#bureauBorder_on_off")
                 .style("fill", "#F66780")
-                .text("振興局の境界線 ON")
+                .text("境界線ON")
                 drawBureauBorder();
             }
         });
@@ -546,24 +581,24 @@
         // 振興局名のラベルON/OFF button
         svg.append("text")
         .attr("x", 700)
-        .attr("y", 585)
-        .attr("font-size", "30px")
+        .attr("y", 680)
+        .attr("font-size", "20px")
         .attr("id", "bureau_on_off")
         .attr("style", "cursor: pointer;")
         .style("fill", "steelblue")
-        .text("振興局名 OFF")
+        .text("名前OFF")
         .on("click", function(){
             if(drawBureauNameDone){
                     d3.selectAll("#bureau_on_off")
                     .style("fill", "steelblue")
-                    .text("振興局名 OFF")
+                    .text("名前OFF")
                     d3.selectAll("#bureauName").remove();
                     drawBureauNameDone = false;
             }
             else{
                 d3.selectAll("#bureau_on_off")
                 .style("fill", "#F66780")
-                .text("振興局名 ON")
+                .text("名前ON")
                 drawBureauName();
             }
         });
@@ -603,24 +638,24 @@
         // 市町村名のラベルON/OFF button
         svg.append("text")
         .attr("x", 700)
-        .attr("y", 690)
-        .attr("font-size", "30px")
+        .attr("y", 620)
+        .attr("font-size", "20px")
         .attr("id", "city_on_off")
         .attr("style", "cursor: pointer;")
         .style("fill", "#F66780")
-        .text("自治体名 ON")
+        .text("名前ON")
         .on("click", function(){
             if(drawCityNameDone){
                     d3.selectAll("#city_on_off")
                     .style("fill", "steelblue")
-                    .text("自治体名 OFF")
+                    .text("名前OFF")
                     d3.selectAll("#cityName").remove();
                     drawCityNameDone = false;
             }
             else{
                 d3.selectAll("#city_on_off")
                 .style("fill", "#F66780")
-                .text("自治体名 ON")
+                .text("名前ON")
                 drawCityName();
             }
         });
@@ -652,63 +687,122 @@
         showElements.sort(function(a, b){ return a - b; });
 
         for (var k in attrHash) {
-            e = attrHash[k];
-            svg.selectAll(".hokkaido."+k)
-            .attr("fill", areaGrad(e[showKey]))
-            .attr("style", "cursor: pointer;")
-            .on("mouseover", function(d) {
-                var kiban = ( attrHash[d.properties.cityname].kiban== "導入" ) ? "○" : "×";
-                var eac = ( attrHash[d.properties.cityname].eac == "導入" ) ? "<%= @names["eac"] %>" + "、" : "";
-                var frs = ( attrHash[d.properties.cityname].frs == "導入" ) ? "<%= @names["frs"] %>" + "、" : "";
-                var eps = ( attrHash[d.properties.cityname].eps == "導入" ) ? "<%= @names["eps"] %>" + "、" : "";
-                var ca = ( attrHash[d.properties.cityname].ca == "導入" ) ? "<%= @names["ca"] %>" + "、" : "";
-                var kokaike = ( attrHash[d.properties.cityname].kokaike == "改訂" ) ? "<%= @names["kokaike"] %>" + "、" : "";
-                var kokaike2 = ( attrHash[d.properties.cityname].kokaike == "基準" ) ? "<%= @names["kokaike"] %>" + "、" : "";
-                var kokaike3 = ( attrHash[d.properties.cityname].kokaike == "改訂（町村会）" ) ? "<%= @names["kokaike"] %>" + "、" : "";
-                var kokaike4 = ( attrHash[d.properties.cityname].kokaike == "基準（町村会）" ) ? "<%= @names["kokaike"] %>" + "、" : "";
-                var todoku = ( attrHash[d.properties.cityname].todoku == "導入" ) ? "<%= @names["todoku"] %>" + "、" : "";
-                var gw = ( attrHash[d.properties.cityname].gw == "導入" ) ? "<%= @names["gw"] %>" + "、" : "";
-                var cms = ( attrHash[d.properties.cityname].cms == "導入" ) ? "<%= @names["cms"] %>" + "、" : "";
-                var rs = ( attrHash[d.properties.cityname].rs == "導入" ) ? "<%= @names["rs"] %>" + "、" : "";
-                var ps = ( attrHash[d.properties.cityname].ps == "導入" ) ? "<%= @names["ps"] %>" + "、" : "";
-                var fn = ( attrHash[d.properties.cityname].fn == "導入" ) ? "<%= @names["fn"] %>" + "、" : "";
-                var kiban_kei =  eac + frs + eps + ca + kokaike + kokaike2 + kokaike3 + kokaike4 + todoku + gw + cms + rs + ps + fn;
+            if (k == "id010006"){
+                e = attrHash["id010006"]
+                svg.selectAll(".hokkaido."+ "id010006")
+                .attr("fill", areaGrad(e[showKey]))
+                .attr("style", "cursor: pointer;")
+                .on("mouseover", function(d) {
+                    var kiban = ( e.kiban== "導入" ) ? "○" : "×";
+                    var eac = ( e.eac == "導入" ) ? "<%= @names["eac"] %>" + "、" : "";
+                    var frs = ( e.frs == "導入" ) ? "<%= @names["frs"] %>" + "、" : "";
+                    var eps = ( e.eps == "導入" ) ? "<%= @names["eps"] %>" + "、" : "";
+                    var ca = ( e.ca == "導入" ) ? "<%= @names["ca"] %>" + "、" : "";
+                    var kokaike = ( e.kokaike == "改訂" ) ? "<%= @names["kokaike"] %>" + "、" : "";
+                    var kokaike2 = ( e.kokaike == "基準" ) ? "<%= @names["kokaike"] %>" + "、" : "";
+                    var kokaike3 = ( e.kokaike == "改訂（町村会）" ) ? "<%= @names["kokaike"] %>" + "、" : "";
+                    var kokaike4 = ( e.kokaike == "基準（町村会）" ) ? "<%= @names["kokaike"] %>" + "、" : "";
+                    var todoku = ( e.todoku == "導入" ) ? "<%= @names["todoku"] %>" + "、" : "";
+                    var gw = ( e.gw == "導入" ) ? "<%= @names["gw"] %>" + "、" : "";
+                    var cms = ( e.cms == "導入" ) ? "<%= @names["cms"] %>" + "、" : "";
+                    var rs = ( e.rs == "導入" ) ? "<%= @names["rs"] %>" + "、" : "";
+                    var ps = ( e.ps == "導入" ) ? "<%= @names["ps"] %>" + "、" : "";
+                    var fn = ( e.fn == "導入" ) ? "<%= @names["fn"] %>" + "、" : "";
+                    var kiban_kei =  eac + frs + eps + ca + kokaike + kokaike2 + kokaike3 + kokaike4 + todoku + gw + cms + rs + ps + fn;
 
-                var el_kyodo = ( attrHash[d.properties.cityname].el_kyodo== "導入" ) ? "<%= @names["el_kyodo"] %>" + "、" : "";
-                var koumu = ( attrHash[d.properties.cityname].koumu== "導入" ) ? "<%= @names["koumu"] %>" + "、" : "";
-                var ns = ( attrHash[d.properties.cityname].ns == "導入" ) ? "<%= @names["ns"] %>" + "、" : "";
-                var mail = ( attrHash[d.properties.cityname].mail == "導入" ) ? "<%= @names["mail"] %>" + "、" : "";
-                var bu = ( attrHash[d.properties.cityname].bu == "導入" ) ? "<%= @names["bu"] %>" + "、" : "";
-                var ib = ( attrHash[d.properties.cityname].ib == "導入" ) ? "<%= @names["ib"] %>" + "、" : "";
-                var vender = ( attrHash[d.properties.cityname].vender == "HARP" ) ? "<%= @names["vender"] %>" + "、" : "";
-                var kiban_igai = el_kyodo + koumu + ns + mail + bu + ib + vender;
-                // の末尾に"、"がある場合は削除
-                var kiban_keiAfter = ( kiban_kei.substr( (kiban_kei.length-1) )  == "、" ) ? kiban_kei.substr( 0 , (kiban_kei.length-1) ) : kiban_kei;
-                var kiban_igaiAfter = ( kiban_igai.substr( (kiban_igai.length-1) )  == "、" ) ? kiban_igai.substr( 0 , (kiban_igai.length-1) ) : kiban_igai;
-                var content = "";
-                content += "<center>"+ attrHash[d.properties.cityname].cityname + "</center>";
-                content += "<center>" + "【hoge負担】" + kiban + "</center>";
-                content += "<center>"+ "--------------hoge関連サービス--------------" + "</center>";
-                content += kiban_keiAfter
-                content += "<center>" + "</center>";
-                content += "<center>"+ "-----------------hoge関係なし-----------------" + "</center>";
-                content += kiban_igaiAfter
-                svg.selectAll(".hokkaido." + attrHash[d.properties.cityname].cityid)
-                .transition().duration(100).attr("fill", "red")
-                .style("opacity", 1);div.transition().duration(100)
-                .style("opacity", 1)
-                div.html(content)
-                .style("left", (d3.event.pageX +30) + "px")
-                .style("top", (d3.event.pageY -100) + "px");
-            })
-            .on("mouseout", function(d) {
-                svg.selectAll(".hokkaido." + attrHash[d.properties.cityname].cityid)
-                .transition().duration(200).attr("fill", areaGrad(attrHash[d.properties.cityname][showKey]))
-                .style("opacity", 1.0);
-                div.transition().duration(200)
-                .style("opacity", 0);
-            })
-            svg.select(".cityname-label."+k).attr("fill", "black");
+                    var el_kyodo = ( e.el_kyodo== "導入" ) ? "<%= @names["el_kyodo"] %>" + "、" : "";
+                    var koumu = ( e.koumu== "導入" ) ? "<%= @names["koumu"] %>" + "、" : "";
+                    var ns = ( e.ns == "導入" ) ? "<%= @names["ns"] %>" + "、" : "";
+                    var mail = ( e.mail == "導入" ) ? "<%= @names["mail"] %>" + "、" : "";
+                    var bu = ( e.bu == "導入" ) ? "<%= @names["bu"] %>" + "、" : "";
+                    var ib = ( e.ib == "導入" ) ? "<%= @names["ib"] %>" + "、" : "";
+                    var vender = ( e.vender == "HARP" ) ? "<%= @names["vender"] %>" + "、" : "";
+                    var kiban_igai = el_kyodo + koumu + ns + mail + bu + ib + vender;
+                    // の末尾に"、"がある場合は削除
+                    var kiban_keiAfter = ( kiban_kei.substr( (kiban_kei.length-1) )  == "、" ) ? kiban_kei.substr( 0 , (kiban_kei.length-1) ) : kiban_kei;
+                    var kiban_igaiAfter = ( kiban_igai.substr( (kiban_igai.length-1) )  == "、" ) ? kiban_igai.substr( 0 , (kiban_igai.length-1) ) : kiban_igai;
+                    var content = "";
+                    content += "<center>"+ e.cityname + "</center>";
+                    content += "<center>" + "【hoge負担】" + kiban + "</center>";
+                    content += "<center>"+ "--------------hoge関連サービス--------------" + "</center>";
+                    content += kiban_keiAfter
+                    content += "<center>" + "</center>";
+                    content += "<center>"+ "-----------------hoge関係なし-----------------" + "</center>";
+                    content += kiban_igaiAfter
+                    svg.selectAll(".hokkaido." + e.cityid)
+                    .transition().duration(100).attr("fill", "red")
+                    .style("opacity", 1);div.transition().duration(100)
+                    .style("opacity", 1)
+                    div.html(content)
+                    .style("left", (d3.event.pageX +30) + "px")
+                    .style("top", (d3.event.pageY -100) + "px");
+                })
+                .on("mouseout", function(d) {
+                    svg.selectAll(".hokkaido." + e.cityid)
+                    .transition().duration(200).attr("fill", areaGrad(e[showKey]))
+                    .style("opacity", 1.0);
+                    div.transition().duration(200)
+                    .style("opacity", 0);
+                })
+
+            }
+            else{
+                svg.selectAll(".hokkaido."+k)
+                .attr("fill", areaGrad(attrHash[k][showKey]))
+                .attr("style", "cursor: pointer;")
+                .on("mouseover", function(d) {
+                    var kiban = ( attrHash[d.properties.cityname].kiban== "導入" ) ? "○" : "×";
+                    var eac = ( attrHash[d.properties.cityname].eac == "導入" ) ? "<%= @names["eac"] %>" + "、" : "";
+                    var frs = ( attrHash[d.properties.cityname].frs == "導入" ) ? "<%= @names["frs"] %>" + "、" : "";
+                    var eps = ( attrHash[d.properties.cityname].eps == "導入" ) ? "<%= @names["eps"] %>" + "、" : "";
+                    var ca = ( attrHash[d.properties.cityname].ca == "導入" ) ? "<%= @names["ca"] %>" + "、" : "";
+                    var kokaike = ( attrHash[d.properties.cityname].kokaike == "改訂" ) ? "<%= @names["kokaike"] %>" + "、" : "";
+                    var kokaike2 = ( attrHash[d.properties.cityname].kokaike == "基準" ) ? "<%= @names["kokaike"] %>" + "、" : "";
+                    var kokaike3 = ( attrHash[d.properties.cityname].kokaike == "改訂（町村会）" ) ? "<%= @names["kokaike"] %>" + "、" : "";
+                    var kokaike4 = ( attrHash[d.properties.cityname].kokaike == "基準（町村会）" ) ? "<%= @names["kokaike"] %>" + "、" : "";
+                    var todoku = ( attrHash[d.properties.cityname].todoku == "導入" ) ? "<%= @names["todoku"] %>" + "、" : "";
+                    var gw = ( attrHash[d.properties.cityname].gw == "導入" ) ? "<%= @names["gw"] %>" + "、" : "";
+                    var cms = ( attrHash[d.properties.cityname].cms == "導入" ) ? "<%= @names["cms"] %>" + "、" : "";
+                    var rs = ( attrHash[d.properties.cityname].rs == "導入" ) ? "<%= @names["rs"] %>" + "、" : "";
+                    var ps = ( attrHash[d.properties.cityname].ps == "導入" ) ? "<%= @names["ps"] %>" + "、" : "";
+                    var fn = ( attrHash[d.properties.cityname].fn == "導入" ) ? "<%= @names["fn"] %>" + "、" : "";
+                    var kiban_kei =  eac + frs + eps + ca + kokaike + kokaike2 + kokaike3 + kokaike4 + todoku + gw + cms + rs + ps + fn;
+
+                    var el_kyodo = ( attrHash[d.properties.cityname].el_kyodo== "導入" ) ? "<%= @names["el_kyodo"] %>" + "、" : "";
+                    var koumu = ( attrHash[d.properties.cityname].koumu== "導入" ) ? "<%= @names["koumu"] %>" + "、" : "";
+                    var ns = ( attrHash[d.properties.cityname].ns == "導入" ) ? "<%= @names["ns"] %>" + "、" : "";
+                    var mail = ( attrHash[d.properties.cityname].mail == "導入" ) ? "<%= @names["mail"] %>" + "、" : "";
+                    var bu = ( attrHash[d.properties.cityname].bu == "導入" ) ? "<%= @names["bu"] %>" + "、" : "";
+                    var ib = ( attrHash[d.properties.cityname].ib == "導入" ) ? "<%= @names["ib"] %>" + "、" : "";
+                    var vender = ( attrHash[d.properties.cityname].vender == "HARP" ) ? "<%= @names["vender"] %>" + "、" : "";
+                    var kiban_igai = el_kyodo + koumu + ns + mail + bu + ib + vender;
+                    // の末尾に"、"がある場合は削除
+                    var kiban_keiAfter = ( kiban_kei.substr( (kiban_kei.length-1) )  == "、" ) ? kiban_kei.substr( 0 , (kiban_kei.length-1) ) : kiban_kei;
+                    var kiban_igaiAfter = ( kiban_igai.substr( (kiban_igai.length-1) )  == "、" ) ? kiban_igai.substr( 0 , (kiban_igai.length-1) ) : kiban_igai;
+                    var content = "";
+                    content += "<center>"+ attrHash[d.properties.cityname].cityname + "</center>";
+                    content += "<center>" + "【hoge負担】" + kiban + "</center>";
+                    content += "<center>"+ "--------------hoge関連サービス--------------" + "</center>";
+                    content += kiban_keiAfter
+                    content += "<center>" + "</center>";
+                    content += "<center>"+ "-----------------hoge関係なし-----------------" + "</center>";
+                    content += kiban_igaiAfter
+                    svg.selectAll(".hokkaido." + attrHash[d.properties.cityname].cityid)
+                    .transition().duration(100).attr("fill", "red")
+                    .style("opacity", 1);div.transition().duration(100)
+                    .style("opacity", 1)
+                    div.html(content)
+                    .style("left", (d3.event.pageX +30) + "px")
+                    .style("top", (d3.event.pageY -100) + "px");
+                })
+                .on("mouseout", function(d) {
+                    svg.selectAll(".hokkaido." + attrHash[d.properties.cityname].cityid)
+                    .transition().duration(200).attr("fill", areaGrad(attrHash[d.properties.cityname][showKey]))
+                    .style("opacity", 1.0);
+                    div.transition().duration(200)
+                    .style("opacity", 0);
+                })
+            }
         }
         //円グラフ用にデータをカウント
         var legend = {};
