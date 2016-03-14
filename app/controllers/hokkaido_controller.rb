@@ -134,6 +134,11 @@ class HokkaidoController < ApplicationController
     render json: data
   end
 
+  def hokkaido_only
+    data = File.read('db/hokkaido_only.json')
+    render json: data
+  end
+
   def hokkaido_value
     data = Hvalue.all
     render json: data.to_json(except: [:created_at, :updated_at])

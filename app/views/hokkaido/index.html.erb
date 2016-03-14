@@ -141,25 +141,37 @@
         attrdata = json;
         readAttrfileDone = true;
     }
+    function readTopofile2(json) {
+        topo2data = json;
+        readTopofile2Done = true;
+    }
 
     d3.json("hokkaido/hokkaido_map", function(error, json) {
         if(error) return console.warn(error);
             readTopofile(json);
-            if (readTopofileDone && readAttrfileDone) {
-                main(topodata, attrdata);
+            if (readTopofileDone && readAttrfileDone && readTopofile2Done) {
+                main(topodata, attrdata, topo2data);
             }
         });
 
     d3.json("hokkaido/hokkaido_value", function(error, json) {
         if(error) return console.warn(error);
             readAttrfile(json);
-            if (readTopofileDone && readAttrfileDone) {
-                main(topodata, attrdata);
+            if (readTopofileDone && readAttrfileDone && readTopofile2Done) {
+                main(topodata, attrdata, topo2data);
                 changeShowKey('kiban','');
             }
         });
 
-    function main(topo, attr) {
+    d3.json("hokkaido/hokkaido_only", function(error, json) {
+        if(error) return console.warn(error);
+            readTopofile2(json);
+            if (readTopofileDone && readAttrfileDone && readTopofile2Done) {
+                main(topodata, attrdata, topo2data);
+            }
+        });
+
+    function main(topo, attr, topo2) {
 
         var labelLineHight = 16;
 
@@ -187,6 +199,51 @@
                 .attr("width", '100%')
                 .attr("height", '100%');
         var g = svg.append("g");
+
+        //北海道だけのMAPを描写
+        var drawHokkaidoOnly;
+        function drawHokkaidoOnly(){
+            // 北海道のmapだけを読み込み
+            var hokkaidoOnly = topojson.feature(topo2, topo2.objects.japan)
+            console.log(hokkaidoOnly);
+
+            // 横浜市を中心に指定したメルカトル図法で10万分の1で描画する
+            var projection = d3.geo.mercator()
+                    .center([130.59,33.45])
+                    .scale(1000)
+                    .translate([map_width / 2, map_height / 2]);
+
+            // pathを作成する
+            var path = d3.geo.path().projection(projection);
+            svg.append("path")
+              .datum(hokkaidoOnly)
+              .attr({
+                    "class": "hokkaido id010006",
+                    "d": path,
+                    "fill": "#bee59e"
+                })
+              .on("click", function(d) {
+              })
+              .on("mouseover", function(d) {
+                  svg.selectAll(".hokkaido.id010006")
+                  .transition().duration(100).attr("fill", "red")
+              })
+              .on("mouseout", function(d) {
+                  svg.selectAll(".hokkaido.id010006")
+                  .transition().duration(200).attr("fill", "#CEF6CE");
+              })
+
+              svg.append("text")
+                .attr("id", "hokkaidoName")
+                .attr("x", 625)
+                .attr("y", 130)
+                .attr("font-size", "13px")
+                .style("fill", "black")
+                .text("北海道");
+
+            drawHokkaidoOnly = true;
+        }
+        drawHokkaidoOnly();
 
         // 北海道のmapを読み込み
         var hokkaido = topojson.feature(topo, topo.objects.hokkaido)
@@ -252,22 +309,22 @@
         svg.append("text")
         .attr("x", 730)
         .attr("y", 655)
-        .attr("font-size", "30px")  
+        .attr("font-size", "30px")
         .attr("id", "border_on_off")
         .attr("style", "cursor: pointer;")
         .style("fill", "#F66780")
-        .text("境界線 ON")      
+        .text("境界線 ON")
         .on("click", function(){
             if(drawBorderDone){
                     d3.selectAll("#border_on_off")
-                    .style("fill", "steelblue")         
+                    .style("fill", "steelblue")
                     .text("境界線 OFF")
                     d3.selectAll("#border").remove();
                     drawBorderDone = false;
             }
             else{
                 d3.selectAll("#border_on_off")
-                .style("fill", "#F66780")         
+                .style("fill", "#F66780")
                 .text("境界線 ON")
                 drawBorder();
             }
@@ -417,22 +474,22 @@
         svg.append("text")
         .attr("x", 610)
         .attr("y", 620)
-        .attr("font-size", "30px")  
+        .attr("font-size", "30px")
         .attr("id", "bureauBorder_on_off")
         .attr("style", "cursor: pointer;")
         .style("fill", "#F66780")
-        .text("振興局の境界線 ON")      
+        .text("振興局の境界線 ON")
         .on("click", function(){
             if(drawBureauBorderDone){
                     d3.selectAll("#bureauBorder_on_off")
-                    .style("fill", "steelblue")         
+                    .style("fill", "steelblue")
                     .text("振興局の境界線 OFF")
                     d3.selectAll("#bureauBorder").remove();
                     drawBureauBorderDone = false;
             }
             else{
                 d3.selectAll("#bureauBorder_on_off")
-                .style("fill", "#F66780")         
+                .style("fill", "#F66780")
                 .text("振興局の境界線 ON")
                 drawBureauBorder();
             }
@@ -454,7 +511,7 @@
             {name:"十勝総合", x:490, y:450},
             {name:"釧路総合", x:630, y:420},
             {name:"根室", x:730, y:350}
-        ]  
+        ]
 
         // 振興局名貼り付け
         var drawBureauNameDone;
@@ -476,27 +533,27 @@
         svg.append("text")
         .attr("x", 700)
         .attr("y", 585)
-        .attr("font-size", "30px")  
+        .attr("font-size", "30px")
         .attr("id", "bureau_on_off")
         .attr("style", "cursor: pointer;")
         .style("fill", "steelblue")
-        .text("振興局名 OFF")      
+        .text("振興局名 OFF")
         .on("click", function(){
             if(drawBureauNameDone){
                     d3.selectAll("#bureau_on_off")
-                    .style("fill", "steelblue")         
+                    .style("fill", "steelblue")
                     .text("振興局名 OFF")
                     d3.selectAll("#bureauName").remove();
                     drawBureauNameDone = false;
             }
             else{
                 d3.selectAll("#bureau_on_off")
-                .style("fill", "#F66780")         
+                .style("fill", "#F66780")
                 .text("振興局名 ON")
                 drawBureauName();
             }
         });
-        
+
 
         // 市町村名のラベル貼り
         var drawCityNameDone;
@@ -533,22 +590,22 @@
         svg.append("text")
         .attr("x", 700)
         .attr("y", 690)
-        .attr("font-size", "30px")  
+        .attr("font-size", "30px")
         .attr("id", "city_on_off")
         .attr("style", "cursor: pointer;")
         .style("fill", "#F66780")
-        .text("自治体名 ON")      
+        .text("自治体名 ON")
         .on("click", function(){
             if(drawCityNameDone){
                     d3.selectAll("#city_on_off")
-                    .style("fill", "steelblue")         
+                    .style("fill", "steelblue")
                     .text("自治体名 OFF")
                     d3.selectAll("#cityName").remove();
                     drawCityNameDone = false;
             }
             else{
                 d3.selectAll("#city_on_off")
-                .style("fill", "#F66780")         
+                .style("fill", "#F66780")
                 .text("自治体名 ON")
                 drawCityName();
             }

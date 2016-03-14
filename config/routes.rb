@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get 'hokkaido/hokkaido_map'
   get 'hokkaido/hokkaido_value'
+  get 'hokkaido/hokkaido_only'
   get 'japan/japan_map'
   get 'japan/japan_value'
 

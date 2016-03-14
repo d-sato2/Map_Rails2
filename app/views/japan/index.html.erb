@@ -59,7 +59,7 @@
                 .attr("height", map_height);
 
         // 横浜市のmapを描画する
-        var japan = topojson.object(topo, topo.objects.japan);
+        var japan = topojson.feature(topo, topo.objects.japan);
         console.log(japan);
 
         // 横浜市を中心に指定したメルカトル図法で10万分の1で描画する
@@ -86,7 +86,7 @@
         // 区コードのラベル貼り
         var city_labels = new Array();
         svg.selectAll(".cityname-label")
-            .data(japan.geometries)
+            .data(japan.features)
           .enter()
             .append("text")
                 .attr("class", function(d) {
