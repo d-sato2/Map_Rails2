@@ -209,7 +209,7 @@
 
             // 横浜市を中心に指定したメルカトル図法で10万分の1で描画する
             var projection = d3.geo.mercator()
-                    .center([130.59,33.45])
+                    .center([120.79,33.45])
                     .scale(1000)
                     .translate([map_width / 2, map_height / 2]);
 
@@ -220,9 +220,14 @@
               .attr({
                     "class": "hokkaido id010006",
                     "d": path,
-                    "fill": "#bee59e"
+                    "fill": "#bee59e",
+                    "stroke": "#D3D3D3"
                 })
               .on("click", function(d) {
+                    $.get( "/hokkaido/180/edit", function( data ) {
+                    $( "#product-modal" ).html( data )
+                    $("#product-modal").modal("show")
+                })
               })
               .on("mouseover", function(d) {
                   svg.selectAll(".hokkaido.id010006")
@@ -233,9 +238,18 @@
                   .transition().duration(200).attr("fill", "#CEF6CE");
               })
 
+                svg.append('circle')
+                    .attr({
+                      'cx': 810,
+                      'cy': 130,
+                      'r': 70,
+                      'fill': "none",
+                      'stroke': "black"
+                    });
+
               svg.append("text")
                 .attr("id", "hokkaidoName")
-                .attr("x", 625)
+                .attr("x", 795)
                 .attr("y", 130)
                 .attr("font-size", "13px")
                 .style("fill", "black")

@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-hvalue = ActiveSupport::JSON.decode(File.read('db/160306_hvalue_for_demo_sagyoutyuu.json'))
+hvalue = ActiveSupport::JSON.decode(File.read('db/160314_hvalue_hokkaido_added.json'))
 hvalue.each do |data|
   Hvalue.create(data)
 end
@@ -16,7 +16,7 @@ japan.each do |data|
   Japan.create(data)
 end
 
-hcontact = ActiveSupport::JSON.decode(File.read('db/160313_hcontact_dummy.json'))
+hcontact = ActiveSupport::JSON.decode(File.read('db/160314_hcontact_dummy_h180.json'))
 hcontact.each do |data|
   Hcontact.create(data)
 end

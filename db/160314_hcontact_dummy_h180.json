@@ -9,7 +9,7 @@
     "bureau": "-", 
     "department": "department1", 
     "mail": "maila1", 
-    "hvalue_id": "0"
+    "hvalue_id": "180"
   }, 
   {
     "mail2": "mailb3", 
@@ -21,7 +21,7 @@
     "bureau": "-", 
     "department": "department2", 
     "mail": "maila2", 
-    "hvalue_id": "0"
+    "hvalue_id": "180"
   }, 
   {
     "mail2": "mailb4", 
@@ -45,7 +45,7 @@
     "bureau": "-", 
     "department": "department4", 
     "mail": "maila4", 
-    "hvalue_id": "0"
+    "hvalue_id": "180"
   }, 
   {
     "mail2": "mailb6", 
@@ -57,7 +57,7 @@
     "bureau": "-", 
     "department": "department5", 
     "mail": "maila5", 
-    "hvalue_id": "0"
+    "hvalue_id": "180"
   }, 
   {
     "mail2": "mailb7", 
@@ -69,7 +69,7 @@
     "bureau": "-", 
     "department": "department6", 
     "mail": "maila6", 
-    "hvalue_id": "0"
+    "hvalue_id": "180"
   }, 
   {
     "mail2": "mailb8", 
@@ -81,7 +81,7 @@
     "bureau": "-", 
     "department": "department7", 
     "mail": "maila7", 
-    "hvalue_id": "180"
+    "hvalue_id": "181"
   }, 
   {
     "mail2": "mailb9", 
