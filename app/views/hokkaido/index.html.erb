@@ -160,7 +160,6 @@
             readAttrfile(json);
             if (readTopofileDone && readAttrfileDone && readTopofile2Done) {
                 main(topodata, attrdata, topo2data);
-                changeShowKey('kiban','');
             }
         });
 
@@ -208,7 +207,7 @@
             var hokkaidoOnly = topojson.feature(topo2, topo2.objects.japan)
             console.log(hokkaidoOnly);
 
-            // 横浜市を中心に指定したメルカトル図法で10万分の1で描画する
+            // 北海道を中心に指定したメルカトル図法で10万分の1で描画する
             var projection = d3.geo.mercator()
                     .center([120.79,33.45])
                     .scale(1000)
@@ -221,7 +220,7 @@
               .attr({
                     "class": "hokkaido id010006",
                     "d": path,
-                    "fill": "#bee59e",
+                    "fill": "#CEF6CE",
                     "stroke": "#D3D3D3"
                 })
               .on("click", function(d) {
@@ -277,7 +276,7 @@
           .datum(topojson.mesh(topo, topo.objects.hokkaido, function(a, b) { return a == b; }))
           .attr({
             "d": path,
-            "fill": "#ccc"
+            "fill": "#fff"
         });
 
         // classを指定して描画
@@ -288,6 +287,7 @@
                 return "hokkaido " + d.properties.cityname;
                 })
             .attr("d", path)
+            .attr("fill", "#CEF6CE")
             .on("click", function(d) {
                     $.get( "/hokkaido/" + attrHash[d.properties.cityname].id + "/edit", function( data ) {
                     $( "#product-modal" ).html( data )
@@ -674,6 +674,7 @@
         svg.call(zoom)
 
         drawMapDone = true;
+        changeShowKey("kiban");
     }
 
     function changeShowKey(showKey, unit) {

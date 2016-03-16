@@ -15,22 +15,21 @@ class Hvalue < ActiveRecord::Base
   end
 
   def self.csv_column_names
-    %W(ID 自治体コード 自治体名 振興局 人口 GW 施設予約 ICT-BCP
-      リソース 電子申請 電子調達 バックアップ Mail 契約ベンダ
-      任用支援 CMS 総合行政 ふるさと納税 人事給与 作成日時 更新日時 HARP協議会
-      HARP基盤 eLTax 公会計 校務 とどくん 備考欄２ 備考欄１)
+    %W(ID 自治体コード 自治体名 振興局 HARP協議会 HARP基盤 電子申請 施設予約
+      電子調達 総合行政 公会計 とどくん GW CMS リソース 人事給与 ふるさと納税
+      eLTax 校務 任用支援 Mail バックアップ ICT-BCP 契約ベンダ 備考欄２ 備考欄１
+       作成日時 更新日時
+       )
   end
 
   def csv_column_values
-    [id, cityid, cityname, bureau, ttl, changeWord(gw),
-      changeWord(ib), changeWord(ft), changeWord(rs),
-      changeWord(eac), changeWord(eps), changeWord(bu),
-      changeWord(mail), vender, changeWord(ns),
-      changeWord(cms), changeWord(ca), changeWord(fn),
-      changeWord(ps), created_at, updated_at, changeWordForKyougi(kyougi),
-      changeWord(kiban), changeWord(el_kyodo),
-      changeWord(kokaike), changeWord(koumu), changeWord(todoku),
-      memo_kiban, memo_service]
+    [id, cityid.slice!(2, 6), cityname, bureau, changeWordForKyougi(kyougi),
+      changeWord(kiban), changeWord(eac), changeWord(frs),
+      changeWord(eps), changeWord(ca), changeWord(kokaike), changeWord(todoku),
+      changeWord(gw), changeWord(cms), changeWord(rs), changeWord(ps), changeWord(fn),
+      changeWord(el_kyodo), changeWord(koumu), changeWord(ns), changeWord(mail),
+      changeWord(bu), changeWord(ib), vender, memo_kiban, memo_service,
+      created_at, updated_at]
   end
 
   def changeWord(aaa)

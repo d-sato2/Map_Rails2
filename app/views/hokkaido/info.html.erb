@@ -30,9 +30,12 @@
         })
     }
     $(document).ready(function(){
-      var cityid = $("a").attr("id")
-      var cityColor = $(".hokkaido."+cityid ,parent.document).css("fill")
+      var cityid;
+      var cityColor;
         $("a").mouseover(function(){
+          cityid = $("a").attr("id")
+          cityColor = $(".hokkaido."+cityid ,parent.document).css("fill")
+          console.log(cityColor)
             $(".hokkaido."+cityid ,parent.document).attr("fill", "red");
         });
         $("a").mouseout(function(){
