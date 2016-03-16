@@ -15,17 +15,38 @@ class Hvalue < ActiveRecord::Base
   end
 
   def self.csv_column_names
-    %W(ID 自治体コード 自治体名 振興局 人口 GW 施設予約 ICT-BCP とどくん
-      リソース 校務支援 電子申請 電子調達 バックアップ 公会計 eLTax Mail 契約ベンダ
+    %W(ID 自治体コード 自治体名 振興局 人口 GW 施設予約 ICT-BCP
+      リソース 電子申請 電子調達 バックアップ Mail 契約ベンダ
       任用支援 CMS 総合行政 ふるさと納税 人事給与 作成日時 更新日時 HARP協議会
       HARP基盤 eLTax 公会計 校務 とどくん 備考欄２ 備考欄１)
   end
 
   def csv_column_values
-    [id, cityid, cityname, bureau, ttl, gw, frs, ib, ft,
-      rs, ss, eac, eps, bu, pa, et, mail, vender,
-      ns, cms, ca, fn, ps, created_at, updated_at, kyougi,
-      kiban, el_kyodo, kokaike, koumu, todoku, memo_kiban, memo_service]
+    [id, cityid, cityname, bureau, ttl, changeWord(gw),
+      changeWord(ib), changeWord(ft), changeWord(rs),
+      changeWord(eac), changeWord(eps), changeWord(bu),
+      changeWord(mail), vender, changeWord(ns),
+      changeWord(cms), changeWord(ca), changeWord(fn),
+      changeWord(ps), created_at, updated_at, changeWordForKyougi(kyougi),
+      changeWord(kiban), changeWord(el_kyodo),
+      changeWord(kokaike), changeWord(koumu), changeWord(todoku),
+      memo_kiban, memo_service]
+  end
+
+  def changeWord(aaa)
+    if aaa == "導入"
+      aaa = "○"
+    elsif aaa == "未導入"
+      aaa = ""
+    end
+  end
+
+  def changeWordForKyougi(aaa)
+    if aaa == "参加"
+      aaa = "○"
+    else
+      aaa = ""
+    end
   end
 
   def self.search(search)
