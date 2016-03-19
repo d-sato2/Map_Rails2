@@ -73,7 +73,7 @@ class HokkaidoController < ApplicationController
                 "cms" => "サー１３", "mail" => "サー１４", "bu" => "サー１５",
                 "rs" => "サー１６", "ps" => "サー１７", "fn" => "サー１８",
                 "ns" => "サー１９", "ib" => "サー２０" }
-                
+
     @kibanForm =[[:kyougi, "サー１", @kyougi_value], [:kiban, "サー２", @others_value], [:eac, "サー３", @others_value], [:frs, "サー４", @others_value],
                  [:eps, "サー５", @others_value], [:ca, "サー６", @others_value], [:kokaike, "サー７", @kokaike_value], [:todoku, "サー８", @others_value],
                  [:gw, "サー９", @others_value], [:cms, "サー１０", @others_value], [:rs, "サー１１", @others_value], [:ps, "サー１２", @others_value], 
@@ -123,7 +123,7 @@ class HokkaidoController < ApplicationController
   end
 
   def csv_version
-    @versions = PaperTrail::Version.where("length(object_changes) < 300").order('created_at DESC')
+    @versions = Version.all
 
     respond_to do |format|
       format.html

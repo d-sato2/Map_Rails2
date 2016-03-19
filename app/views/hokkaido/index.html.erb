@@ -23,7 +23,7 @@
             </div>
         <div class="btn-group-vertical" role="group" style = "margin: 10px 0px 0px 0px;">
             <%= link_to "自治体情報.xls", hokkaido_csv_path(format: "xls"), class: "btn btn-large btn-primary" %>
-            <%= link_to "自治体情報.csv", hokkaido_csv_path(format: "csv"), class: "btn btn-large btn-primary" %>
+            <%= link_to "更新情報.xls", hokkaido_csv_version_path(format: "xls"), class: "btn btn-large btn-primary" %>
         </div>
     </div>
     <div class="col-md-7" style="width:924px; height:760px;">
@@ -318,7 +318,7 @@
         .attr("font-size", "20px")
         .style("fill", "black")
         .style("font-weight", "bold")
-        .text("自治体");
+        .text("市町村");
 
         //振興局ON/OFFボタン用スペース作成
         svg.append("rect")
@@ -900,7 +900,7 @@
                 var per2 = per.toFixed(1);
                 var content = "";
                 content += "<center>"+ d.data.name + "</center>";
-                content += d.value + "/179自治体(" + per2 + "%)"
+                content += d.value + "/180自治体(" + per2 + "%)"
                 div2.html(content)
                 .style("left", (d3.event.pageX +10) + "px")
                 .style("top", (d3.event.pageY -40) + "px");

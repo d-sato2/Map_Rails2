@@ -1,22 +1,22 @@
-module PaperTrail
-	require 'csv'
-	class Version < ActiveRecord::Base
+require 'csv'
+class Version < PaperTrail::Version
+	def self.to_csv(options = {})
+	    CSV.generate(options) do |csv|
+			csv << csv_column_names
+			all.each do |version|
+				if version.reify
+			        csv << version.csv_column_values
+			    end
+			end
+	    end
+	end
 
-		def self.to_csv(options = {})
-		    CSV.generate(options) do |csv|
-				csv << column_names
-					all.each do |hvalue|
-					csv << hvalue.attributes.values_at(*column_names)
-				end
-		    end
-		 end
+	def self.csv_column_names
+	    %W(ID 更新年月日 自治体名 項目 更新前 更新後)
+	end
 
-		def self.csv_column_names
-			%W(ID cityid cityname 振興局 ttl gw frs ib ft rs ss eac eps bu pa et mail vender ns cms ca fn ps \u4F5C\u6210\u65E5\u6642 \u66F4\u65B0\u65E5\u6642)
-		end
-
-		def csv_column_values
-			[changeset]
-		end
+	def csv_column_values
+	    [id, changeset.to_a[1][1][1], reify.cityname, changeset.to_a[0][0],
+	     changeset.to_a[0][1][0], changeset.to_a[0][1][1]]
 	end
 end
