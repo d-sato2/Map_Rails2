@@ -117,8 +117,8 @@ class HokkaidoController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @hvalues.to_csv }
-      format.xls { send_data @hvalues.to_csv(col_sep: "\t") }
+      format.csv { send_data @hvalues.to_csv, filename: "#{Date.today}_北海道_自治体情報.csv" }
+      format.xls { send_data @hvalues.to_csv(col_sep: "\t"), filename: "#{Date.today}_北海道_自治体情報.xls" }
     end
   end
 
@@ -127,8 +127,8 @@ class HokkaidoController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @versions.to_csv }
-      format.xls { send_data @versions.to_csv(col_sep: "\t") }
+      format.csv { send_data @versions.to_csv, filename: "#{Date.today}_北海道_更新履歴.csv" }
+      format.xls { send_data @versions.to_csv(col_sep: "\t"), filename: "#{Date.today}_北海道_更新履歴.xls" }
     end
   end
 
