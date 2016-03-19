@@ -50,7 +50,7 @@ class Hvalue < ActiveRecord::Base
 
   def self.search(search)
     if search.present?
-      Hvalue.where('cityname like ?', "%#{search}%")
+      Hvalue.where('cityname like ? OR citynameKana like ? ', "%#{search}%", "%#{search}%")
     else
       Hvalue.none
     end

@@ -57,16 +57,12 @@ class HokkaidoController < ApplicationController
     @versions = PaperTrail::Version.order('created_at DESC')
     @hvalue = Hvalue.find(params[:id])
     @hcontact = @hvalue.hcontacts
-    @value = [["会社No.1", '1'], ["会社No.2", '2'], ["会社No.3", '3'], ["会社No.4", '4'], ["会社No.5", '5'], ["会社No.6", '6'],
-              ["会社No.7", '7'], ["会社No.8", '8'], ["会社No.9", '9'], ["会社No.10", '10'], ["会社No.11", '11'], ["会社No.12", '12'],
-              ["会社No.13", '13'], ["会社No.14", '14'], ["会社No.15", '15'], ["会社No.16", '16'], ["会社No.17", '17'], ["会社No.18", '18'],
-              ["会社No.19", '19'], ["会社No.20", '20'], ["会社No.21", '21'], ["会社No.22", '22'], ["会社No.23", '23'], %W(\u4E0D\u660E 0)]
     @kiban_column = [:kiban, :el_kyodo, :kokaike, :koumu, :todoku]
+
     @vender_value = [["hoge", "hoge"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["その他", "その他"]]
     @kyougi_value = [["参加", "参加"], ["不参加", "不参加"]]
     @kokaike_value = [["未導入", "未導入"], ["改訂", "改訂"], ["基準", "基準"], ["改訂（町村会）", "改訂（町村会）"], ["基準（町村会）", "基準（町村会）"]]
     @others_value = [["導入", "導入"], ["未導入", "未導入"]]
-
 
     @service_column = [:eac, :frs, :eps, :ca, :pa, :gw, :cms, :mail, :bu, :rs, :ps, :fn, :ns, :ss, :ft, :et, :ib]
 
@@ -77,6 +73,13 @@ class HokkaidoController < ApplicationController
                 "cms" => "サー１３", "mail" => "サー１４", "bu" => "サー１５",
                 "rs" => "サー１６", "ps" => "サー１７", "fn" => "サー１８",
                 "ns" => "サー１９", "ib" => "サー２０" }
+                
+    @kibanForm =[[:kyougi, "サー１", @kyougi_value], [:kiban, "サー２", @others_value], [:eac, "サー３", @others_value], [:frs, "サー４", @others_value],
+                 [:eps, "サー５", @others_value], [:ca, "サー６", @others_value], [:kokaike, "サー７", @kokaike_value], [:todoku, "サー８", @others_value],
+                 [:gw, "サー９", @others_value], [:cms, "サー１０", @others_value], [:rs, "サー１１", @others_value], [:ps, "サー１２", @others_value], 
+                 [:fn, "サー１３", @others_value]]
+    @othersForm =[[:el_kyodo, "サー１４", @others_value], [:koumu, "サー１５", @others_value], [:ns, "サー１６", @others_value], [:mail, "サー１７", @others_value],
+                 [:bu, "サー１８", @others_value], [:ib, "サー１９", @others_value], [:vender, "サー２０", @vender_value]]
 
     render layout: false
     @search = Hvalue.search(params[:search])

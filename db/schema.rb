@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160313103505) do
+ActiveRecord::Schema.define(version: 20160319052655) do
 
   create_table "hcontacts", force: :cascade do |t|
     t.string   "bureau"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20160313103505) do
     t.string   "todoku"
     t.text     "memo_kiban"
     t.text     "memo_service"
+    t.string   "citynameKana"
   end
 
   create_table "japans", force: :cascade do |t|

@@ -39,7 +39,7 @@
                 <tbody>
                 <% @search.each do |hvalue| %>
                     <tr>
-                        <td><%= link_to hvalue.cityname, '#', :onMouseover => "changeCityColor()", :onMouseout => "backCityColor()" ,:onclick => "get_data(#{hvalue.id})", :class => "aaaaa", :id =>hvalue.cityid %></td>
+                        <td><%= link_to hvalue.cityname, '#', :onMouseover => "changeCityColor(#{hvalue.cityid})", :onMouseout => "backCityColor(#{hvalue.cityid})" ,:onclick => "get_data(#{hvalue.id})", :class => "aaaaa", :id =>hvalue.cityid %></td>
                     </tr>
                 <% end %>
                 </tbody>
@@ -50,9 +50,8 @@
 </div>
 <script type="text/javascript">
 
-    function changeCityColor(){
-        var cityid = d3.selectAll("a.aaaaa").attr("id")
-        d3.selectAll(".hokkaido."+cityid)
+    function changeCityColor(param){
+        d3.selectAll(".hokkaido."+param.id)
         .transition().duration(100).attr("fill", "red")
     }
 
@@ -64,10 +63,9 @@
             .domain(["未導入", "導入", "不参加", "参加", "HARP", "HDC", "HID", "ズコーシャ", "三和", "TKC", "富士通", "HBA", "SEC", "iTEC", "TAS", "NEC", "北海HISYS", "アート", "アイネス", "CB", "HCC", "IBM", "SSE", "BMC", "町村会", "RKK", "その他", "改訂", "基準（町村会）", "改訂（町村会）", "基準（町村会）"])
             .range([color[0], color[1], color[0], color[1], color[1], color[2], color[3], color[4], color[5], color[6], color[7], color[8], color[9], color[10], color[11], color[12], color[13], color[14], color[15], color[16], color[17], color[18], color[19], color[20], color[21], color[22], color[23], color[1], color[5], color[10], color[15]]);
     var current_showKey;
-    function backCityColor(){
-        var cityid = d3.selectAll("a.aaaaa").attr("id")
-        d3.selectAll(".hokkaido."+cityid)
-        .transition().duration(100).attr("fill", areaGrad(attrHash[cityid][current_showKey]))
+    function backCityColor(param){
+        d3.selectAll(".hokkaido."+param.id)
+        .transition().duration(100).attr("fill", areaGrad(attrHash[param.id][current_showKey]))
     }
 
     function entryChange1(){
@@ -205,7 +203,6 @@
         function drawHokkaidoOnly(){
             // 北海道のmapだけを読み込み
             var hokkaidoOnly = topojson.feature(topo2, topo2.objects.japan)
-            console.log(hokkaidoOnly);
 
             // 北海道を中心に指定したメルカトル図法で10万分の1で描画する
             var projection = d3.geo.mercator()
@@ -308,12 +305,13 @@
         //自治体ON/OFFボタン用スペース作成
         svg.append("rect")
         .attr("x", 690)
-        .attr("y", 585)
-        .attr("height", 50)
+        .attr("y", 598)
+        .attr("height", 30)
         .attr("width", 200)
         .attr("rx", 20)
         .attr("ry", 20)
-        .attr("fill", "#E6F8E0");
+        .attr("stroke", "black")
+        .attr("fill", "none");
         svg.append("text")
         .attr("x", 760)
         .attr("y", 595)
@@ -325,12 +323,13 @@
         //振興局ON/OFFボタン用スペース作成
         svg.append("rect")
         .attr("x", 690)
-        .attr("y", 645)
-        .attr("height", 50)
+        .attr("y", 658)
+        .attr("height", 30)
         .attr("width", 200)
         .attr("rx", 20)
         .attr("ry", 20)
-        .attr("fill", "#F5F6CE");
+        .attr("stroke", "black")
+        .attr("fill", "none");
         svg.append("text")
         .attr("x", 760)
         .attr("y", 655)
@@ -366,7 +365,7 @@
         .on("click", function(){
             if(drawBorderDone){
                     d3.selectAll("#border_on_off")
-                    .style("fill", "steelblue")
+                    .style("fill", "#2E9AFE")
                     .text("境界線OFF")
                     d3.selectAll("#border").remove();
                     drawBorderDone = false;
@@ -532,7 +531,7 @@
         .on("click", function(){
             if(drawBureauBorderDone){
                     d3.selectAll("#bureauBorder_on_off")
-                    .style("fill", "steelblue")
+                    .style("fill", "#2E9AFE")
                     .text("境界線OFF")
                     d3.selectAll("#bureauBorder").remove();
                     drawBureauBorderDone = false;
@@ -586,12 +585,12 @@
         .attr("font-size", "20px")
         .attr("id", "bureau_on_off")
         .attr("style", "cursor: pointer;")
-        .style("fill", "steelblue")
+        .style("fill", "#2E9AFE")
         .text("名前OFF")
         .on("click", function(){
             if(drawBureauNameDone){
                     d3.selectAll("#bureau_on_off")
-                    .style("fill", "steelblue")
+                    .style("fill", "#2E9AFE")
                     .text("名前OFF")
                     d3.selectAll("#bureauName").remove();
                     drawBureauNameDone = false;
@@ -634,7 +633,6 @@
             }
             drawCityNameDone = true;
         }
-        drawCityName();
 
         // 市町村名のラベルON/OFF button
         svg.append("text")
@@ -643,12 +641,12 @@
         .attr("font-size", "20px")
         .attr("id", "city_on_off")
         .attr("style", "cursor: pointer;")
-        .style("fill", "#F66780")
-        .text("名前ON")
+        .style("fill", "#2E9AFE")
+        .text("名前OFF")
         .on("click", function(){
             if(drawCityNameDone){
                     d3.selectAll("#city_on_off")
-                    .style("fill", "steelblue")
+                    .style("fill", "#2E9AFE")
                     .text("名前OFF")
                     d3.selectAll("#cityName").remove();
                     drawCityNameDone = false;
