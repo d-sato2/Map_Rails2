@@ -8,22 +8,12 @@ class HokkaidoController < ApplicationController
 
   def edit
     @iframeURL = "http://localhost:3000/hokkaido/info"
+    @hvalues = Hvalue.all
+    @hvalue = @hvalues.find(params[:id])
+    @hcontact = @hvalue.hcontacts
     @hservices = Hservice.all
     @versions = PaperTrail::Version.order('created_at DESC')
-    @hvalue = Hvalue.find(params[:id])
-    @hcontact = @hvalue.hcontacts
-    @vender_value = [["hoge", "hoge"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["会社", "会社"], ["その他", "その他"]]
-    @kyougi_value = [["参加", "参加"], ["不参加", "不参加"]]
-    @kokaike_value = [["未導入", "未導入"], ["改訂", "改訂"], ["基準", "基準"], ["改訂（町村会）", "改訂（町村会）"], ["基準（町村会）", "基準（町村会）"]]
-    @others_value = [["導入", "導入"], ["未導入", "未導入"]]
-    @kibanForm =[[:kyougi, "HARP協議会", @kyougi_value], [:kiban, "HARP基盤", @others_value], [:eac, "電子申請", @others_value], [:frs, "施設予約", @others_value],
-                 [:eps, "電子調達", @others_value], [:ca, "総合行政", @others_value], [:kokaike, "公会計", @kokaike_value], [:todoku, "とどくん", @others_value],
-                 [:gw, "GW", @others_value], [:cms, "CMS", @others_value], [:rs, "リソース", @others_value], [:ps, "人事給与", @others_value],
-                 [:fn, "ふるさと納税", @others_value]]
-    @othersForm =[[:el_kyodo, "eLTax", @others_value], [:koumu, "校務支援", @others_value], [:ns, "任用支援", @others_value], [:mail, "Mail", @others_value],
-                 [:bu, "バックアップ", @others_value], [:ib, "ICT-BCP", @others_value], [:vender, "契約ベンダ", @vender_value]]
     render layout: false
-    @search = Hvalue.search(params[:search])
   end
 
   def update
@@ -41,10 +31,6 @@ class HokkaidoController < ApplicationController
     @hservices = Hservice.all
     @versions = PaperTrail::Version.order('created_at DESC')
     render layout: false
-  end
-
-  def hcontact
-    @hcontact = Hcontact.all
   end
 
   def csv
