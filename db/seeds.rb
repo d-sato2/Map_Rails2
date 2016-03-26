@@ -16,7 +16,7 @@ japan.each do |data|
   Japan.create(data)
 end
 
-hcontact = ActiveSupport::JSON.decode(File.read('db/160324_hcontact.json'))
+hcontact = ActiveSupport::JSON.decode(File.read('db/hcontact.json'))
 hcontact.each do |data|
   Hcontact.create(data)
 end

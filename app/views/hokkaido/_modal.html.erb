@@ -61,7 +61,7 @@
                       <%=  time.year %>年<%=  time.month %>月<%=  time.day %>日<%=  time.hour %>時<%=  time.min %>分
                       「<%=  @hservices.find_by(keyName: change.to_a[0][0]).serviceName %>」を<%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
                       <br>
-                    <% end %>
+                  <% end %>
                   <% end %>
                 <% end %>
               </div>
@@ -74,12 +74,12 @@
               <h4>HARP基盤関連</h4>
               <div class="field">
                 <div class="form-group form-group-xs">
-                  <% for i in @kibanForm do %>
+                  <% for i in @hservices.where(kibanRelation: 1) do %>
                     <div class="col-md-6">
-                      <%= f.label i[1], {class: 'control-label', style: "width: 180px;"}%>
+                      <%= f.label i.serviceName, {class: 'control-label', style: "width: 180px;"}%>
                     </div>
                     <div class="col-md-6">
-                      <%= f.select i[0], i[2], {:selected => @hvalue[i[0]]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
+                      <%= f.select i.keyName, @hvalues.uniq.pluck(i.keyName), {:selected => @hvalue[i.keyName]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                     </div>
                   <% end %>
                 </div>
@@ -89,12 +89,12 @@
               <h4>HARP基盤関係なし</h4>
                 <div class="field">
                   <div class="form-group form-group-xs">
-                  <% for i in @othersForm do %>
+                  <% for i in @hservices.where(kibanRelation: 0) do %>
                     <div class="col-md-6">
-                      <%= f.label i[1], {class: 'control-label', style: "width: 180px;"}%>
+                      <%= f.label i.serviceName, {class: 'control-label', style: "width: 180px;"}%>
                     </div>
                     <div class="col-md-6">
-                      <%= f.select i[0], i[2], {:selected => @hvalue[i[0]]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
+                      <%= f.select i.keyName, @hvalues.uniq.pluck(i.keyName), {:selected => @hvalue[i.keyName]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                     </div>
                   <% end %>
                   </div>

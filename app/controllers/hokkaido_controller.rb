@@ -12,7 +12,7 @@ class HokkaidoController < ApplicationController
     @hvalue = @hvalues.find(params[:id])
     @hcontact = @hvalue.hcontacts
     @hservices = Hservice.all
-    @versions = PaperTrail::Version.order('created_at DESC')
+    @versions = PaperTrail::Version.where("object like '%" + @hvalue.cityname + "%'").order('created_at DESC')
     render layout: false
   end
 
@@ -35,7 +35,6 @@ class HokkaidoController < ApplicationController
 
   def csv
     @hvalues = Hvalue.all
-
     respond_to do |format|
       format.html
       format.csv { send_data @hvalues.to_csv, filename: "#{Date.today}_北海道_自治体情報.csv" }
@@ -45,7 +44,6 @@ class HokkaidoController < ApplicationController
 
   def csv_version
     @versions = Version.all
-
     respond_to do |format|
       format.html
       format.csv { send_data @versions.to_csv, filename: "#{Date.today}_北海道_更新履歴.csv" }
@@ -71,11 +69,6 @@ class HokkaidoController < ApplicationController
   def move_edit
     @hvalue = Hvalue.find_by(cityname: params[:hvalue][:cityname])
     redirect_to "/hokkaido/#{@hvalue.id}/edit"
-  end
-
-  def move_show
-    @hvalue = Hvalue.find_by(cityname: params[:hvalue][:cityname])
-    redirect_to "/hokkaido/show/#{@hvalue.id}"
   end
 
   private

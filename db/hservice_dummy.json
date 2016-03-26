@@ -2,7 +2,7 @@
   {
     "comment": "commnet1", 
     "serviceName": "serviceName1", 
-    "kibanRelation": "1", 
+    "kibanRelation": "2", 
     "keyName": "kyougi", 
     "id": "1"
   }, 
@@ -138,5 +138,12 @@
     "kibanRelation": "0", 
     "keyName": "vender", 
     "id": "20"
+  }, 
+  {
+    "comment": "commnet21", 
+    "serviceName": "serviceName21", 
+    "kibanRelation": "3", 
+    "keyName": "memo_service", 
+    "id": "21"
   }
 ]

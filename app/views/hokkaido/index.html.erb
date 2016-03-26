@@ -5,7 +5,7 @@
         <label><input type="radio" name="entryPlan" value="hoge2" onclick="entryChange1();" />HARP基盤関係なし</label>
             <div class="btn-group-vertical" role="group" aria-label="Left Align">
                 <div id="kiban">
-                    <% @hservices.where(kibanRelation: 1).each do |i| %>
+                    <% @hservices.where(kibanRelation: [1, 2]).each do |i| %>
                         <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i.keyName}','')" do %>
                             <%= "#{i.serviceName}" %>
                         <% end %>
