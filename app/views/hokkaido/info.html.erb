@@ -11,8 +11,8 @@
             <% time = change.to_a[1][1][1] %>
             <%=  time.year %>年<%=  time.month %>月<%=  time.day %>日<%=  time.hour %>時<%=  time.min %>分
             <br>
-            <a onclick="get_data(<%= version.reify.id %>)" href="#" id="<%= version.reify.cityid %>" >
-              <%= version.reify.cityname %>の「<%=  @names[change.to_a[0][0]] %>」を
+            <a onclick="get_data(<%= version.reify.id %>)" href="#" id="<%= version.reify.cityid %>">
+              <%= version.reify.cityname %>の「<%=  @hservices.find_by(keyName: change.to_a[0][0]).serviceName %>」を
               <%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
             </a>
           <br>
@@ -20,7 +20,6 @@
       <% end %>
     </ul>
 </body>
-
 
 <script type="text/javascript">
     function get_data(id){
@@ -33,7 +32,7 @@
       var cityid;
       var cityColor;
         $("a").mouseover(function(){
-          cityid = $("a").attr("id")
+          cityid = $(this).attr("id")
           cityColor = $(".hokkaido."+cityid ,parent.document).css("fill")
           console.log(cityColor)
             $(".hokkaido."+cityid ,parent.document).attr("fill", "red");

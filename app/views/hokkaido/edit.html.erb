@@ -59,7 +59,7 @@
                     <% if @hvalue.cityname == version.reify.cityname %>
                       <% time = change.to_a[1][1][1] %>
                       <%=  time.year %>年<%=  time.month %>月<%=  time.day %>日<%=  time.hour %>時<%=  time.min %>分
-                      「<%=  @names[change.to_a[0][0]] %>」を<%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
+                      「<%=  @hservices.find_by(keyName: change.to_a[0][0]).serviceName %>」を<%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
                       <br>
                     <% end %>
                   <% end %>
@@ -71,7 +71,7 @@
             <div class="row">
             <p><%= @hvalue.cityname %>の契約状況</p>
             <div class="col-md-6">
-              <h4>hoge関連</h4>
+              <h4>HARP基盤関連</h4>
               <div class="field">
                 <div class="form-group form-group-xs">
                   <% for i in @kibanForm do %>
@@ -86,7 +86,7 @@
               </div>
             </div>
             <div class="col-md-6">
-              <h4>hoge関係なし</h4>
+              <h4>HARP基盤関係なし</h4>
                 <div class="field">
                   <div class="form-group form-group-xs">
                   <% for i in @othersForm do %>

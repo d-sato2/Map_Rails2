@@ -1,0 +1,142 @@
+[
+  {
+    "comment": "commnet1", 
+    "serviceName": "serviceName1", 
+    "kibanRelation": "1", 
+    "keyName": "kyougi", 
+    "id": "1"
+  }, 
+  {
+    "comment": "commnet2", 
+    "serviceName": "serviceName2", 
+    "kibanRelation": "1", 
+    "keyName": "kiban", 
+    "id": "2"
+  }, 
+  {
+    "comment": "commnet3", 
+    "serviceName": "serviceName3", 
+    "kibanRelation": "1", 
+    "keyName": "eac", 
+    "id": "3"
+  }, 
+  {
+    "comment": "commnet4", 
+    "serviceName": "serviceName4", 
+    "kibanRelation": "1", 
+    "keyName": "frs", 
+    "id": "4"
+  }, 
+  {
+    "comment": "commnet5", 
+    "serviceName": "serviceName5", 
+    "kibanRelation": "1", 
+    "keyName": "eps", 
+    "id": "5"
+  }, 
+  {
+    "comment": "commnet6", 
+    "serviceName": "serviceName6", 
+    "kibanRelation": "1", 
+    "keyName": "ca", 
+    "id": "6"
+  }, 
+  {
+    "comment": "commnet7", 
+    "serviceName": "serviceName7", 
+    "kibanRelation": "1", 
+    "keyName": "kokaike", 
+    "id": "7"
+  }, 
+  {
+    "comment": "commnet8", 
+    "serviceName": "serviceName8", 
+    "kibanRelation": "1", 
+    "keyName": "todoku", 
+    "id": "8"
+  }, 
+  {
+    "comment": "commnet9", 
+    "serviceName": "serviceName9", 
+    "kibanRelation": "1", 
+    "keyName": "gw", 
+    "id": "9"
+  }, 
+  {
+    "comment": "commnet10", 
+    "serviceName": "serviceName10", 
+    "kibanRelation": "1", 
+    "keyName": "cms", 
+    "id": "10"
+  }, 
+  {
+    "comment": "commnet11", 
+    "serviceName": "serviceName11", 
+    "kibanRelation": "1", 
+    "keyName": "rs", 
+    "id": "11"
+  }, 
+  {
+    "comment": "commnet12", 
+    "serviceName": "serviceName12", 
+    "kibanRelation": "1", 
+    "keyName": "ps", 
+    "id": "12"
+  }, 
+  {
+    "comment": "commnet13", 
+    "serviceName": "serviceName13", 
+    "kibanRelation": "1", 
+    "keyName": "fn", 
+    "id": "13"
+  }, 
+  {
+    "comment": "commnet14", 
+    "serviceName": "serviceName14", 
+    "kibanRelation": "0", 
+    "keyName": "el_kyodo", 
+    "id": "14"
+  }, 
+  {
+    "comment": "commnet15", 
+    "serviceName": "serviceName15", 
+    "kibanRelation": "0", 
+    "keyName": "koumu", 
+    "id": "15"
+  }, 
+  {
+    "comment": "commnet16", 
+    "serviceName": "serviceName16", 
+    "kibanRelation": "0", 
+    "keyName": "ns", 
+    "id": "16"
+  }, 
+  {
+    "comment": "commnet17", 
+    "serviceName": "serviceName17", 
+    "kibanRelation": "0", 
+    "keyName": "mail", 
+    "id": "17"
+  }, 
+  {
+    "comment": "commnet18", 
+    "serviceName": "serviceName18", 
+    "kibanRelation": "0", 
+    "keyName": "bu", 
+    "id": "18"
+  }, 
+  {
+    "comment": "commnet19", 
+    "serviceName": "serviceName19", 
+    "kibanRelation": "0", 
+    "keyName": "ib", 
+    "id": "19"
+  }, 
+  {
+    "comment": "commnet20", 
+    "serviceName": "serviceName20", 
+    "kibanRelation": "0", 
+    "keyName": "vender", 
+    "id": "20"
+  }
+]

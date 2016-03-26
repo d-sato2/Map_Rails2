@@ -1,22 +1,22 @@
 <div id="product-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <div class="row" name="test">
     <div class="col-md-1">
-        <label><input type="radio" name="entryPlan" value="hoge1" onclick="entryChange1();" checked />hoge関連</label>
-        <label><input type="radio" name="entryPlan" value="hoge2" onclick="entryChange1();" />hoge関係なし</label>
+        <label><input type="radio" name="entryPlan" value="hoge1" onclick="entryChange1();" checked />HARP基盤関連</label>
+        <label><input type="radio" name="entryPlan" value="hoge2" onclick="entryChange1();" />HARP基盤関係なし</label>
             <div class="btn-group-vertical" role="group" aria-label="Left Align">
                 <div id="kiban">
-                    <% @kiban_btn.each do |i| %>
-                        <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i[0]}','')" do %>
-                            <%= "#{i[1]}" %>
+                    <% @hservices.where(kibanRelation: 1).each do |i| %>
+                        <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i.keyName}','')" do %>
+                            <%= "#{i.serviceName}" %>
                         <% end %>
                     <% end %>
                 </div>
             </div>
             <div class="btn-group-vertical" role="group" aria-label="Left Align">
                 <div  id="service">
-                    <% @service_btn.each do |i| %>
-                        <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i[0]}','')" do %>
-                            <%= "#{i[1]}" %>
+                    <% @hservices.where(kibanRelation: 0).each do |i| %>
+                        <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i.keyName}','')" do %>
+                            <%= "#{i.serviceName}" %>
                         <% end %>
                     <% end %>
                 </div>
@@ -45,7 +45,7 @@
                 </tbody>
             </div>
         <% end %>
-        <iframe src="http://localhost:3000/hokkaido/info" frameborder="0" height="800" scrolling="no"></iframe>
+        <iframe src=<%= @iframeURL %> frameborder="0" height="670" scrolling="yes"></iframe>
     </div>
 </div>
 <script type="text/javascript">
@@ -79,8 +79,6 @@
         }
     }
     window.onload = entryChange1;
-
-    var url = "http://localhost:3001"
 
     function get_data(id){
             $.get( "/hokkaido/" + id + "/edit", function( data ) {
@@ -694,40 +692,40 @@
                 .attr("style", "cursor: pointer;")
                 .on("mouseover", function(d) {
                     var kiban = ( e.kiban== "導入" ) ? "○" : "×";
-                    var eac = ( e.eac == "導入" ) ? "<%= @names["eac"] %>" + "、" : "";
-                    var frs = ( e.frs == "導入" ) ? "<%= @names["frs"] %>" + "、" : "";
-                    var eps = ( e.eps == "導入" ) ? "<%= @names["eps"] %>" + "、" : "";
-                    var ca = ( e.ca == "導入" ) ? "<%= @names["ca"] %>" + "、" : "";
-                    var kokaike = ( e.kokaike == "改訂" ) ? "<%= @names["kokaike"] %>" + "、" : "";
-                    var kokaike2 = ( e.kokaike == "基準" ) ? "<%= @names["kokaike"] %>" + "、" : "";
-                    var kokaike3 = ( e.kokaike == "改訂（町村会）" ) ? "<%= @names["kokaike"] %>" + "、" : "";
-                    var kokaike4 = ( e.kokaike == "基準（町村会）" ) ? "<%= @names["kokaike"] %>" + "、" : "";
-                    var todoku = ( e.todoku == "導入" ) ? "<%= @names["todoku"] %>" + "、" : "";
-                    var gw = ( e.gw == "導入" ) ? "<%= @names["gw"] %>" + "、" : "";
-                    var cms = ( e.cms == "導入" ) ? "<%= @names["cms"] %>" + "、" : "";
-                    var rs = ( e.rs == "導入" ) ? "<%= @names["rs"] %>" + "、" : "";
-                    var ps = ( e.ps == "導入" ) ? "<%= @names["ps"] %>" + "、" : "";
-                    var fn = ( e.fn == "導入" ) ? "<%= @names["fn"] %>" + "、" : "";
+                    var eac = ( e.eac == "導入" ) ? "<%= @hservices.find_by(keyName: "eac").serviceName %>" + "、" : "";
+                    var frs = ( e.frs == "導入" ) ? "<%= @hservices.find_by(keyName: "frs").serviceName %>" + "、" : "";
+                    var eps = ( e.eps == "導入" ) ? "<%= @hservices.find_by(keyName: "eps").serviceName %>" + "、" : "";
+                    var ca = ( e.ca == "導入" ) ? "<%= @hservices.find_by(keyName: "ca").serviceName %>" + "、" : "";
+                    var kokaike = ( e.kokaike == "改訂" ) ? "<%= @hservices.find_by(keyName: "kokaike").serviceName %>" + "、" : "";
+                    var kokaike2 = ( e.kokaike == "基準" ) ? "<%= @hservices.find_by(keyName: "kokaike").serviceName %>" + "、" : "";
+                    var kokaike3 = ( e.kokaike == "改訂（町村会）" ) ? "<%= @hservices.find_by(keyName: "kokaike").serviceName %>" + "、" : "";
+                    var kokaike4 = ( e.kokaike == "基準（町村会）" ) ? "<%= @hservices.find_by(keyName: "kokaike").serviceName %>" + "、" : "";
+                    var todoku = ( e.todoku == "導入" ) ? "<%= @hservices.find_by(keyName: "todoku").serviceName %>" + "、" : "";
+                    var gw = ( e.gw == "導入" ) ? "<%= @hservices.find_by(keyName: "gw").serviceName %>" + "、" : "";
+                    var cms = ( e.cms == "導入" ) ? "<%= @hservices.find_by(keyName: "cms").serviceName %>" + "、" : "";
+                    var rs = ( e.rs == "導入" ) ? "<%= @hservices.find_by(keyName: "rs").serviceName %>" + "、" : "";
+                    var ps = ( e.ps == "導入" ) ? "<%= @hservices.find_by(keyName: "ps").serviceName %>" + "、" : "";
+                    var fn = ( e.fn == "導入" ) ? "<%= @hservices.find_by(keyName: "fn").serviceName %>" + "、" : "";
                     var kiban_kei =  eac + frs + eps + ca + kokaike + kokaike2 + kokaike3 + kokaike4 + todoku + gw + cms + rs + ps + fn;
 
-                    var el_kyodo = ( e.el_kyodo== "導入" ) ? "<%= @names["el_kyodo"] %>" + "、" : "";
-                    var koumu = ( e.koumu== "導入" ) ? "<%= @names["koumu"] %>" + "、" : "";
-                    var ns = ( e.ns == "導入" ) ? "<%= @names["ns"] %>" + "、" : "";
-                    var mail = ( e.mail == "導入" ) ? "<%= @names["mail"] %>" + "、" : "";
-                    var bu = ( e.bu == "導入" ) ? "<%= @names["bu"] %>" + "、" : "";
-                    var ib = ( e.ib == "導入" ) ? "<%= @names["ib"] %>" + "、" : "";
-                    var vender = ( e.vender == "HARP" ) ? "<%= @names["vender"] %>" + "、" : "";
+                    var el_kyodo = ( e.el_kyodo== "導入" ) ? "<%= @hservices.find_by(keyName: "el_kyodo").serviceName %>" + "、" : "";
+                    var koumu = ( e.koumu== "導入" ) ? "<%= @hservices.find_by(keyName: "koumu").serviceName %>" + "、" : "";
+                    var ns = ( e.ns == "導入" ) ? "<%= @hservices.find_by(keyName: "ns").serviceName %>" + "、" : "";
+                    var mail = ( e.mail == "導入" ) ? "<%= @hservices.find_by(keyName: "mail").serviceName %>" + "、" : "";
+                    var bu = ( e.bu == "導入" ) ? "<%= @hservices.find_by(keyName: "bu").serviceName %>" + "、" : "";
+                    var ib = ( e.ib == "導入" ) ? "<%= @hservices.find_by(keyName: "ib").serviceName %>" + "、" : "";
+                    var vender = ( e.vender == "HARP" ) ? "<%= @hservices.find_by(keyName: "vender").serviceName %>" + "、" : "";
                     var kiban_igai = el_kyodo + koumu + ns + mail + bu + ib + vender;
                     // の末尾に"、"がある場合は削除
                     var kiban_keiAfter = ( kiban_kei.substr( (kiban_kei.length-1) )  == "、" ) ? kiban_kei.substr( 0 , (kiban_kei.length-1) ) : kiban_kei;
                     var kiban_igaiAfter = ( kiban_igai.substr( (kiban_igai.length-1) )  == "、" ) ? kiban_igai.substr( 0 , (kiban_igai.length-1) ) : kiban_igai;
                     var content = "";
                     content += "<center>"+ e.cityname + "</center>";
-                    content += "<center>" + "【hoge負担】" + kiban + "</center>";
-                    content += "<center>"+ "--------------hoge関連サービス--------------" + "</center>";
+                    content += "<center>" + "【HARP基盤負担】" + kiban + "</center>";
+                    content += "<center>"+ "--------------HARP基盤関連サービス--------------" + "</center>";
                     content += kiban_keiAfter
                     content += "<center>" + "</center>";
-                    content += "<center>"+ "-----------------hoge関係なし-----------------" + "</center>";
+                    content += "<center>"+ "-----------------HARP基盤関係なし-----------------" + "</center>";
                     content += kiban_igaiAfter
                     svg.selectAll(".hokkaido." + e.cityid)
                     .transition().duration(100).attr("fill", "red")
@@ -752,40 +750,40 @@
                 .attr("style", "cursor: pointer;")
                 .on("mouseover", function(d) {
                     var kiban = ( attrHash[d.properties.cityname].kiban== "導入" ) ? "○" : "×";
-                    var eac = ( attrHash[d.properties.cityname].eac == "導入" ) ? "<%= @names["eac"] %>" + "、" : "";
-                    var frs = ( attrHash[d.properties.cityname].frs == "導入" ) ? "<%= @names["frs"] %>" + "、" : "";
-                    var eps = ( attrHash[d.properties.cityname].eps == "導入" ) ? "<%= @names["eps"] %>" + "、" : "";
-                    var ca = ( attrHash[d.properties.cityname].ca == "導入" ) ? "<%= @names["ca"] %>" + "、" : "";
-                    var kokaike = ( attrHash[d.properties.cityname].kokaike == "改訂" ) ? "<%= @names["kokaike"] %>" + "、" : "";
-                    var kokaike2 = ( attrHash[d.properties.cityname].kokaike == "基準" ) ? "<%= @names["kokaike"] %>" + "、" : "";
-                    var kokaike3 = ( attrHash[d.properties.cityname].kokaike == "改訂（町村会）" ) ? "<%= @names["kokaike"] %>" + "、" : "";
-                    var kokaike4 = ( attrHash[d.properties.cityname].kokaike == "基準（町村会）" ) ? "<%= @names["kokaike"] %>" + "、" : "";
-                    var todoku = ( attrHash[d.properties.cityname].todoku == "導入" ) ? "<%= @names["todoku"] %>" + "、" : "";
-                    var gw = ( attrHash[d.properties.cityname].gw == "導入" ) ? "<%= @names["gw"] %>" + "、" : "";
-                    var cms = ( attrHash[d.properties.cityname].cms == "導入" ) ? "<%= @names["cms"] %>" + "、" : "";
-                    var rs = ( attrHash[d.properties.cityname].rs == "導入" ) ? "<%= @names["rs"] %>" + "、" : "";
-                    var ps = ( attrHash[d.properties.cityname].ps == "導入" ) ? "<%= @names["ps"] %>" + "、" : "";
-                    var fn = ( attrHash[d.properties.cityname].fn == "導入" ) ? "<%= @names["fn"] %>" + "、" : "";
+                    var eac = ( attrHash[d.properties.cityname].eac == "導入" ) ? "<%= @hservices.find_by(keyName: "eac").serviceName %>" + "、" : "";
+                    var frs = ( attrHash[d.properties.cityname].frs == "導入" ) ? "<%= @hservices.find_by(keyName: "frs").serviceName %>" + "、" : "";
+                    var eps = ( attrHash[d.properties.cityname].eps == "導入" ) ? "<%= @hservices.find_by(keyName: "eps").serviceName %>" + "、" : "";
+                    var ca = ( attrHash[d.properties.cityname].ca == "導入" ) ? "<%= @hservices.find_by(keyName: "ca").serviceName %>" + "、" : "";
+                    var kokaike = ( attrHash[d.properties.cityname].kokaike == "改訂" ) ? "<%= @hservices.find_by(keyName: "kokaike").serviceName %>" + "、" : "";
+                    var kokaike2 = ( attrHash[d.properties.cityname].kokaike == "基準" ) ? "<%= @hservices.find_by(keyName: "kokaike").serviceName %>" + "、" : "";
+                    var kokaike3 = ( attrHash[d.properties.cityname].kokaike == "改訂（町村会）" ) ? "<%= @hservices.find_by(keyName: "kokaike").serviceName %>" + "、" : "";
+                    var kokaike4 = ( attrHash[d.properties.cityname].kokaike == "基準（町村会）" ) ? "<%= @hservices.find_by(keyName: "kokaike").serviceName %>" + "、" : "";
+                    var todoku = ( attrHash[d.properties.cityname].todoku == "導入" ) ? "<%= @hservices.find_by(keyName: "todoku").serviceName %>" + "、" : "";
+                    var gw = ( attrHash[d.properties.cityname].gw == "導入" ) ? "<%= @hservices.find_by(keyName: "gw").serviceName %>" + "、" : "";
+                    var cms = ( attrHash[d.properties.cityname].cms == "導入" ) ? "<%= @hservices.find_by(keyName: "cms").serviceName %>" + "、" : "";
+                    var rs = ( attrHash[d.properties.cityname].rs == "導入" ) ? "<%= @hservices.find_by(keyName: "rs").serviceName %>" + "、" : "";
+                    var ps = ( attrHash[d.properties.cityname].ps == "導入" ) ? "<%= @hservices.find_by(keyName: "ps").serviceName %>" + "、" : "";
+                    var fn = ( attrHash[d.properties.cityname].fn == "導入" ) ? "<%= @hservices.find_by(keyName: "fn").serviceName %>" + "、" : "";
                     var kiban_kei =  eac + frs + eps + ca + kokaike + kokaike2 + kokaike3 + kokaike4 + todoku + gw + cms + rs + ps + fn;
 
-                    var el_kyodo = ( attrHash[d.properties.cityname].el_kyodo== "導入" ) ? "<%= @names["el_kyodo"] %>" + "、" : "";
-                    var koumu = ( attrHash[d.properties.cityname].koumu== "導入" ) ? "<%= @names["koumu"] %>" + "、" : "";
-                    var ns = ( attrHash[d.properties.cityname].ns == "導入" ) ? "<%= @names["ns"] %>" + "、" : "";
-                    var mail = ( attrHash[d.properties.cityname].mail == "導入" ) ? "<%= @names["mail"] %>" + "、" : "";
-                    var bu = ( attrHash[d.properties.cityname].bu == "導入" ) ? "<%= @names["bu"] %>" + "、" : "";
-                    var ib = ( attrHash[d.properties.cityname].ib == "導入" ) ? "<%= @names["ib"] %>" + "、" : "";
-                    var vender = ( attrHash[d.properties.cityname].vender == "HARP" ) ? "<%= @names["vender"] %>" + "、" : "";
+                    var el_kyodo = ( attrHash[d.properties.cityname].el_kyodo== "導入" ) ? "<%= @hservices.find_by(keyName: "el_kyodo").serviceName %>" + "、" : "";
+                    var koumu = ( attrHash[d.properties.cityname].koumu== "導入" ) ? "<%= @hservices.find_by(keyName: "koumu").serviceName %>" + "、" : "";
+                    var ns = ( attrHash[d.properties.cityname].ns == "導入" ) ? "<%= @hservices.find_by(keyName: "ns").serviceName %>" + "、" : "";
+                    var mail = ( attrHash[d.properties.cityname].mail == "導入" ) ? "<%= @hservices.find_by(keyName: "mail").serviceName %>" + "、" : "";
+                    var bu = ( attrHash[d.properties.cityname].bu == "導入" ) ? "<%= @hservices.find_by(keyName: "bu").serviceName %>" + "、" : "";
+                    var ib = ( attrHash[d.properties.cityname].ib == "導入" ) ? "<%= @hservices.find_by(keyName: "ib").serviceName %>" + "、" : "";
+                    var vender = ( attrHash[d.properties.cityname].vender == "HARP" ) ? "<%= @hservices.find_by(keyName: "vender").serviceName %>" + "、" : "";
                     var kiban_igai = el_kyodo + koumu + ns + mail + bu + ib + vender;
                     // の末尾に"、"がある場合は削除
                     var kiban_keiAfter = ( kiban_kei.substr( (kiban_kei.length-1) )  == "、" ) ? kiban_kei.substr( 0 , (kiban_kei.length-1) ) : kiban_kei;
                     var kiban_igaiAfter = ( kiban_igai.substr( (kiban_igai.length-1) )  == "、" ) ? kiban_igai.substr( 0 , (kiban_igai.length-1) ) : kiban_igai;
                     var content = "";
                     content += "<center>"+ attrHash[d.properties.cityname].cityname + "</center>";
-                    content += "<center>" + "【hoge負担】" + kiban + "</center>";
-                    content += "<center>"+ "--------------hoge関連サービス--------------" + "</center>";
+                    content += "<center>" + "【HARP基盤負担】" + kiban + "</center>";
+                    content += "<center>"+ "--------------HARP基盤関連サービス--------------" + "</center>";
                     content += kiban_keiAfter
                     content += "<center>" + "</center>";
-                    content += "<center>"+ "-----------------hoge関係なし-----------------" + "</center>";
+                    content += "<center>"+ "-----------------HARP基盤関係なし-----------------" + "</center>";
                     content += kiban_igaiAfter
                     svg.selectAll(".hokkaido." + attrHash[d.properties.cityname].cityid)
                     .transition().duration(100).attr("fill", "red")
@@ -920,42 +918,58 @@
             .style("text-anchor", "middle")
             .text(function(d) { return d.data.name; });
 
-
-        var names = { "vender" : "サー１", "kyougi" : "サー２", "kiban" : "サー３",
-                    "el_kyodo" : "サー４", "kokaike" : "サー５", "koumu" : "サー６",
-                    "todoku" : "サー７", "eac" : "サー８", "frs" : "サー９",
-                    "eps" : "サー１０", "ca" : "サー１１", "gw" : "サー１２",
-                    "cms" : "サー１３", "mail" : "サー１４", "bu" : "サー１５",
-                    "rs" : "サー１６", "ps" : "サー１７", "fn" : "サー１８",
-                    "ns" : "サー１９", "ib" : "サー２０" }
-
         svg.selectAll("a").selectAll("text").remove()
         svg.append("a").append("text")
             .attr("x", 600)
             .attr("y", 40)
             .attr("font-size", "40px")
-            .text(names[showKey])   // プレーンテキストを表示
+            .text(function(){
+                return(
+                      (showKey == "vender") ? "<%= @hservices.find_by(keyName: "vender").serviceName %>"
+                    : (showKey == "kyougi") ? "<%= @hservices.find_by(keyName: "kyougi").serviceName %>"
+                    : (showKey == "kiban") ? "<%= @hservices.find_by(keyName: "kiban").serviceName %>"
+                    : (showKey == "el_kyodo") ? "<%= @hservices.find_by(keyName: "el_kyodo").serviceName %>"
+                    : (showKey == "kokaike") ? "<%= @hservices.find_by(keyName: "kokaike").serviceName %>"
+                    : (showKey == "koumu") ? "<%= @hservices.find_by(keyName: "koumu").serviceName %>"
+                    : (showKey == "todoku") ? "<%= @hservices.find_by(keyName: "todoku").serviceName %>"
+                    : (showKey == "eac") ? "<%= @hservices.find_by(keyName: "eac").serviceName %>"
+                    : (showKey == "frs") ? "<%= @hservices.find_by(keyName: "frs").serviceName %>"
+                    : (showKey == "eps") ? "<%= @hservices.find_by(keyName: "eps").serviceName %>"
+                    : (showKey == "ca") ? "<%= @hservices.find_by(keyName: "ca").serviceName %>"
+                    : (showKey == "gw") ? "<%= @hservices.find_by(keyName: "gw").serviceName %>"
+                    : (showKey == "cms") ? "<%= @hservices.find_by(keyName: "cms").serviceName %>"
+                    : (showKey == "mail") ? "<%= @hservices.find_by(keyName: "mail").serviceName %>"
+                    : (showKey == "bu") ? "<%= @hservices.find_by(keyName: "bu").serviceName %>"
+                    : (showKey == "rs") ? "<%= @hservices.find_by(keyName: "rs").serviceName %>"
+                    : (showKey == "ps") ? "<%= @hservices.find_by(keyName: "ps").serviceName %>"
+                    : (showKey == "ps") ? "<%= @hservices.find_by(keyName: "ps").serviceName %>"
+                    : (showKey == "fn") ? "<%= @hservices.find_by(keyName: "fn").serviceName %>"
+                    : (showKey == "ns") ? "<%= @hservices.find_by(keyName: "ns").serviceName %>"
+                    : (showKey == "ib") ? "<%= @hservices.find_by(keyName: "ib").serviceName %>"
+                    : "不明なサービス"
+                );
+            })
             .on("mouseover", function() {
-                var vender = ( showKey == "vender" ) ? "<%= @service_comment["vender"] %>": "";
-                var kyougi = ( showKey == "kyougi" ) ? "<%= @service_comment["kyougi"] %>": "";
-                var kiban = ( showKey == "kiban" ) ? "<%= @service_comment["kiban"] %>": "";
-                var el_kyodo = ( showKey == "el_kyodo" ) ? "<%= @service_comment["el_kyodo"] %>": "";
-                var kokaike = ( showKey == "kokaike" ) ? "<%= @service_comment["kokaike"] %>": "";
-                var koumu = ( showKey == "koumu" ) ? "<%= @service_comment["koumu"] %>": "";
-                var todoku = ( showKey == "todoku" ) ? "<%= @service_comment["todoku"] %>": "";
-                var eac = ( showKey == "eac" ) ? "<%= @service_comment["eac"] %>": "";
-                var frs = ( showKey == "frs" ) ? "<%= @service_comment["frs"] %>": "";
-                var eps = ( showKey == "eps" ) ? "<%= @service_comment["eps"] %>": "";
-                var ca = ( showKey == "ca" ) ? "<%= @service_comment["ca"] %>": "";
-                var gw = ( showKey == "gw" ) ? "<%= @service_comment["gw"] %>": "";
-                var cms = ( showKey == "cms" ) ? "<%= @service_comment["cms"] %>": "";
-                var mail = ( showKey == "mail" ) ? "<%= @service_comment["mail"] %>": "";
-                var bu = ( showKey == "bu" ) ? "<%= @service_comment["bu"] %>": "";
-                var rs = ( showKey == "rs" ) ? "<%= @service_comment["rs"] %>": "";
-                var ps = ( showKey == "ps" ) ? "<%= @service_comment["ps"] %>": "";
-                var fn = ( showKey == "fn" ) ? "<%= @service_comment["fn"] %>": "";
-                var ns = ( showKey == "ns" ) ? "<%= @service_comment["ns"] %>": "";
-                var ib = ( showKey == "ib" ) ? "<%= @service_comment["ib"] %>": "";
+                var vender = ( showKey == "vender" ) ? "<%= @hservices.find_by(keyName: "vender").comment %>": "";
+                var kyougi = ( showKey == "kyougi" ) ? "<%= @hservices.find_by(keyName: "kyougi").comment %>": "";
+                var kiban = ( showKey == "kiban" ) ? "<%= @hservices.find_by(keyName: "kiban").comment %>": "";
+                var el_kyodo = ( showKey == "el_kyodo" ) ? "<%= @hservices.find_by(keyName: "el_kyodo").comment %>": "";
+                var kokaike = ( showKey == "kokaike" ) ? "<%= @hservices.find_by(keyName: "kokaike").comment %>": "";
+                var koumu = ( showKey == "koumu" ) ? "<%= @hservices.find_by(keyName: "koumu").comment %>": "";
+                var todoku = ( showKey == "todoku" ) ? "<%= @hservices.find_by(keyName: "todoku").comment %>": "";
+                var eac = ( showKey == "eac" ) ? "<%= @hservices.find_by(keyName: "eac").comment %>": "";
+                var frs = ( showKey == "frs" ) ? "<%= @hservices.find_by(keyName: "frs").comment %>": "";
+                var eps = ( showKey == "eps" ) ? "<%= @hservices.find_by(keyName: "eps").comment %>": "";
+                var ca = ( showKey == "ca" ) ? "<%= @hservices.find_by(keyName: "ca").comment %>": "";
+                var gw = ( showKey == "gw" ) ? "<%= @hservices.find_by(keyName: "gw").comment %>": "";
+                var cms = ( showKey == "cms" ) ? "<%= @hservices.find_by(keyName: "cms").comment %>": "";
+                var mail = ( showKey == "mail" ) ? "<%= @hservices.find_by(keyName: "mail").comment %>": "";
+                var bu = ( showKey == "bu" ) ? "<%= @hservices.find_by(keyName: "bu").comment %>": "";
+                var rs = ( showKey == "rs" ) ? "<%= @hservices.find_by(keyName: "rs").comment %>": "";
+                var ps = ( showKey == "ps" ) ? "<%= @hservices.find_by(keyName: "ps").comment %>": "";
+                var fn = ( showKey == "fn" ) ? "<%= @hservices.find_by(keyName: "fn").comment %>": "";
+                var ns = ( showKey == "ns" ) ? "<%= @hservices.find_by(keyName: "ns").comment %>": "";
+                var ib = ( showKey == "ib" ) ? "<%= @hservices.find_by(keyName: "ib").comment %>": "";
                 var service = vender + kyougi + kiban + el_kyodo + kokaike + koumu + todoku + eac + frs + eps + ca + gw + cms + mail + bu + rs + ps + fn + ns + ib;
                 var content = "";
                 content += "<center>"+ service + "</center>";
