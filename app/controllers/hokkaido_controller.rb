@@ -1,6 +1,7 @@
 class HokkaidoController < ApplicationController
   protect_from_forgery except: :edit
   def index
+    @test = Hvalue.find(1)
     @hservices = Hservice.all
     @search = Hvalue.search(params[:search])
     @iframeURL = "http://localhost:3000/hokkaido/info"

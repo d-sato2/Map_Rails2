@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'newrelic_rpm'
 gem 'x-editable-rails'
 gem 'paper_trail', '~> 4.0.0'
 gem 'tzinfo-data'

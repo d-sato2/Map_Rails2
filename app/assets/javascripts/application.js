@@ -17,3 +17,12 @@
 //= require d3.min
 //= require topojson.v1.min
 //= require bootstrap
+//= require editable/bootstrap-editable
+//= require editable/rails
+
+ready = ->
+  $('.editable').editable
+    mode: 'popup'
+
+$(document).ready(ready)
+$(document).on('page:load', ready)
