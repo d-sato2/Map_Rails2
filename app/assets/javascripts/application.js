@@ -17,5 +17,3 @@
 //= require d3.min
 //= require topojson.v1.min
 //= require bootstrap
-//= require editable/bootstrap-editable
-//= require editable/rails
