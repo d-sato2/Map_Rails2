@@ -1,6 +1,6 @@
 class HcontactController < ApplicationController
 	def new
-		if params[:id] && !(params[:id] = "undefind")
+		if params[:id] && !(params[:id] == "undefined")
 		    @hvalue = Hvalue.find(params[:id])
 			@hcontact = @hvalue.hcontacts.build
 		end
