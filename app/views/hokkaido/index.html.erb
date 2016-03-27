@@ -12,12 +12,6 @@
                     <% end %>
                 </div>
             </div>
-
-
-            <a href="#" id="username" data-type="text" data-resource="post" data-name="username" data-url="/posts/1" data-original-title="Enter username">superuser</a>
-        <td><%= editable @test, :cityname, url: {:action => 'update'} %></td>
-
-        
             <div class="btn-group-vertical" role="group" aria-label="Left Align">
                 <div  id="service">
                     <% @hservices.where(kibanRelation: 0).each do |i| %>
