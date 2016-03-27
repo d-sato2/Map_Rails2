@@ -25,6 +25,7 @@
                     <th>電話番号</th>
                     <th>mail</th>
                     <th>備考欄</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -41,6 +42,8 @@
                       <td><%= hcontact.phone %></td>
                       <td><%= mail_to hcontact.mail %></td>
                       <td><%= hcontact.memo %></td>
+                      <td><%= link_to '編集', edit_hcontact_path(hcontact), class: 'btn btn-info btn-sm btn-block' %>
+                          <%= link_to "削除", hcontact, method: :delete, data: { confirm: "この連絡先を削除しますか?", id: hcontact.id }, class: 'btn btn-warning btn-sm btn-block' %></td>
                     </tr>
                   <% end %>
                 </tbody>

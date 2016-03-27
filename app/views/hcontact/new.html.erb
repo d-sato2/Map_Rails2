@@ -1,0 +1,48 @@
+<% provide(:title, "Edit user") %>
+<h3>連絡先の作成</h3>
+<% unless @hvalue %>
+  <%= form_tag '/hcontact/new', :method => 'get' do %>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "自治体検索", :cityname => nil, class: "btn btn-primary" %>
+  <% end %>
+  <% if params.has_key?(:search) then %>
+    <div>
+    <tbody>
+    <% @search.each do |hvalue| %>
+      <tr>
+      <td><%= link_to hvalue.cityname, new_hcontact_path(id: hvalue.id) %></td>
+      </tr>
+    <% end %>
+  <% end %>
+<% else %>
+  <h4><%= @hvalue.cityname %></h4>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for (@hcontact), url: {:controller => 'hcontact', :action => 'create'} do |f| %>
+      <%= f.hidden_field :hvalueId, :value => @hvalue.id %>
+      <%= f.hidden_field :bureau, :value => @hvalue.bureau %>
+      <%= f.hidden_field :cityname, :value => @hvalue.cityname %>
+
+        <%= f.label "サービス" %>
+        <%= f.text_field :service, class: 'form-control' %>
+
+        <%= f.label "担当課" %>
+        <%= f.text_area :department, :size => "60x2", class: 'form-control' %>
+
+        <%= f.label "担当者" %>
+        <%= f.text_area :person, :size => "60x5", class: 'form-control' %>
+
+        <%= f.label "電話番号" %>
+        <%= f.text_area :phone, :size => "60x5", class: 'form-control' %>
+        
+        <%= f.label "mail" %>
+        <%= f.text_area :mail, :size => "60x5", class: 'form-control' %>
+
+        <%= f.label "備考欄" %>
+        <%= f.text_area :memo, :size => "60x5", class: 'form-control' %>
+
+        <%= f.submit "作成する", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
   resources :hokkaido, only: [:edit, :update, :index]
+  resources :hcontact
+  resources :hokkaido, only: [:edit, :update, :index]
   resources :japan, only: [:edit, :update, :index]
   root 'hokkaido#index'
-
-  get "[object%20SVGAnimatedString]" => "hokkaido#edit"
-  get "hokkaido/[object%20SVGAnimatedString]" => "hokkaido#edit"
 
   get 'hokkaido/hokkaido_map'
   get 'hokkaido/hokkaido_value'
@@ -32,9 +31,6 @@ Rails.application.routes.draw do
   post 'hokkaido/move_edit' => 'hokkaido#move_edit'
 
   get 'hokkaido/:id/edit.js.erb' => 'hokkaido#edit'
-
-
-  get 'hokkaido/hcontact' => 'hokkaido#hcontact'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

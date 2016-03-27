@@ -67,14 +67,13 @@ class HokkaidoController < ApplicationController
     render json: data.to_json(except: [:created_at, :updated_at])
   end
 
-  def move_edit
-    @hvalue = Hvalue.find_by(cityname: params[:hvalue][:cityname])
-    redirect_to "/hokkaido/#{@hvalue.id}/edit"
-  end
-
   private
 
   def hvalue_params
     params.require(:hvalue).permit(:cityname, :kyougi, :memo_service, :memo_kiban, :todoku, :koumu, :kokaike, :el_kyodo, :kiban, :vender, :eac, :frs, :eps, :ca, :pa, :gw, :cms, :mail, :bu, :rs, :ps, :fn, :ns, :ss, :ft, :et, :ib,)
+  end
+
+  def hcontact_params
+    params.require(:hcontact).permit(:service, :department, :person, :phone, :mail, :memo)
   end
 end
