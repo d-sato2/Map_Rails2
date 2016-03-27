@@ -1,30 +1,51 @@
-<% provide(:title, "Edit user") %>
-<h3>連絡先の編集</h3>
-<h4><%= @hcontact.cityname %></h4>
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_for (@hcontact), url: {:controller => 'hcontact', :action => 'update'} do |f| %>
+<div class="modal-dialog">
+  <div class="modal-content" style="width:1100px; margin-left: -250px;">
+    <%= form_for (@hcontact), url: {:controller => 'hcontact', :action => 'update'}, remote: true do |f| %>
     <%= f.hidden_field :id, :value => @hcontact.id %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title"><%= @hcontact.cityname %>の連絡先編集</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <%= f.label "サービス" %>
+            <%= f.text_field :service, class: 'form-control' %>
 
-      <%= f.label "サービス" %>
-      <%= f.text_field :service, class: 'form-control' %>
+            <%= f.label "担当課" %>
+            <% if @hcontact.department == "※1" %>
+            <% @hcontact.department = "※電子申請(＝共同システム運用保守)は、協議会事務局（北海道）に連絡" %>
+            <% elsif @hcontact.department == "※2" %>
+            <% hcontact.department = "公会計(改訂・町村会,基準・町村会)の契約窓口は北海道町村会。" %>
+            <% end %>
+            <%= f.text_area :department, :size => "60x2", class: 'form-control' %>
 
-      <%= f.label "担当課" %>
-      <%= f.text_area :department, :size => "60x2", class: 'form-control' %>
+            <%= f.label "担当者" %>
+            <%= f.text_area :person, :size => "60x5", class: 'form-control' %>
 
-      <%= f.label "担当者" %>
-      <%= f.text_area :person, :size => "60x5", class: 'form-control' %>
+            <%= f.label "電話番号" %>
+            <%= f.text_area :phone, :size => "60x5", class: 'form-control' %>
+            
+            <%= f.label "mail" %>
+            <%= f.text_area :mail, :size => "60x5", class: 'form-control' %>
 
-      <%= f.label "電話番号" %>
-      <%= f.text_area :phone, :size => "60x5", class: 'form-control' %>
-      
-      <%= f.label "mail" %>
-      <%= f.text_area :mail, :size => "60x5", class: 'form-control' %>
-
-      <%= f.label "備考欄" %>
-      <%= f.text_area :memo, :size => "60x5", class: 'form-control' %>
-
-      <%= f.submit "変更する", class: "btn btn-primary" %>
+            <%= f.label "備考欄" %>
+            <%= f.text_area :memo, :size => "60x5", class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= f.submit "変更する", :class => "btn btn-primary", :onclick => "_submit()" %>
+      </div>
     <% end %>
   </div>
 </div>
+  <script type="text/javascript">
+    function _submit(){
+                var url = "<%= @iframeURL %>"
+                frames[0].location.href = url;
+              }
+  </script>

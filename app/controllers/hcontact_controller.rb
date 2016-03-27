@@ -5,6 +5,7 @@ class HcontactController < ApplicationController
 			@hcontact = @hvalue.hcontacts.build
 		end
 	    @search = Hvalue.search(params[:search])
+	    render layout: false
     end
 
 	def create
@@ -21,6 +22,7 @@ class HcontactController < ApplicationController
 	def edit
 		@hcontact = Hcontact.find(params[:id])
 		@iframeURL = "http://localhost:3000/hokkaido/info"
+	    render layout: false
 	end
 
 	def update

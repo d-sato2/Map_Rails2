@@ -42,7 +42,7 @@
                       <td><%= hcontact.phone %></td>
                       <td><%= mail_to hcontact.mail %></td>
                       <td><%= hcontact.memo %></td>
-                      <td><%= link_to '編集', edit_hcontact_path(hcontact), class: 'btn btn-info btn-sm btn-block' %>
+                      <td><%= link_to '編集', "#", class: 'btn btn-info btn-sm btn-block', onclick: "editContactModal(#{hcontact.id})" %>
                           <%= link_to "削除", hcontact, method: :delete, data: { confirm: "この連絡先を削除しますか?", id: hcontact.id }, class: 'btn btn-warning btn-sm btn-block' %></td>
                     </tr>
                   <% end %>
@@ -115,6 +115,13 @@
   </div>
 </div>
   <script type="text/javascript">
+
+    function editContactModal(hvalueId){
+            $.get( "/hcontact/" + hvalueId + "/edit", function( data ) {
+            $("#product-modal").html( data )
+            $("#product-modal").modal("show")
+        })
+    }
     function _submit(){
                 var url = "<%= @iframeURL %>"
                 frames[0].location.href = url;
