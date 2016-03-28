@@ -16,16 +16,17 @@ ActiveRecord::Schema.define(version: 20160326050402) do
   create_table "hcontacts", force: :cascade do |t|
     t.string   "bureau"
     t.string   "cityname"
+    t.string   "cityid"
     t.string   "service"
     t.string   "department"
     t.string   "person"
     t.string   "phone"
-    t.string   "mail"
+    t.string   "mailAddress"
     t.text     "memo"
     t.integer  "hvalue_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "mail2"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "mailAddress2"
   end
 
   add_index "hcontacts", ["hvalue_id", "created_at"], name: "index_hcontacts_on_hvalue_id_and_created_at"

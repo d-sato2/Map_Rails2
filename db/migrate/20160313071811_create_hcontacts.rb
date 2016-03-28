@@ -3,11 +3,12 @@ class CreateHcontacts < ActiveRecord::Migration
     create_table :hcontacts do |t|
       t.string :bureau
       t.string :cityname
+      t.string :cityid
       t.string :service
       t.string :department
       t.string :person
       t.string :phone
-      t.string :mail
+      t.string :mailAddress
       t.text :memo
       t.references :hvalue, index: true, foreign_key: true
 

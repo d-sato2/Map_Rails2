@@ -46,6 +46,6 @@ class HcontactController < ApplicationController
 	private
 
 	def hcontact_params
-		params.require(:hcontact).permit(:cityname, :bureau, :service, :department, :person, :phone, :mail, :memo)
+		params.require(:hcontact).permit(:cityname, :cityid, :bureau, :service, :department, :person, :phone, :mailAddress, :memo)
 	end
 end

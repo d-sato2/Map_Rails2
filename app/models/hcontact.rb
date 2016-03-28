@@ -1,3 +1,4 @@
 class Hcontact < ActiveRecord::Base
-  belongs_to :hvalue
+	has_paper_trail
+	belongs_to :hvalue
 end

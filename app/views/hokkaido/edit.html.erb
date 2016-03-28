@@ -40,7 +40,7 @@
                       <td><%= hcontact.department %></td>
                       <td><%= hcontact.person %></td>
                       <td><%= hcontact.phone %></td>
-                      <td><%= mail_to hcontact.mail %></td>
+                      <td><%= mail_to hcontact.mailAddress %></td>
                       <td><%= hcontact.memo %></td>
                       <td><%= link_to '編集', "#", class: 'btn btn-info btn-xs btn-block', onclick: "editContactModal(#{hcontact.id})" %>
                           <%= link_to "削除", hcontact, method: :delete, data: { confirm: "この連絡先を削除しますか?", id: hcontact.id }, class: 'btn btn-warning btn-xs btn-block' %></td>
