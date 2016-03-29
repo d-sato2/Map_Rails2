@@ -46,10 +46,19 @@
                 </tbody>
             </div>
         <% end %>
-        <iframe src=<%= @iframeURL %> frameborder="0" height="670" scrolling="yes"></iframe>
+    <div id="info" style="width:300px;height:670px" frameborder="0" scrolling="yes">
+        <%= render 'info' %>
+    </div>
     </div>
 </div>
 <script type="text/javascript">
+
+    function insertInfo(){
+            $.get( "/hokkaido/info", function( data ) {
+            $("#info").html( data )
+        })
+    }
+    window.onload = insertInfo();
 
     function createContactModal(){
             $.get( "/hcontact/new", function( data ) {

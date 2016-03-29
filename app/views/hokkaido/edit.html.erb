@@ -57,14 +57,32 @@
               <div  class="col-md-6">
                 <p><%= @hvalue.cityname %>の更新履歴</p>
                 <% @versions.each do |version| %>
-                  <%  change = version.changeset %>
-                  <% if version.reify %>
-                    <% if @hvalue.cityname == version.reify.cityname %>
+                  <% if version.event == "update" && version.reify %>
+                    <%  change = version.changeset %>
                       <% time = change.to_a[1][1][1] %>
                       <%=  time.year %>年<%=  time.month %>月<%=  time.day %>日<%=  time.hour %>時<%=  time.min %>分
-                      「<%=  @hservices.find_by(keyName: change.to_a[0][0]).serviceName %>」を<%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
                       <br>
-                  <% end %>
+                        <%= version.reify.cityname %>の「<%=  @hservices.find_by(keyName: change.to_a[0][0]).serviceName %>」を
+                        <%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
+                      <br>
+                  <% elsif version.event == "create" %>
+                    <%  change = version.changeset %>
+                      <% if version.item_id > @oldVersionCount %>
+                        <% time = change.to_a[10][1][1] %>
+                        <%=  time.year %>年<%=  time.month %>月<%=  time.day %>日<%=  time.hour %>時<%=  time.min %>分
+                        <br>
+                          <%= change.to_a[0][1][1] %>の連絡先を新規作成しました
+                        <br>
+                    <% end %>
+                  <% elsif version.event == "destroy" %>
+                    <% @year = version.object[version.object.index("created_at")+12...version.object.index("created_at")+16] %>
+                    <% @month = version.object[version.object.index("created_at")+17...version.object.index("created_at")+19] %>
+                    <% @day = version.object[version.object.index("created_at")+20...version.object.index("created_at")+22] %>
+                    <% @cityname = version.object[version.object.index("cityname")+10...version.object.index("cityid")-1] %>
+                        <%=  @year %>年<%=  @month %>月<%=  @day %>日
+                        <br>
+                          <%= @cityname %>の連絡先を削除しました
+                        <br>
                   <% end %>
                 <% end %>
               </div>
@@ -109,7 +127,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <%= f.submit "変更する", :class => "btn btn-primary", :onclick => "_submit()" %>
+        <%= f.submit "変更する", :class => "btn btn-primary", :onclick => "insertInfo" %>
       </div>
     <% end %>
   </div>
@@ -122,8 +140,7 @@
             $("#product-modal").modal("show")
         })
     }
-    function _submit(){
-                var url = "<%= @iframeURL %>"
-                frames[0].location.href = url;
-              }
+    function insertInfo(){
+            $('#info').load("/hcontact/info");
+    }
   </script>

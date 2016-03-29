@@ -1,8 +1,11 @@
 class HokkaidoController < ApplicationController
   protect_from_forgery except: :edit
+  @@versionLength = PaperTrail::Version.select("id").count
   def index
     @test = Hvalue.find(1)
     @hservices = Hservice.all
+    @versions = PaperTrail::Version.order('created_at DESC')
+    @oldVersionCount = 314
     @search = Hvalue.search(params[:search])
     @iframeURL = "http://localhost:3000/hokkaido/info"
   end
@@ -13,7 +16,8 @@ class HokkaidoController < ApplicationController
     @hvalue = @hvalues.find(params[:id])
     @hcontact = @hvalue.hcontacts
     @hservices = Hservice.all
-    @versions = PaperTrail::Version.where("object like '%" + @hvalue.cityname + "%'").order('created_at DESC')
+    @versions = PaperTrail::Version.where('object like ? OR object_changes like ?', "%#{@hvalue.cityname}%", "%#{@hvalue.cityname}%").order('created_at DESC')
+    @oldVersionCount = 314
     render layout: false
   end
 
@@ -30,7 +34,6 @@ class HokkaidoController < ApplicationController
 
   def info
     @hservices = Hservice.all
-    @versions = PaperTrail::Version.order('created_at DESC')
     render layout: false
   end
 
