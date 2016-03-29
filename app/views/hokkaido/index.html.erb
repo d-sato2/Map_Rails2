@@ -53,13 +53,6 @@
 </div>
 <script type="text/javascript">
 
-    function insertInfo(){
-            $.get( "/hokkaido/info", function( data ) {
-            $("#info").html( data )
-        })
-    }
-    window.onload = insertInfo();
-
     function createContactModal(){
             $.get( "/hcontact/new", function( data ) {
             $("#product-modal").html( data )
