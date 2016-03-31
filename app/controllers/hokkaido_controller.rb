@@ -34,6 +34,8 @@ class HokkaidoController < ApplicationController
 
   def info
     @hservices = Hservice.all
+    @versions = PaperTrail::Version.order('created_at DESC')
+    @oldVersionCount = 314
     render layout: false
   end
 

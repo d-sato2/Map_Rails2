@@ -58,13 +58,14 @@
                 <p><%= @hvalue.cityname %>の更新履歴</p>
                 <% @versions.each do |version| %>
                   <% if version.event == "update" && version.reify %>
-                    <%  change = version.changeset %>
-                      <% time = change.to_a[1][1][1] %>
-                      <%=  time.year %>年<%=  time.month %>月<%=  time.day %>日<%=  time.hour %>時<%=  time.min %>分
-                      <br>
-                        <%= version.reify.cityname %>の「<%=  @hservices.find_by(keyName: change.to_a[0][0]).serviceName %>」を
-                        <%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
-                      <br>
+                  <%  change = version.changeset %>
+                    <%=  change[:updated_at][1].year %>年<%=  change[:updated_at][1].month %>月<%=  change[:updated_at][1].day %>日<%=  change[:updated_at][1].hour %>時<%=  change[:updated_at][1].min %>分
+                    <br>
+                    <a onclick="get_data(<%= version.reify.id %>)" href="#" id="<%= version.reify.cityid %>">
+                      <%= version.reify.cityname %>の「<%=  @hservices.find_by(keyName: change.to_a[0][0]).serviceName %>」を
+                      <%=  change.to_a[0][1][0] %>から<%=  change.to_a[0][1][1] %>に変更しました
+                    </a>
+                    <br>
                   <% elsif version.event == "create" %>
                     <%  change = version.changeset %>
                       <% if version.item_id > @oldVersionCount %>
@@ -127,7 +128,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <%= f.submit "変更する", :class => "btn btn-primary", :onclick => "insertInfo" %>
+        <%= f.submit "変更する", :class => "btn btn-primary" %>
       </div>
     <% end %>
   </div>
@@ -140,7 +141,10 @@
             $("#product-modal").modal("show")
         })
     }
+
     function insertInfo(){
-            $('#info' ,parent.document).load("/hcontact/info");
+            $.get( "/hokkaido/info", function(data) {
+            $("#info").html(data)
+        })
     }
   </script>

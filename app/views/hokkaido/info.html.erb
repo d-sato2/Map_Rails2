@@ -8,8 +8,7 @@
       <% @versions.each do |version| %>
         <% if version.event == "update" && version.reify %>
           <%  change = version.changeset %>
-            <% time = change.to_a[1][1][1] %>
-            <%=  time.year %>年<%=  time.month %>月<%=  time.day %>日<%=  time.hour %>時<%=  time.min %>分
+            <%=  change[:updated_at][1].year %>年<%=  change[:updated_at][1].month %>月<%=  change[:updated_at][1].day %>日<%=  change[:updated_at][1].hour %>時<%=  change[:updated_at][1].min %>分
             <br>
             <a onclick="get_data(<%= version.reify.id %>)" href="#" id="<%= version.reify.cityid %>">
               <%= version.reify.cityname %>の「<%=  @hservices.find_by(keyName: change.to_a[0][0]).serviceName %>」を
