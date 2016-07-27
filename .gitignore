@@ -19,3 +19,4 @@
 # 本番用のデータ
 /db/hservice.json
 /db/hcontact.json
+/memo.txt

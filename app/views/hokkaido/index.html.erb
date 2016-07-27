@@ -46,12 +46,17 @@
                 </tbody>
             </div>
         <% end %>
-    <div id="info" style="width:300px;height:670px" frameborder="0" scrolling="yes">
+    <div id="info" style="width:350px;height:670px;overflow-y: auto" frameborder="0" scrolling="yes">
         <%= render 'info' %>
     </div>
     </div>
 </div>
 <script type="text/javascript">
+var kaisha = '<%= @kaisha %>';
+//var kaisha2 = kaisha.replace("&quot;"g,/"/g);
+var kaisha2 = kaisha.replace(/(&quot;)/g, '"')
+var kaisha3 = kaisha2.substr( 1 ) ;
+    
 
     function createContactModal(){
             $.get( "/hcontact/new", function( data ) {
@@ -69,9 +74,7 @@
                 "#b3ffb3", "#bfffb3", "#d9ffb3", "#e6ffb3", "#ffffb3", "#fff2b3",
                 "#ffd9b3", "#ffccb3", "#ffb3bf", "#ffb3d9", "#ffb3e6", "#ffb3ff",
                 "#f2b3ff", "#d9b3ff", "#ccb3ff", "#b3b3ff", "#b3bfff", "#b3d9ff"]
-    var areaGrad = d3.scale.ordinal()
-            .domain(["未導入", "導入", "不参加", "参加", "HARP", "HDC", "HID", "ズコーシャ", "三和", "TKC", "富士通", "HBA", "SEC", "iTEC", "TAS", "NEC", "北海HISYS", "アート", "アイネス", "CB", "HCC", "IBM", "SSE", "BMC", "町村会", "RKK", "その他", "改訂", "基準（町村会）", "改訂（町村会）", "基準（町村会）"])
-            .range([color[0], color[1], color[0], color[1], color[1], color[2], color[3], color[4], color[5], color[6], color[7], color[8], color[9], color[10], color[11], color[12], color[13], color[14], color[15], color[16], color[17], color[18], color[19], color[20], color[21], color[22], color[23], color[1], color[5], color[10], color[15]]);
+#memo.txtから追加する
     var current_showKey;
     function backCityColor(param){
         d3.selectAll(".hokkaido."+param.id)
@@ -737,6 +740,10 @@
                     content += "<center>" + "</center>";
                     content += "<center>"+ "-----------------HARP基盤関係なし-----------------" + "</center>";
                     content += kiban_igaiAfter
+                    if (showKey == "vender"){
+                        content += "<center>"+ "-----------------契約ベンダー-----------------" + "</center>"
+                        content += e.vender
+                    }
                     svg.selectAll(".hokkaido." + e.cityid)
                     .transition().duration(100).attr("fill", "red")
                     .style("opacity", 1);div.transition().duration(100)
@@ -795,6 +802,10 @@
                     content += "<center>" + "</center>";
                     content += "<center>"+ "-----------------HARP基盤関係なし-----------------" + "</center>";
                     content += kiban_igaiAfter
+                    if (showKey == "vender"){
+                        content += "<center>"+ "-----------------契約ベンダー-----------------" + "</center>"
+                        content += attrHash[d.properties.cityname].vender
+                    }
                     svg.selectAll(".hokkaido." + attrHash[d.properties.cityname].cityid)
                     .transition().duration(100).attr("fill", "red")
                     .style("opacity", 1);div.transition().duration(100)
@@ -812,6 +823,10 @@
                 })
             }
         }
+
+
+
+
         //円グラフ用にデータをカウント
         var legend = {};
         for(var i in attrHash) {
@@ -824,12 +839,11 @@
 
         //データセットをループで作成
         if (showKey == "vender"){
-                var vender_name = ["その他", "hoge", "会社1", "会社2", "会社3", "会社4", "会社5", "会社6", "会社７", "会社８", "会社９", "会社１０", "会社１１", "会社１２", "会社１３", "会社１４", "会社１５", "会社１６", "会社１７", "会社１８", "会社１９", "会社２０", "会社２１"]
                 var data4 = [];
                 for (var l = 0; l < 24; l++) {
                     data4.push({
-                        name: vender_name[l],
-                        value: legend[vender_name[l]],
+                        name: kaisha2[l],
+                        value: legend[kaisha2[l]],
                         color: color[l]
                     });
                 }}

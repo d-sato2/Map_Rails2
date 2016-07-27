@@ -21,7 +21,7 @@ class HcontactController < ApplicationController
 
 	def edit
 		@hcontact = Hcontact.find(params[:id])
-		@iframeURL = "http://localhost:3000/hokkaido/info"
+		@iframeURL = "http://192.168.200.67/hokkaido/info"
 	    render layout: false
 	end
 
@@ -29,7 +29,7 @@ class HcontactController < ApplicationController
 		@hcontact = Hcontact.find_by(id: params[:hcontact][:id])
 		if @hcontact.update_attributes(hcontact_params)
 		  # flash[:success] = params[:hvalue][:cityname] + "の情報を更新しました"
-		  redirect_to controller: 'hokkaido',  action: 'index'
+      redirect_to action: 'edit'
 		else
 		  # flash[:error] = "変更に失敗しました"
 		  render 'edit_contact'

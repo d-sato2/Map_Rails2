@@ -7,11 +7,15 @@ class HokkaidoController < ApplicationController
     @versions = PaperTrail::Version.order('created_at DESC')
     @oldVersionCount = 314
     @search = Hvalue.search(params[:search])
-    @iframeURL = "http://localhost:3000/hokkaido/info"
+    @iframeURL = "http://192.168.200.67/hokkaido/info"
+
+
+    @hvalues = Hvalue.all
+    @kaisha = @hvalues.uniq.pluck(:vender)
   end
 
   def edit
-    @iframeURL = "http://localhost:3000/hokkaido/info"
+    @iframeURL = "http://192.168.200.67/hokkaido/info"
     @hvalues = Hvalue.all
     @hvalue = @hvalues.find(params[:id])
     @hcontact = @hvalue.hcontacts
