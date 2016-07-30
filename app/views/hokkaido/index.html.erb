@@ -52,10 +52,7 @@
     </div>
 </div>
 <script type="text/javascript">
-var kaisha = '<%= @kaisha %>';
-//var kaisha2 = kaisha.replace("&quot;"g,/"/g);
-var kaisha2 = kaisha.replace(/(&quot;)/g, '"')
-var kaisha3 = kaisha2.substr( 1 ) ;
+var kaisha = <%= raw @kaisha %>;
     
 
     function createContactModal(){
@@ -74,7 +71,10 @@ var kaisha3 = kaisha2.substr( 1 ) ;
                 "#b3ffb3", "#bfffb3", "#d9ffb3", "#e6ffb3", "#ffffb3", "#fff2b3",
                 "#ffd9b3", "#ffccb3", "#ffb3bf", "#ffb3d9", "#ffb3e6", "#ffb3ff",
                 "#f2b3ff", "#d9b3ff", "#ccb3ff", "#b3b3ff", "#b3bfff", "#b3d9ff"]
-#memo.txtから追加する
+    var areaGrad = d3.scale.ordinal()
+            .domain(["未導入", "導入", "不参加", "参加", "HARP", "HDC", "HID", "ズコーシャ", "三和", "TKC", "富士通", "HBA", "SEC", "iTEC", "TAS", "NEC", "北海HISYS", "アート", "アイネス", "CB", "HCC", "IBM", "SSE", "BMC", "町村会", "RKK", "その他", "改訂", "基準（町村会）", "改訂（町村会）", "基準（町村会）"])
+            .range([color[0], color[1], color[0], color[1], color[1], color[2], color[3], color[4], color[5], color[6], color[7], color[8], color[9], color[10], color[11], color[12], color[13], color[14], color[15], color[16], color[17], color[18], color[19], color[20], color[21], color[22], color[23], color[1], color[5], color[10], color[15]]);
+    var vender_name = ["その他", "SEC", "NEC", "RKK", "富士通", "ズコーシャ", "HARP", "HBA", "北海HISYS", "CB", "HDC", "HCC", "アイネス", "HID", "SSE", "町村会", "TAS", "三和", "アート", "iTEC", "TKC", "BMC", "CCS"]
     var current_showKey;
     function backCityColor(param){
         d3.selectAll(".hokkaido."+param.id)
@@ -842,8 +842,8 @@ var kaisha3 = kaisha2.substr( 1 ) ;
                 var data4 = [];
                 for (var l = 0; l < 24; l++) {
                     data4.push({
-                        name: kaisha2[l],
-                        value: legend[kaisha2[l]],
+                        name: kaisha[l],
+                        value: legend[kaisha[l]],
                         color: color[l]
                     });
                 }}
