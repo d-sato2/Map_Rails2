@@ -46,30 +46,39 @@ class HokkaidoController < ApplicationController
     render layout: false
   end
 
-  def csv
+  def dl_jiti_info
     @hvalues = Hvalue.all
     respond_to do |format|
       format.html
       format.csv { send_data @hvalues.to_csv, filename: "#{Date.today}_北海道_自治体情報.csv" }
       format.xls { send_data @hvalues.to_csv(col_sep: "\t"), filename: "#{Date.today}_北海道_自治体情報.xls" }
+      format.json { send_data JSON.pretty_generate(JSON.parse(@hvalues.to_json(except: [:created_at, :updated_at]))), filename: "#{Date.today}_北海道_自治体情報.json", type: :json }
     end
   end
 
-  def csv_version
+  def dl_update_info
     @versions = Version.all
     respond_to do |format|
       format.html
       format.csv { send_data @versions.to_csv, filename: "#{Date.today}_北海道_更新履歴.csv" }
       format.xls { send_data @versions.to_csv(col_sep: "\t"), filename: "#{Date.today}_北海道_更新履歴.xls" }
+      format.json { send_data JSON.pretty_generate(JSON.parse(@versions.to_json)), filename: "#{Date.today}_北海道_更新履歴.json", type: :json }
     end
   end
 
-  def json
-    @hvalues = Hvalue.all
+  def dl_contact_info
+    @hcontacts = Hcontact.all
     respond_to do |format|
-      format.json do
-          send_data JSON.pretty_generate(JSON.parse(@hvalues.to_json(except: [:created_at, :updated_at]))), filename: "#{Date.today}_北海道_自治体情報.json", type: :json
-      end
+      format.html
+      format.json { send_data JSON.pretty_generate(JSON.parse(@hcontacts.to_json)), filename: "#{Date.today}_北海道_更新履歴.json", type: :json }
+    end
+  end
+
+  def dl_selection_info
+    @hselections = Hselection.all
+    respond_to do |format|
+      format.html
+      format.json { send_data JSON.pretty_generate(JSON.parse(@hselections.to_json)), filename: "#{Date.today}_北海道_更新履歴.json", type: :json }
     end
   end
 

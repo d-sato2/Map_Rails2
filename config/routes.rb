@@ -23,9 +23,10 @@ Rails.application.routes.draw do
   get 'hokkaido/move_show' => 'hokkaido#move_show'
   post 'hokkaido/move_show' => 'hokkaido#move_show'
 
-  get 'hokkaido/csv' => 'hokkaido#csv'
-  get 'hokkaido/csv_version' => 'hokkaido#csv_version'
-  get 'hokkaido/json' => 'hokkaido#json'
+  get 'hokkaido/dl_jiti_info' => 'hokkaido#dl_jiti_info'
+  get 'hokkaido/dl_update_info' => 'hokkaido#dl_update_info'
+  get 'hokkaido/dl_contact_info' => 'hokkaido#dl_contact_info'
+  get 'hokkaido/dl_selection_info' => 'hokkaido#dl_selection_info'
 
   get 'hokkaido/move_edit' => 'hokkaido#move_edit'
   post 'hokkaido/move_edit' => 'hokkaido#move_edit'

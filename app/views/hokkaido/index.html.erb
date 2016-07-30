@@ -22,9 +22,11 @@
                 </div>
             </div>
         <div class="btn-group-vertical" role="group" style = "margin: 10px 0px 0px 0px;">
-            <%= link_to "自治体情報.xls", hokkaido_csv_path(format: "xls"), class: "btn btn-large btn-primary" %>
-            <%= link_to "更新情報.xls", hokkaido_csv_version_path(format: "xls"), class: "btn btn-large btn-primary" %>
-            <%= link_to "自治体情報.json", hokkaido_json_path(format: "json"), class: "btn btn-large btn-primary" %>
+            <%= link_to "自治体情報.xls", hokkaido_dl_jiti_info_path(format: "xls"), class: "btn btn-large btn-primary" %>
+            <%= link_to "更新情報.xls", hokkaido_dl_update_info_path(format: "xls"), class: "btn btn-large btn-primary" %>
+            <%= link_to "自治体情報.json", hokkaido_dl_jiti_info_path(format: "json"), class: "btn btn-large btn-primary" %>
+            <%= link_to "自治体連絡先.json", hokkaido_dl_contact_info_path(format: "json"), class: "btn btn-large btn-primary" %>
+            <%= link_to "選択肢.json", hokkaido_dl_selection_info_path(format: "json"), class: "btn btn-large btn-primary" %>
         </div>
     </div>
     <div class="col-md-7" style="width:924px; height:760px;">
