@@ -101,7 +101,7 @@
                       <%= f.label i.serviceName, {class: 'control-label', style: "width: 180px;"}%>
                     </div>
                     <div class="col-md-6">
-                      <%= f.select i.keyName, @hvalues.uniq.pluck(i.keyName), {:selected => @hvalue[i.keyName]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
+                      <%= f.select i.keyName, @hselection.uniq.pluck(i.keyName), {:selected => @hvalue[i.keyName]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                     </div>
                   <% end %>
                 </div>
@@ -116,7 +116,7 @@
                       <%= f.label i.serviceName, {class: 'control-label', style: "width: 180px;"}%>
                     </div>
                     <div class="col-md-6">
-                      <%= f.select i.keyName, @hvalues.uniq.pluck(i.keyName), {:selected => @hvalue[i.keyName]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
+                      <%= f.select i.keyName, @hselection.uniq.pluck(i.keyName), {:selected => @hvalue[i.keyName]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                     </div>
                   <% end %>
                   </div>

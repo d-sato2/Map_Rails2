@@ -20,6 +20,9 @@ class HokkaidoController < ApplicationController
     @hvalue = @hvalues.find(params[:id])
     @hcontact = @hvalue.hcontacts
     @hservices = Hservice.all
+
+    @hselection = Hselection.all
+
     @versions = PaperTrail::Version.where('object like ? OR object_changes like ?', "%#{@hvalue.cityname}%", "%#{@hvalue.cityname}%").order('created_at DESC')
     @oldVersionCount = 314
     render layout: false

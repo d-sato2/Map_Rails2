@@ -1,0 +1,53 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gw: MyString
+  ca: MyString
+  frs: MyString
+  ib: MyString
+  ft: MyString
+  rs: MyString
+  ss: MyString
+  eac: MyString
+  eps: MyString
+  bu: MyString
+  pa: MyString
+  et: MyString
+  mail: MyString
+  vender: MyString
+  ns: MyString
+  cms: MyString
+  fn: MyString
+  ps: MyString
+  el_kyodo: MyString
+  kyougi: MyString
+  kiban: MyString
+  kokaike: MyString
+  koumu: MyString
+  todoku: MyString
+
+two:
+  gw: MyString
+  ca: MyString
+  frs: MyString
+  ib: MyString
+  ft: MyString
+  rs: MyString
+  ss: MyString
+  eac: MyString
+  eps: MyString
+  bu: MyString
+  pa: MyString
+  et: MyString
+  mail: MyString
+  vender: MyString
+  ns: MyString
+  cms: MyString
+  fn: MyString
+  ps: MyString
+  el_kyodo: MyString
+  kyougi: MyString
+  kiban: MyString
+  kokaike: MyString
+  koumu: MyString
+  todoku: MyString

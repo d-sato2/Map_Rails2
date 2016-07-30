@@ -25,3 +25,8 @@ hservice = ActiveSupport::JSON.decode(File.read('db/hservice.json'))
 hservice.each do |data|
   Hservice.create(data)
 end
+
+hselection = ActiveSupport::JSON.decode(File.read('db/hselection.json'))
+hselection.each do |data|
+  Hselection.create(data)
+end
