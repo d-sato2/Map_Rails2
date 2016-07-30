@@ -24,8 +24,8 @@ Rails.application.routes.draw do
   post 'hokkaido/move_show' => 'hokkaido#move_show'
 
   get 'hokkaido/csv' => 'hokkaido#csv'
-
   get 'hokkaido/csv_version' => 'hokkaido#csv_version'
+  get 'hokkaido/json' => 'hokkaido#json'
 
   get 'hokkaido/move_edit' => 'hokkaido#move_edit'
   post 'hokkaido/move_edit' => 'hokkaido#move_edit'

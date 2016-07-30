@@ -64,6 +64,15 @@ class HokkaidoController < ApplicationController
     end
   end
 
+  def json
+    @hvalues = Hvalue.all
+    respond_to do |format|
+      format.json do
+          send_data JSON.pretty_generate(JSON.parse(@hvalues.to_json(except: [:created_at, :updated_at]))), filename: "#{Date.today}_北海道_自治体情報.json", type: :json
+      end
+    end
+  end
+
   def hokkaido_map
     data = File.read('db/hokkaido_map.json')
     render json: data
