@@ -10,8 +10,8 @@ class HokkaidoController < ApplicationController
     @iframeURL = "http://192.168.200.67/hokkaido/info"
 
 
-    @hvalues = Hvalue.all
-    @kaisha = @hvalues.uniq.pluck(:vender)
+    @hselections = Hselection.all
+    @vender = @hselections.uniq.pluck(:vender)
   end
 
   def edit
@@ -21,7 +21,7 @@ class HokkaidoController < ApplicationController
     @hcontact = @hvalue.hcontacts
     @hservices = Hservice.all
 
-    @hselection = Hselection.all
+    @hselections = Hselection.all
 
     @versions = PaperTrail::Version.where('object like ? OR object_changes like ?', "%#{@hvalue.cityname}%", "%#{@hvalue.cityname}%").order('created_at DESC')
     @oldVersionCount = 314
