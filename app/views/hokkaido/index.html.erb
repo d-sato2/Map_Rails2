@@ -782,7 +782,6 @@
                     div.transition().duration(200)
                     .style("opacity", 0);
                 })
-
             }
             else{
                 svg.selectAll(".hokkaido."+k)
@@ -975,6 +974,35 @@
                 div2.transition().duration(100)
                 .style("opacity", 0);
             })
+            .on("click", function(d){
+                var current_color = d.data.color
+                var current_conf = d.data.name
+                for (var k in attrHash) {
+                    if (k == "id010006"){
+                        e = attrHash["id010006"]
+                        svg.selectAll(".hokkaido."+ "id010006")
+                        .attr("fill", function(d){
+                            if (current_conf == e[showKey]){
+                                return current_color;
+                            }
+                            else{
+                                return "#ffffff";
+                            }
+                        })
+                    }
+                    else{
+                        svg.selectAll(".hokkaido."+k)
+                        .attr("fill", function(d){
+                            if (current_conf == attrHash[k][showKey]){
+                                return current_color;
+                            }
+                            else{
+                                return "#ffffff";
+                            }
+                        })
+                    }
+                }
+            });
 
         //円グラフの名前
         g2.append("text")
@@ -982,6 +1010,7 @@
             .style("text-anchor", "middle")
             .text(function(d) { return d.data.name; });
 
+        //サービスの名前＋説明
         svg.selectAll("a").selectAll("text").remove()
         svg.append("a").append("text")
             .attr("x", 600)
