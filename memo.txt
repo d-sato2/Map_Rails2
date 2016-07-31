@@ -1,0 +1,12 @@
+・rails_adminのインストール
+参考サイト
+	http://qiita.com/fakestarbaby/items/77d7b974a8be3bfe7444
+	http://tagamidaiki.com/introduce-rails-admin-to-rails4/
+登録管理ユーザー
+	AdminUser.create(:email => "admin@test.com", :password => "hogehoge", :password_confirmation => "hogehoge")
+
+・rails_adminのエラー
+ActiveRecord::StatementInvalid at /
+Could not find table 'version_associations'
+	以下のサイトを参考に対処
+	https://github.com/airblade/paper_trail/issues/515

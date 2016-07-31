@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'zip'
-gem 'rubyzip', '>= 1.0.0', require: 'zip/zip'
+gem 'rails_admin'
+gem 'devise'
 gem 'newrelic_rpm'
 gem 'paper_trail', '~> 4.0.0'
 gem 'tzinfo-data'
