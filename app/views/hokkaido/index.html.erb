@@ -919,6 +919,13 @@
             data3.push(data4[j]);
         }}
 
+        data3.sort(function(a,b){
+                if( a.name == "未導入" ) return 1;
+                if( a.value > b.value ) return -1;
+                if( a.value < b.value ) return 1;
+                return 0;
+        });
+
         //円グラフの半径
         var radius = 100;
         var svg2 = svg.append("g")
