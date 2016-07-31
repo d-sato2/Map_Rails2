@@ -70,16 +70,19 @@
     }
 
     var vender_name = <%= raw @vender %>;
-    var color = ["#ffffff", "#29D2F3", "#b3ffff", "#b3fff2", "#b3ffd9", "#b3ffcc",
-                "#b3ffb3", "#bfffb3", "#d9ffb3", "#e6ffb3", "#ffffb3", "#fff2b3",
-                "#ffd9b3", "#ffccb3", "#ffb3bf", "#ffb3d9", "#ffb3e6", "#ffb3ff",
-                "#f2b3ff", "#d9b3ff", "#ccb3ff", "#b3b3ff", "#b3bfff", "#b3d9ff"]
+
+    var area_color = ["#ffffff", "#29D2F3", "#ffffff", "#29D2F3", "#29D2F3", "#b3ffcc", "#ffffb3", "#ffb3d9"]
     var areaColor = d3.scale.ordinal()
             .domain(["未導入", "導入", "不参加", "参加", "改訂", "基準（町村会）", "改訂（町村会）", "基準（町村会）"])
-            .range([color[0], color[1], color[0], color[1], color[1], color[5], color[10], color[15]]);
+            .range(area_color);
+
+    var vender_color = ["#ffffff", "#F3A229", "#b3ffff", "#b3fff2", "#b3ffd9", "#FFB3F3",
+                "#B3FFB8", "#bfffb3", "#d9ffb3", "#e6ffb3", "#ffffb3", "#fff2b3",
+                "#ffd9b3", "#ffccb3", "#ffb3bf", "#ffb3d9", "#ffb3e6", "#ffb3ff",
+                "#f2b3ff", "#d9b3ff", "#C9B3FF", "#B3FFFD", "#b3bfff", "#b3d9ff"]
     var venderColor = d3.scale.ordinal()
             .domain(vender_name)
-            .range(color);
+            .range(vender_color);
     var current_showKey;
     function backCityColor(param){
         d3.selectAll(".hokkaido."+param.id)
@@ -876,12 +879,12 @@
                     data4.push({
                         name: vender_name[l],
                         value: legend[vender_name[l]],
-                        color: color[l]
+                        color: vender_color[l]
                     });
                 }}
         else if (showKey == "kokaike"){
                 var kokaike_name = ["未導入", "改訂", "基準", "改訂（町村会）", "基準（町村会）"]
-                var kokaike_color = [color[0], color[1], color[15], color[10], color[5]]
+                var kokaike_color = ["#ffffff", "#29D2F3", "#b3ffcc", "#ffffb3", "#ffb3d9"]
                 var data4 = [];
                 for (var l = 0; l < 5; l++) {
                     data4.push({
@@ -892,24 +895,22 @@
                 }}
         else if  (showKey == "kyougi"){
                 var others_name = ["不参加", "参加"]
-                var others_color = [color[0], color[1]]
                 var data4 = [];
                 for (var l = 0; l < 2; l++) {
                     data4.push({
                         name: others_name[l],
                         value: legend[others_name[l]],
-                        color: others_color[l]
+                        color: area_color[l]
                     });
                 }}
         else{
                 var others_name = ["未導入", "導入"]
-                var others_color = [color[0], color[1]]
                 var data4 = [];
                 for (var l = 0; l < 2; l++) {
                     data4.push({
                         name: others_name[l],
                         value: legend[others_name[l]],
-                        color: others_color[l]
+                        color: area_color[l]
                     });
                 }}
 
