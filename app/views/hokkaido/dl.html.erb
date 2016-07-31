@@ -1,0 +1,45 @@
+<div class="row" name="test">
+    <div class="col-md-2">
+        <div class="btn-group-vertical" role="group" style = "margin: 10px 0px 0px 0px;">
+	    	<h3>Hvalue</h3>
+	    	<h4>自治体情報</h4>
+            <%= link_to "自治体情報.xls", hokkaido_dl_jiti_info_path(format: "xls"), class: "btn btn-large btn-success" %>
+            <%= link_to "自治体情報.json", hokkaido_dl_jiti_info_path(format: "json"), class: "btn btn-large btn-primary" %>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="btn-group-vertical" role="group" style = "margin: 10px 0px 0px 0px;">
+	    	<h3>Hcontact</h3>
+	    	<h4>自治体連絡先</h4>
+            <%= link_to "自治体連絡先.json", hokkaido_dl_contact_info_path(format: "json"), class: "btn btn-large btn-primary" %>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="btn-group-vertical" role="group" style = "margin: 10px 0px 0px 0px;">
+	    	<h3>Hservice</h3>
+	    	<h4>サービス名、説明</h4>
+            <%= link_to "サービス.json", hokkaido_dl_service_info_path(format: "json"), class: "btn btn-large btn-primary" %>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="btn-group-vertical" role="group" style = "margin: 10px 0px 0px 0px;">
+	    	<h3>Hselection</h3>
+	    	<h4>サービスの選択肢</h4>
+            <%= link_to "選択肢.json", hokkaido_dl_selection_info_path(format: "json"), class: "btn btn-large btn-primary" %>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="btn-group-vertical" role="group" style = "margin: 10px 0px 0px 0px;">
+	    	<h3>version</h3>
+	    	<h4>更新情報</h4>
+            <%= link_to "更新情報.xls", hokkaido_dl_update_info_path(format: "xls"), class: "btn btn-large btn-success" %>
+            <%= link_to "更新情報.json", hokkaido_dl_update_info_path(format: "json"), class: "btn btn-large btn-primary" %>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="btn-group-vertical" role="group" style = "margin: 10px 0px 0px 0px;">
+	    	<h3>other</h3>
+	    	<h4>その他</h4>
+        </div>
+    </div>
+</div>

@@ -29,9 +29,12 @@ Rails.application.routes.draw do
   get 'hokkaido/dl_update_info' => 'hokkaido#dl_update_info'
   get 'hokkaido/dl_contact_info' => 'hokkaido#dl_contact_info'
   get 'hokkaido/dl_selection_info' => 'hokkaido#dl_selection_info'
+  get 'hokkaido/dl_service_info' => 'hokkaido#dl_service_info'
 
   get 'hokkaido/move_edit' => 'hokkaido#move_edit'
   post 'hokkaido/move_edit' => 'hokkaido#move_edit'
 
   get 'hokkaido/:id/edit.js.erb' => 'hokkaido#edit'
+
+  get 'hokkaido/dl' => 'hokkaido#dl'
 end

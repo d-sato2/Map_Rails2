@@ -70,7 +70,7 @@ class HokkaidoController < ApplicationController
     @hcontacts = Hcontact.all
     respond_to do |format|
       format.html
-      format.json { send_data JSON.pretty_generate(JSON.parse(@hcontacts.to_json)), filename: "#{Date.today}_北海道_更新履歴.json", type: :json }
+      format.json { send_data JSON.pretty_generate(JSON.parse(@hcontacts.to_json(except: [:created_at, :updated_at]))), filename: "#{Date.today}_北海道_連絡先.json", type: :json }
     end
   end
 
@@ -78,7 +78,15 @@ class HokkaidoController < ApplicationController
     @hselections = Hselection.all
     respond_to do |format|
       format.html
-      format.json { send_data JSON.pretty_generate(JSON.parse(@hselections.to_json)), filename: "#{Date.today}_北海道_更新履歴.json", type: :json }
+      format.json { send_data JSON.pretty_generate(JSON.parse(@hselections.to_json(except: [:created_at, :updated_at]))), filename: "#{Date.today}_北海道_サービス選択肢.json", type: :json }
+    end
+  end
+
+  def dl_service_info
+    @hservices = Hservice.all
+    respond_to do |format|
+      format.html
+      format.json { send_data JSON.pretty_generate(JSON.parse(@hservices.to_json(except: [:created_at, :updated_at]))), filename: "#{Date.today}_北海道_サービス説明.json", type: :json }
     end
   end
 
@@ -95,6 +103,9 @@ class HokkaidoController < ApplicationController
   def hokkaido_value
     data = Hvalue.all
     render json: data.to_json(except: [:created_at, :updated_at])
+  end
+
+  def dl
   end
 
   private
