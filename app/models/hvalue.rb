@@ -28,7 +28,7 @@ class Hvalue < ActiveRecord::Base
       changeWord(eps), changeWord(ca), changeWord(kokaike), changeWord(todoku),
       changeWord(gw), changeWord(cms), changeWord(rs), changeWord(ps), changeWord(fn),
       changeWord(el_kyodo), changeWord(koumu), changeWord(ns), changeWord(mail),
-      changeWord(bu), changeWord(ib), vender, memo_kiban, memo_service,
+      changeWord(bu), changeWord(ib), vender, memo_kiban.gsub(/(\r\n|\r|\n)/, " "), memo_service.gsub(/(\r\n|\r|\n)/, " "),
       created_at, updated_at]
   end
 

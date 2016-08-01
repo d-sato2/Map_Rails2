@@ -51,7 +51,7 @@ class HokkaidoController < ApplicationController
     @hvalues = Hvalue.all
     respond_to do |format|
       format.html
-      format.csv { send_data @hvalues.to_csv, filename: "#{Date.today}_北海道_自治体情報.csv" }
+      format.csv { send_data @hvalues.to_csv.encode(Encoding::CP932, invalid: :replace, undef: :replace), filename: "#{Date.today}_北海道_自治体情報.csv" }
       format.xls { send_data @hvalues.to_csv(col_sep: "\t"), filename: "#{Date.today}_北海道_自治体情報.xls" }
       format.json { send_data JSON.pretty_generate(JSON.parse(@hvalues.to_json(except: [:created_at, :updated_at]))), filename: "#{Date.today}_北海道_自治体情報.json", type: :json }
     end
