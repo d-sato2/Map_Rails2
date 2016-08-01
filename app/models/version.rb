@@ -21,6 +21,6 @@ class Version < PaperTrail::Version
       "eps" => "電子調達", "ca" => "総合行政", "gw" => "GW", "cms" => "CMS", "mail" => "Mail", "bu" => "バックアップ",
       "rs" => "リソース", "ps" => "人事給与", "fn" => "ふるさと納税", "ns" => "任用支援", "ib" => "ICT-BCP", "memo_service" => "備考欄" }
 	    [id, changeset.to_a[1][1][1], reify.cityname, @names[changeset.to_a[0][0]],
-	     changeset.to_a[0][1][0], changeset.to_a[0][1][1]]
+	     changeset.to_a[0][1][0].gsub(/(\r\n|\r|\n)/, " "), changeset.to_a[0][1][1].gsub(/(\r\n|\r|\n)/, " ")]
 	end
 end
