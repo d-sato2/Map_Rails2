@@ -61,7 +61,7 @@ class HokkaidoController < ApplicationController
     @versions = Version.all
     respond_to do |format|
       format.html
-      format.csv { send_data @versions.to_csv, filename: "#{Date.today}_北海道_更新履歴.csv" }
+      format.csv { send_data @versions.to_csv.encode(Encoding::CP932, invalid: :replace, undef: :replace), filename: "#{Date.today}_北海道_更新履歴.csv" }
       format.xls { send_data @versions.to_csv(col_sep: "\t"), filename: "#{Date.today}_北海道_更新履歴.xls" }
       format.json { send_data JSON.pretty_generate(JSON.parse(@versions.to_json)), filename: "#{Date.today}_北海道_更新履歴.json", type: :json }
     end

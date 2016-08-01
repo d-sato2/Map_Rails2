@@ -4,6 +4,7 @@
 	    	<h3>Hvalue</h3>
 	    	<h4>自治体情報</h4>
             <%= link_to "自治体情報.xls", hokkaido_dl_jiti_info_path(format: "xls"), class: "btn btn-large btn-success" %>
+            <%= link_to "自治体情報.csv", hokkaido_dl_jiti_info_path(format: "csv"), class: "btn btn-large btn-warning" %>
             <%= link_to "自治体情報.json", hokkaido_dl_jiti_info_path(format: "json"), class: "btn btn-large btn-primary" %>
         </div>
     </div>
@@ -33,6 +34,7 @@
 	    	<h3>version</h3>
 	    	<h4>更新情報</h4>
             <%= link_to "更新情報.xls", hokkaido_dl_update_info_path(format: "xls"), class: "btn btn-large btn-success" %>
+            <%= link_to "更新情報.csv", hokkaido_dl_update_info_path(format: "csv"), class: "btn btn-large btn-warning" %>
             <%= link_to "更新情報.json", hokkaido_dl_update_info_path(format: "json"), class: "btn btn-large btn-primary" %>
         </div>
     </div>
