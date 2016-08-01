@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'coffee-script-source', '1.8.0' # 「TypeError: オブジェクトでサポートされていないプロパティまたはメソッドです。」の対策
 gem 'rails_admin'
 gem 'devise'
 gem 'newrelic_rpm'
