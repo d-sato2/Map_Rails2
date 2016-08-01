@@ -4,6 +4,7 @@ class HokkaidoController < ApplicationController
   def index
     @test = Hvalue.find(1)
     @hservices = Hservice.all
+    @hservices_name = @hservices.to_json(only: [:keyName ,:serviceName, :comment])
     @versions = PaperTrail::Version.order('created_at DESC')
     @oldVersionCount = 314
     @search = Hvalue.search(params[:search])

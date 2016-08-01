@@ -56,6 +56,7 @@
 </div>
 <script type="text/javascript">
     
+    var hservices = <%= raw @hservices_name %>
 
     function createContactModal(){
             $.get( "/hcontact/new", function( data ) {
@@ -1020,62 +1021,19 @@
             .style("text-anchor", "middle")
             .text(function(d) { return d.data.name; });
 
-        //サービスの名前＋説明
+        var serviceObject = hservices.filter(function(i, index){ return i.keyName == showKey})
+        //サービスの名前を削除
         svg.selectAll("a").selectAll("text").remove()
+        //サービスの名前＋説明
         svg.append("a").append("text")
             .attr("x", 600)
             .attr("y", 40)
             .attr("font-size", "40px")
-            .text(function(){
-                return(
-                      (showKey == "vender") ? "<%= @hservices.find_by(keyName: "vender").serviceName %>"
-                    : (showKey == "kyougi") ? "<%= @hservices.find_by(keyName: "kyougi").serviceName %>"
-                    : (showKey == "kiban") ? "<%= @hservices.find_by(keyName: "kiban").serviceName %>"
-                    : (showKey == "el_kyodo") ? "<%= @hservices.find_by(keyName: "el_kyodo").serviceName %>"
-                    : (showKey == "kokaike") ? "<%= @hservices.find_by(keyName: "kokaike").serviceName %>"
-                    : (showKey == "koumu") ? "<%= @hservices.find_by(keyName: "koumu").serviceName %>"
-                    : (showKey == "todoku") ? "<%= @hservices.find_by(keyName: "todoku").serviceName %>"
-                    : (showKey == "eac") ? "<%= @hservices.find_by(keyName: "eac").serviceName %>"
-                    : (showKey == "frs") ? "<%= @hservices.find_by(keyName: "frs").serviceName %>"
-                    : (showKey == "eps") ? "<%= @hservices.find_by(keyName: "eps").serviceName %>"
-                    : (showKey == "ca") ? "<%= @hservices.find_by(keyName: "ca").serviceName %>"
-                    : (showKey == "gw") ? "<%= @hservices.find_by(keyName: "gw").serviceName %>"
-                    : (showKey == "cms") ? "<%= @hservices.find_by(keyName: "cms").serviceName %>"
-                    : (showKey == "mail") ? "<%= @hservices.find_by(keyName: "mail").serviceName %>"
-                    : (showKey == "bu") ? "<%= @hservices.find_by(keyName: "bu").serviceName %>"
-                    : (showKey == "rs") ? "<%= @hservices.find_by(keyName: "rs").serviceName %>"
-                    : (showKey == "ps") ? "<%= @hservices.find_by(keyName: "ps").serviceName %>"
-                    : (showKey == "ps") ? "<%= @hservices.find_by(keyName: "ps").serviceName %>"
-                    : (showKey == "fn") ? "<%= @hservices.find_by(keyName: "fn").serviceName %>"
-                    : (showKey == "ns") ? "<%= @hservices.find_by(keyName: "ns").serviceName %>"
-                    : (showKey == "ib") ? "<%= @hservices.find_by(keyName: "ib").serviceName %>"
-                    : "不明なサービス"
-                );
-            })
-            .on("mouseover", function() {
-                var vender = ( showKey == "vender" ) ? "<%= @hservices.find_by(keyName: "vender").comment %>": "";
-                var kyougi = ( showKey == "kyougi" ) ? "<%= @hservices.find_by(keyName: "kyougi").comment %>": "";
-                var kiban = ( showKey == "kiban" ) ? "<%= @hservices.find_by(keyName: "kiban").comment %>": "";
-                var el_kyodo = ( showKey == "el_kyodo" ) ? "<%= @hservices.find_by(keyName: "el_kyodo").comment %>": "";
-                var kokaike = ( showKey == "kokaike" ) ? "<%= @hservices.find_by(keyName: "kokaike").comment %>": "";
-                var koumu = ( showKey == "koumu" ) ? "<%= @hservices.find_by(keyName: "koumu").comment %>": "";
-                var todoku = ( showKey == "todoku" ) ? "<%= @hservices.find_by(keyName: "todoku").comment %>": "";
-                var eac = ( showKey == "eac" ) ? "<%= @hservices.find_by(keyName: "eac").comment %>": "";
-                var frs = ( showKey == "frs" ) ? "<%= @hservices.find_by(keyName: "frs").comment %>": "";
-                var eps = ( showKey == "eps" ) ? "<%= @hservices.find_by(keyName: "eps").comment %>": "";
-                var ca = ( showKey == "ca" ) ? "<%= @hservices.find_by(keyName: "ca").comment %>": "";
-                var gw = ( showKey == "gw" ) ? "<%= @hservices.find_by(keyName: "gw").comment %>": "";
-                var cms = ( showKey == "cms" ) ? "<%= @hservices.find_by(keyName: "cms").comment %>": "";
-                var mail = ( showKey == "mail" ) ? "<%= @hservices.find_by(keyName: "mail").comment %>": "";
-                var bu = ( showKey == "bu" ) ? "<%= @hservices.find_by(keyName: "bu").comment %>": "";
-                var rs = ( showKey == "rs" ) ? "<%= @hservices.find_by(keyName: "rs").comment %>": "";
-                var ps = ( showKey == "ps" ) ? "<%= @hservices.find_by(keyName: "ps").comment %>": "";
-                var fn = ( showKey == "fn" ) ? "<%= @hservices.find_by(keyName: "fn").comment %>": "";
-                var ns = ( showKey == "ns" ) ? "<%= @hservices.find_by(keyName: "ns").comment %>": "";
-                var ib = ( showKey == "ib" ) ? "<%= @hservices.find_by(keyName: "ib").comment %>": "";
-                var service = vender + kyougi + kiban + el_kyodo + kokaike + koumu + todoku + eac + frs + eps + ca + gw + cms + mail + bu + rs + ps + fn + ns + ib;
+            .text(function(){ return serviceObject[0].serviceName })
+            .on("mouseover", function(){ 
+                serviceComment =  serviceObject[0].comment
                 var content = "";
-                content += "<center>"+ service + "</center>";
+                content += "<center>"+ serviceComment + "</center>";
                 d3.select(this)
                 .transition().duration(100)
                 .style("opacity", 1);div3.transition().duration(100)
