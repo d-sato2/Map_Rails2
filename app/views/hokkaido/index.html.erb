@@ -979,39 +979,42 @@
                 var current_color = d.data.color
                 var current_conf = d.data.name
                 for (var k in attrHash) {
-                    if (k == "id010006"){
-                        e = attrHash["id010006"]
-                        svg.selectAll(".hokkaido."+ "id010006")
-                        .attr("fill", function(d){
-                            if (current_conf == e[showKey]){
-                                return current_color;
-                            }
-                            else{
-                                if(current_conf == "未導入"){
-                                    return "lightgray"
+                    if (showKey == "vender" || showKey == "kokaike") {
+                        if (k == "id010006"){
+                            e = attrHash["id010006"]
+                            svg.selectAll(".hokkaido."+ "id010006")
+                            .attr("fill", function(d){
+                                if (current_conf == e[showKey]){
+                                    return current_color;
                                 }
                                 else{
-                                    return "#ffffff";
+                                    if(current_conf == "未導入"){
+                                        return "lightgray"
+                                    }
+                                    else{
+                                        return "#ffffff";
+                                    }
                                 }
-                            }
-                        })
-                    }
-                    else{
-                        svg.selectAll(".hokkaido."+k)
-                        .attr("fill", function(d){
-                            if (current_conf == attrHash[k][showKey]){
-                                return current_color;
-                            }
-                            else{
-                                if(current_conf == "未導入"){
-                                    return "lightgray"
+                            })
+                        }
+                        else{
+                            svg.selectAll(".hokkaido."+k)
+                            .attr("fill", function(d){
+                                if (current_conf == attrHash[k][showKey]){
+                                    return current_color;
                                 }
                                 else{
-                                    return "#ffffff";
+                                    if(current_conf == "未導入"){
+                                        return "lightgray"
+                                    }
+                                    else{
+                                        return "#ffffff";
+                                    }
                                 }
-                            }
-                        })
+                            })
+                        }
                     }
+                        
                 }
             });
 
@@ -1019,18 +1022,17 @@
         g2.append("text")
             .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")";})
             .style("text-anchor", "middle")
-            .text(function(d) { return d.data.name; });
+            .text(function(d) { if(d.value/180 >= 0.05){return d.data.name;} });
 
 
         //サービスの名前を削除
         svg.selectAll("a").selectAll("text").remove()
-
-        if(showKey == "vender"){
+        if(showKey == "vender" || showKey == "kokaike"){
             svg.append("a").append("text")
                 .attr("x", 20)
                 .attr("y", 230)
                 .attr("font-size", "15px")
-                .text("↑クリックで、その会社のみMAP表示")
+                .text("↑クリックで、その色のみMAP表示")
         }
 
         //サービスの名前＋説明
