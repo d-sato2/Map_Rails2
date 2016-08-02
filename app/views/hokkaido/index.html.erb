@@ -3,8 +3,8 @@
     <div class="col-md-1">
         <label><input type="radio" name="entryPlan" value="hoge1" onclick="entryChange1();" checked />HARP基盤関連</label>
         <label><input type="radio" name="entryPlan" value="hoge2" onclick="entryChange1();" />HARP基盤関係なし</label>
-            <div class="btn-group-vertical" role="group" aria-label="Left Align">
-                <div id="kiban">
+            <div id="kiban">
+                <div class="btn-group-vertical" role="group">
                     <% @hservices.where(kibanRelation: [1, 2]).each do |i| %>
                         <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i.keyName}','')" do %>
                             <%= "#{i.serviceName}" %>
@@ -12,8 +12,8 @@
                     <% end %>
                 </div>
             </div>
-            <div class="btn-group-vertical" role="group" aria-label="Left Align">
-                <div  id="service">
+            <div id="service">
+                <div  class="btn-group-vertical" role="group">
                     <% @hservices.where(kibanRelation: 0).each do |i| %>
                         <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i.keyName}','')" do %>
                             <%= "#{i.serviceName}" %>
