@@ -1,7 +1,7 @@
 <h1>更新履歴</h1>
 <ul>
   <% @versions.each do |version| %>
-    <% if version.event == "update" && version.reify %>
+    <% if version.event == "update" && version.reify %> <%# ←ここでSQLが発行されてる　%>
       <%  change = version.changeset %>
         <%=  change[:updated_at][1].year %>年<%=  change[:updated_at][1].month %>月<%=  change[:updated_at][1].day %>日<%=  change[:updated_at][1].hour %>時<%=  change[:updated_at][1].min %>分
         <br>
