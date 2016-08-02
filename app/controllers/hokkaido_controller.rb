@@ -2,29 +2,22 @@ class HokkaidoController < ApplicationController
   protect_from_forgery except: :edit
   @@versionLength = PaperTrail::Version.select("id").count
   def index
-    @test = Hvalue.find(1)
     @hservices = Hservice.all
     @hservices_name = @hservices.to_json(only: [:keyName ,:serviceName, :comment])
     @hservices_name_array = JSON.parse(@hservices_name)
     @versions = PaperTrail::Version.order('created_at DESC')
     @oldVersionCount = 314
     @search = Hvalue.search(params[:search])
-    @iframeURL = "http://192.168.200.67/hokkaido/info"
-
-
     @hselections = Hselection.all
     @vender = @hselections.uniq.pluck(:vender)
   end
 
   def edit
-    @iframeURL = "http://192.168.200.67/hokkaido/info"
     @hvalues = Hvalue.all
     @hvalue = @hvalues.find(params[:id])
     @hcontact = @hvalue.hcontacts
     @hservices = Hservice.all
-
     @hselections = Hselection.all
-
     @versions = PaperTrail::Version.where('object like ? OR object_changes like ?', "%#{@hvalue.cityname}%", "%#{@hvalue.cityname}%").order('created_at DESC')
     @oldVersionCount = 314
     render layout: false
@@ -42,10 +35,6 @@ class HokkaidoController < ApplicationController
   end
 
   def info
-    @hservices = Hservice.all
-    @versions = PaperTrail::Version.order('created_at DESC')
-    @oldVersionCount = 314
-    render layout: false
   end
 
   def dl_jiti_info
