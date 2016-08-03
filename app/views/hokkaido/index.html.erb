@@ -756,10 +756,8 @@
                     content += "<center>" + "</center>";
                     content += "<center>"+ "-----------------HARP基盤関係なし-----------------" + "</center>";
                     content += "<center style='color:red;'>" + kiban_igaiAfter + "</center>";
-                    if (showKey == "vender"){
-                        content += "<center>"+ "-----------------契約ベンダー-----------------" + "</center>"
-                        content += "<center style='color:red;'>" + e.vender + "</center>";
-                    }
+                    content += "<center>"+ "-----------------契約ベンダー-----------------" + "</center>"
+                    content += "<center style='color:red;'>" + e.vender + "</center>";
                     svg.selectAll(".hokkaido." + e.cityid)
                     .transition().duration(100).attr("fill", "red")
                     .style("opacity", 1);div.transition().duration(100)
@@ -832,10 +830,8 @@
                     content += "<center>" + "</center>";
                     content += "<center>"+ "-----------------HARP基盤関係なし-----------------" + "</center>";
                     content += "<center style='color:red;'>"+ kiban_igaiAfter + "</center>";
-                    if (showKey == "vender"){
-                        content += "<center>"+ "-----------------契約ベンダー-----------------" + "</center>"
-                        content += "<center style='color:red;'>"+ attrHash[d.properties.cityname].vender + "</center>";
-                    }
+                    content += "<center>"+ "-----------------契約ベンダー-----------------" + "</center>"
+                    content += "<center style='color:red;'>"+ attrHash[d.properties.cityname].vender + "</center>";
                     svg.selectAll(".hokkaido." + attrHash[d.properties.cityname].cityid)
                     .transition().duration(100).attr("fill", "red")
                     .style("opacity", 1);div.transition().duration(100)
