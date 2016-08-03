@@ -720,7 +720,7 @@
                 })
                 .attr("style", "cursor: pointer;")
                 .on("mouseover", function(d) {
-                    var kiban = ( e.kiban== "導入" ) ? "○" : "×";
+                    var kiban = ( e.kiban== "導入" ) ? "<text style='color:#DF7401;font-size:25px;'>" + "○" + "</text>" : "×";
                     var eac = ( e.eac == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "eac"})[0].serviceName + "、" : "";
                     var frs = ( e.frs == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "frs"})[0].serviceName + "、" : "";
                     var eps = ( e.eps == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "eps"})[0].serviceName + "、" : "";
@@ -749,15 +749,15 @@
                     var kiban_keiAfter = ( kiban_kei.substr( (kiban_kei.length-1) )  == "、" ) ? kiban_kei.substr( 0 , (kiban_kei.length-1) ) : kiban_kei;
                     var kiban_igaiAfter = ( kiban_igai.substr( (kiban_igai.length-1) )  == "、" ) ? kiban_igai.substr( 0 , (kiban_igai.length-1) ) : kiban_igai;
                     var content = "";
-                    content += "<center style='color:red;'>"+ e.cityname + "</center>";
-                    content += "<center>" + "【HARP基盤負担】" + kiban + "</center>";
-                    content += "<center>"+ "--------------HARP基盤関連サービス--------------" + "</center>";
-                    content += "<center style='color:red;'>" + kiban_keiAfter + "</center>";
-                    content += "<center>" + "</center>";
-                    content += "<center>"+ "-----------------HARP基盤関係なし-----------------" + "</center>";
-                    content += "<center style='color:red;'>" + kiban_igaiAfter + "</center>";
-                    content += "<center>"+ "-----------------契約ベンダー-----------------" + "</center>"
-                    content += "<center style='color:red;'>" + e.vender + "</center>";
+                    content += "<center style='color:#DF7401;'>"+ e.cityname + "</center>";
+                    content += "<center style='color:#BDBDBD;'>" + "【HARP基盤負担】" + kiban + "</center>";
+                    content += "<center style='color:#BDBDBD;'>"+ "--------------HARP基盤関連サービス--------------" + "</center>";
+                    content += "<center style='color:#DF7401;'>" + kiban_keiAfter + "</center>";
+                    content += "<center style='color:#BDBDBD;'>" + "</center>";
+                    content += "<center style='color:#BDBDBD;'>"+ "-----------------HARP基盤関係なし-----------------" + "</center>";
+                    content += "<center style='color:#DF7401;'>" + kiban_igaiAfter + "</center>";
+                    content += "<center style='color:#BDBDBD;'>"+ "-----------------契約ベンダー-----------------" + "</center>"
+                    content += "<center style='color:#DF7401;'>" + e.vender + "</center>";
                     svg.selectAll(".hokkaido." + e.cityid)
                     .transition().duration(100).attr("fill", "red")
                     .style("opacity", 1);div.transition().duration(100)
@@ -794,7 +794,7 @@
                 })
                 .attr("style", "cursor: pointer;")
                 .on("mouseover", function(d) {
-                    var kiban = ( attrHash[d.properties.cityname].kiban== "導入" ) ? "<text style='color:red;font-size:25px;'>" + "○" + "</text>" : "×";
+                    var kiban = ( attrHash[d.properties.cityname].kiban== "導入" ) ? "<text style='color:#DF7401;font-size:25px;'>" + "○" + "</text>" : "×";
                     var eac = ( attrHash[d.properties.cityname].eac == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "eac"})[0].serviceName + "、" : "";
                     var frs = ( attrHash[d.properties.cityname].frs == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "frs"})[0].serviceName + "、" : "";
                     var eps = ( attrHash[d.properties.cityname].eps == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "eps"})[0].serviceName + "、" : "";
@@ -823,15 +823,15 @@
                     var kiban_keiAfter = ( kiban_kei.substr( (kiban_kei.length-1) )  == "、" ) ? kiban_kei.substr( 0 , (kiban_kei.length-1) ) : kiban_kei;
                     var kiban_igaiAfter = ( kiban_igai.substr( (kiban_igai.length-1) )  == "、" ) ? kiban_igai.substr( 0 , (kiban_igai.length-1) ) : kiban_igai;
                     var content = "";
-                    content += "<center style='color:red;'>"+ attrHash[d.properties.cityname].cityname + "</center>";
-                    content += "<center>" + "【HARP基盤負担】" + kiban + "</center>";
-                    content += "<center>"+ "--------------HARP基盤関連サービス--------------" + "</center>";
-                    content += "<center style='color:red;'>"+ kiban_keiAfter + "</center>";
-                    content += "<center>" + "</center>";
-                    content += "<center>"+ "-----------------HARP基盤関係なし-----------------" + "</center>";
-                    content += "<center style='color:red;'>"+ kiban_igaiAfter + "</center>";
-                    content += "<center>"+ "-----------------契約ベンダー-----------------" + "</center>"
-                    content += "<center style='color:red;'>"+ attrHash[d.properties.cityname].vender + "</center>";
+                    content += "<center style='color:#DF7401;'>"+ attrHash[d.properties.cityname].cityname + "</center>";
+                    content += "<center style='color:#BDBDBD;'>" + "【HARP基盤負担】" + kiban + "</center>";
+                    content += "<center style='color:#BDBDBD;'>"+ "--------------HARP基盤関連サービス--------------" + "</center>";
+                    content += "<center style='color:#DF7401;'>"+ kiban_keiAfter + "</center>";
+                    content += "<center style='color:#BDBDBD;'>" + "</center>";
+                    content += "<center style='color:#BDBDBD;'>"+ "-----------------HARP基盤関係なし-----------------" + "</center>";
+                    content += "<center style='color:#DF7401;'>"+ kiban_igaiAfter + "</center>";
+                    content += "<center style='color:#BDBDBD;'>"+ "-----------------契約ベンダー-----------------" + "</center>"
+                    content += "<center style='color:#DF7401;'>"+ attrHash[d.properties.cityname].vender + "</center>";
                     svg.selectAll(".hokkaido." + attrHash[d.properties.cityname].cityid)
                     .transition().duration(100).attr("fill", "red")
                     .style("opacity", 1);div.transition().duration(100)
@@ -957,8 +957,11 @@
                 var per = (d.value/180)*100;
                 var per2 = per.toFixed(1);
                 var content = "";
-                content += "<center>"+ d.data.name + "</center>";
-                content += d.value + "/180自治体(" + per2 + "%)"
+                content += "<center style='color:#BFFF00;'>"+ d.data.name + "</center>";
+                content += "<text style='color:#BFFF00;'>" + d.value + "</text>"
+                content += "<text style='color:#BDBDBD;'>" + "/180自治体" + "(" + "</text>"
+                content += "<text style='color:#BFFF00;'>" + per2 + "%" + "</text>"
+                content += "<text style='color:#BDBDBD;'>" + ")" + "</text>"
                 div2.html(content)
                 .style("left", (d3.event.pageX +10) + "px")
                 .style("top", (d3.event.pageY -40) + "px");
