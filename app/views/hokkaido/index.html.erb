@@ -749,16 +749,16 @@
                     var kiban_keiAfter = ( kiban_kei.substr( (kiban_kei.length-1) )  == "、" ) ? kiban_kei.substr( 0 , (kiban_kei.length-1) ) : kiban_kei;
                     var kiban_igaiAfter = ( kiban_igai.substr( (kiban_igai.length-1) )  == "、" ) ? kiban_igai.substr( 0 , (kiban_igai.length-1) ) : kiban_igai;
                     var content = "";
-                    content += "<center style='color:white;'>"+ e.cityname + "</center>";
-                    content += "<center style='color:white;'>" + "【HARP基盤負担】" + kiban + "</center>";
-                    content += "<center style='color:white;'>"+ "--------------HARP基盤関連サービス--------------" + "</center>";
-                    content += kiban_keiAfter
-                    content += "<center style='color:white;'>" + "</center>";
-                    content += "<center style='color:white;'>"+ "-----------------HARP基盤関係なし-----------------" + "</center>";
-                    content += kiban_igaiAfter
+                    content += "<center style='color:red;'>"+ e.cityname + "</center>";
+                    content += "<center>" + "【HARP基盤負担】" + kiban + "</center>";
+                    content += "<center>"+ "--------------HARP基盤関連サービス--------------" + "</center>";
+                    content += "<center style='color:red;'>" + kiban_keiAfter + "</center>";
+                    content += "<center>" + "</center>";
+                    content += "<center>"+ "-----------------HARP基盤関係なし-----------------" + "</center>";
+                    content += "<center style='color:red;'>" + kiban_igaiAfter + "</center>";
                     if (showKey == "vender"){
-                        content += "<center style='color:white;'>"+ "-----------------契約ベンダー-----------------" + "</center>"
-                        content += e.vender
+                        content += "<center>"+ "-----------------契約ベンダー-----------------" + "</center>"
+                        content += "<center style='color:red;'>" + e.vender + "</center>";
                     }
                     svg.selectAll(".hokkaido." + e.cityid)
                     .transition().duration(100).attr("fill", "red")
@@ -796,7 +796,7 @@
                 })
                 .attr("style", "cursor: pointer;")
                 .on("mouseover", function(d) {
-                    var kiban = ( attrHash[d.properties.cityname].kiban== "導入" ) ? "○" : "×";
+                    var kiban = ( attrHash[d.properties.cityname].kiban== "導入" ) ? "<text style='color:red;font-size:25px;'>" + "○" + "</text>" : "×";
                     var eac = ( attrHash[d.properties.cityname].eac == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "eac"})[0].serviceName + "、" : "";
                     var frs = ( attrHash[d.properties.cityname].frs == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "frs"})[0].serviceName + "、" : "";
                     var eps = ( attrHash[d.properties.cityname].eps == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "eps"})[0].serviceName + "、" : "";
@@ -826,14 +826,14 @@
                     var kiban_igaiAfter = ( kiban_igai.substr( (kiban_igai.length-1) )  == "、" ) ? kiban_igai.substr( 0 , (kiban_igai.length-1) ) : kiban_igai;
                     var content = "";
                     content += "<center style='color:red;'>"+ attrHash[d.properties.cityname].cityname + "</center>";
-                    content += "<center >" + "【HARP基盤負担】" + "<text style='color:red;'>" + kiban + "</text>" + "</center>";
-                    content += "<center >"+ "--------------HARP基盤関連サービス--------------" + "</center>";
+                    content += "<center>" + "【HARP基盤負担】" + kiban + "</center>";
+                    content += "<center>"+ "--------------HARP基盤関連サービス--------------" + "</center>";
                     content += "<center style='color:red;'>"+ kiban_keiAfter + "</center>";
-                    content += "<center >" + "</center>";
-                    content += "<center >"+ "-----------------HARP基盤関係なし-----------------" + "</center>";
+                    content += "<center>" + "</center>";
+                    content += "<center>"+ "-----------------HARP基盤関係なし-----------------" + "</center>";
                     content += "<center style='color:red;'>"+ kiban_igaiAfter + "</center>";
                     if (showKey == "vender"){
-                        content += "<center >"+ "-----------------契約ベンダー-----------------" + "</center>"
+                        content += "<center>"+ "-----------------契約ベンダー-----------------" + "</center>"
                         content += "<center style='color:red;'>"+ attrHash[d.properties.cityname].vender + "</center>";
                     }
                     svg.selectAll(".hokkaido." + attrHash[d.properties.cityname].cityid)
