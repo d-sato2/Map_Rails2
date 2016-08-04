@@ -324,58 +324,25 @@
         //自治体ON/OFFボタン用スペース作成
         svg.append("rect")
         .attr("x", 690)
-        .attr("y", 598)
-        .attr("height", 30)
+        .attr("y", 638)
+        .attr("height", 25)
         .attr("width", 200)
-        .attr("rx", 20)
+        .attr("rx", 10)
         .attr("ry", 20)
         .attr("stroke", "black")
         .attr("fill", "none");
         svg.append("text")
-        .attr("x", 760)
-        .attr("y", 595)
+        .attr("x", 628)
+        .attr("y", 658)
         .attr("font-size", "20px")
         .style("fill", "black")
         .style("font-weight", "bold")
         .text("市町村");
 
-        //振興局ON/OFFボタン用スペース作成
-        svg.append("rect")
-        .attr("x", 690)
-        .attr("y", 658)
-        .attr("height", 30)
-        .attr("width", 200)
-        .attr("rx", 20)
-        .attr("ry", 20)
-        .attr("stroke", "black")
-        .attr("fill", "none");
-        svg.append("text")
-        .attr("x", 760)
-        .attr("y", 655)
-        .attr("font-size", "20px")
-        .style("fill", "black")
-        .style("font-weight", "bold")
-        .text("振興局");
-
-        //境界要素追加
-        var drawBorderDone;
-        function drawBorder(){
-                g.append("path")
-                    .datum(topojson.mesh(topo, topo.objects.hokkaido, function(a, b) { return a !== b; }))
-                    .attr({
-                  "d": path,
-                  "id": "border",
-                   "fill": "none",
-                   "stroke": "#D3D3D3"
-                });
-            drawBorderDone = true;
-        }
-        drawBorder();
-
-        // 境界線ON/OFF button
+        // 市町村の境界線ON/OFF button
         svg.append("text")
         .attr("x", 780)
-        .attr("y", 620)
+        .attr("y", 658)
         .attr("font-size", "20px")
         .attr("id", "border_on_off")
         .attr("style", "cursor: pointer;")
@@ -397,6 +364,113 @@
             }
         });
 
+        // 市町村名のラベルON/OFF button
+        svg.append("text")
+        .attr("x", 700)
+        .attr("y", 658)
+        .attr("font-size", "20px")
+        .attr("id", "city_on_off")
+        .attr("style", "cursor: pointer;")
+        .style("fill", "#2E9AFE")
+        .text("名前OFF")
+        .on("click", function(){
+            if(drawCityNameDone){
+                    d3.selectAll("#city_on_off")
+                    .style("fill", "#2E9AFE")
+                    .text("名前OFF")
+                    d3.selectAll("#cityName").remove();
+                    drawCityNameDone = false;
+            }
+            else{
+                d3.selectAll("#city_on_off")
+                .style("fill", "#F66780")
+                .text("名前ON")
+                drawCityName();
+            }
+        });
+
+        //境界要素追加
+        var drawBorderDone;
+        function drawBorder(){
+                g.append("path")
+                    .datum(topojson.mesh(topo, topo.objects.hokkaido, function(a, b) { return a !== b; }))
+                    .attr({
+                  "d": path,
+                  "id": "border",
+                   "fill": "none",
+                   "stroke": "#D3D3D3"
+                });
+            drawBorderDone = true;
+        }
+        drawBorder();
+
+        //振興局ON/OFFボタン用スペース作成
+        svg.append("rect")
+        .attr("x", 690)
+        .attr("y", 668)
+        .attr("height", 25)
+        .attr("width", 200)
+        .attr("rx", 10)
+        .attr("ry", 20)
+        .attr("stroke", "black")
+        .attr("fill", "none");
+        svg.append("text")
+        .attr("x", 628)
+        .attr("y", 688)
+        .attr("font-size", "20px")
+        .style("fill", "black")
+        .style("font-weight", "bold")
+        .text("振興局");
+
+        // 振興局の境界線ON/OFF button
+        svg.append("text")
+        .attr("x", 780)
+        .attr("y", 688)
+        .attr("font-size", "20px")
+        .attr("id", "bureauBorder_on_off")
+        .attr("style", "cursor: pointer;")
+        .style("fill", "#F66780")
+        .text("境界線ON")
+        .on("click", function(){
+            if(drawBureauBorderDone){
+                    d3.selectAll("#bureauBorder_on_off")
+                    .style("fill", "#2E9AFE")
+                    .text("境界線OFF")
+                    d3.selectAll("#bureauBorder").remove();
+                    drawBureauBorderDone = false;
+            }
+            else{
+                d3.selectAll("#bureauBorder_on_off")
+                .style("fill", "#F66780")
+                .text("境界線ON")
+                drawBureauBorder();
+            }
+        });
+
+        // 振興局名のラベルON/OFF button
+        svg.append("text")
+        .attr("x", 700)
+        .attr("y", 688)
+        .attr("font-size", "20px")
+        .attr("id", "bureau_on_off")
+        .attr("style", "cursor: pointer;")
+        .style("fill", "#2E9AFE")
+        .text("名前OFF")
+        .on("click", function(){
+            if(drawBureauNameDone){
+                    d3.selectAll("#bureau_on_off")
+                    .style("fill", "#2E9AFE")
+                    .text("名前OFF")
+                    d3.selectAll("#bureauName").remove();
+                    drawBureauNameDone = false;
+            }
+            else{
+                d3.selectAll("#bureau_on_off")
+                .style("fill", "#F66780")
+                .text("名前ON")
+                drawBureauName();
+            }
+        });
 
         /*振興局の外枠作成用にいろいろいじったやつ
         var bureau_id = [];
@@ -537,32 +611,6 @@
         }
         drawBureauBorder();
 
-        // 振興局境界線ON/OFF button
-
-        svg.append("text")
-        .attr("x", 780)
-        .attr("y", 680)
-        .attr("font-size", "20px")
-        .attr("id", "bureauBorder_on_off")
-        .attr("style", "cursor: pointer;")
-        .style("fill", "#F66780")
-        .text("境界線ON")
-        .on("click", function(){
-            if(drawBureauBorderDone){
-                    d3.selectAll("#bureauBorder_on_off")
-                    .style("fill", "#2E9AFE")
-                    .text("境界線OFF")
-                    d3.selectAll("#bureauBorder").remove();
-                    drawBureauBorderDone = false;
-            }
-            else{
-                d3.selectAll("#bureauBorder_on_off")
-                .style("fill", "#F66780")
-                .text("境界線ON")
-                drawBureauBorder();
-            }
-        });
-
         var bureauName = [
             {name:"空知総合", x:340, y:370},
             {name:"石狩", x:285, y:430},
@@ -597,32 +645,6 @@
                 drawBureauNameDone = true;
         }
 
-        // 振興局名のラベルON/OFF button
-        svg.append("text")
-        .attr("x", 700)
-        .attr("y", 680)
-        .attr("font-size", "20px")
-        .attr("id", "bureau_on_off")
-        .attr("style", "cursor: pointer;")
-        .style("fill", "#2E9AFE")
-        .text("名前OFF")
-        .on("click", function(){
-            if(drawBureauNameDone){
-                    d3.selectAll("#bureau_on_off")
-                    .style("fill", "#2E9AFE")
-                    .text("名前OFF")
-                    d3.selectAll("#bureauName").remove();
-                    drawBureauNameDone = false;
-            }
-            else{
-                d3.selectAll("#bureau_on_off")
-                .style("fill", "#F66780")
-                .text("名前ON")
-                drawBureauName();
-            }
-        });
-
-
         // 市町村名のラベル貼り
         var drawCityNameDone;
         function drawCityName(){
@@ -652,31 +674,6 @@
             }
             drawCityNameDone = true;
         }
-
-        // 市町村名のラベルON/OFF button
-        svg.append("text")
-        .attr("x", 700)
-        .attr("y", 620)
-        .attr("font-size", "20px")
-        .attr("id", "city_on_off")
-        .attr("style", "cursor: pointer;")
-        .style("fill", "#2E9AFE")
-        .text("名前OFF")
-        .on("click", function(){
-            if(drawCityNameDone){
-                    d3.selectAll("#city_on_off")
-                    .style("fill", "#2E9AFE")
-                    .text("名前OFF")
-                    d3.selectAll("#cityName").remove();
-                    drawCityNameDone = false;
-            }
-            else{
-                d3.selectAll("#city_on_off")
-                .style("fill", "#F66780")
-                .text("名前ON")
-                drawCityName();
-            }
-        });
 
         // zoom and pan
         var zoom = d3.behavior.zoom()
