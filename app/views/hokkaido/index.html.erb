@@ -720,7 +720,7 @@
                 })
                 .attr("style", "cursor: pointer;")
                 .on("mouseover", function(d) {
-                    var kiban = ( e.kiban== "導入" ) ? "<text style='color:#DF7401;font-size:25px;'>" + "○" + "</text>" : "×";
+                    var kiban = ( e.kiban== "導入" ) ? "<text style='color:#DF7401;'>" + "○" + "</text>" : "×";
                     var eac = ( e.eac == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "eac"})[0].serviceName + "、" : "";
                     var frs = ( e.frs == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "frs"})[0].serviceName + "、" : "";
                     var eps = ( e.eps == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "eps"})[0].serviceName + "、" : "";
@@ -794,7 +794,7 @@
                 })
                 .attr("style", "cursor: pointer;")
                 .on("mouseover", function(d) {
-                    var kiban = ( attrHash[d.properties.cityname].kiban== "導入" ) ? "<text style='color:#DF7401;font-size:25px;'>" + "○" + "</text>" : "×";
+                    var kiban = ( attrHash[d.properties.cityname].kiban== "導入" ) ? "<text style='color:#DF7401;'>" + "○" + "</text>" : "×";
                     var eac = ( attrHash[d.properties.cityname].eac == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "eac"})[0].serviceName + "、" : "";
                     var frs = ( attrHash[d.properties.cityname].frs == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "frs"})[0].serviceName + "、" : "";
                     var eps = ( attrHash[d.properties.cityname].eps == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "eps"})[0].serviceName + "、" : "";
