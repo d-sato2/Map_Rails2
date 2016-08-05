@@ -5,7 +5,7 @@
         <div class="accordion" id="myAccordion">
             <div class="panel">
                 <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#collapsible-1" data-parent="#myAccordion">HARP基盤関連</button>
-                <div id="collapsible-1" class="collapse">
+                <div id="collapsible-1" class="collapse in">
                     <div class="btn-group-vertical" role="group">
                         <% @hservices.where(kibanRelation: [1, 2]).each do |i| %>
                             <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i.keyName}','')" do %>
