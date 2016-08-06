@@ -1,46 +1,62 @@
 <div id="product-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <div class="row" name="test">
-    <div class="col-md-1">
-        <div class="accordion" id="myAccordion">
-            <div class="btn-group-vertical" role="group">
-                    <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#collapsible-3" data-parent="#myAccordion">
-                    <span class="glyphicon glyphicon-chevron-down"></span>
+    <div class="col-md-1"  style="width:150px;">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                  <span class="glyphicon glyphicon-chevron-down"></span>
                     ベンダ情報
-                    </button>
-                    <div id="collapsible-3" class="collapse in">
-                        <div class="btn-group-vertical center-block" role="group">
-                                <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('vender','')" do %>
-                                    <%= "契約ベンダ" %>
-                                <% end %>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#collapsible-1" data-parent="#myAccordion">
-                    <span class="glyphicon glyphicon-chevron-down"></span>
-                    HARP基盤系
-                    </button>
-                    <div id="collapsible-1" class="collapse">
-                        <div class="btn-group-vertical center-block" role="group">
-                            <% @hservices.where(kibanRelation: [1, 2]).each do |i| %>
-                                <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i.keyName}','')" do %>
-                                    <%= "#{i.serviceName}" %>
-                                <% end %>
-                            <% end %>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#collapsible-2" data-parent="#myAccordion">
-                    <span class="glyphicon glyphicon-chevron-down"></span>
-                    基盤関系なし
-                    </button>
-                    <div id="collapsible-2" class="collapse">
-                        <div class="btn-group-vertical center-block" role="group">
-                            <% @hservices.where(kibanRelation: 0).each do |i| %>
-                                <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i.keyName}','')" do %>
-                                    <%= "#{i.serviceName}" %>
-                                <% end %>
-                            <% end %>
-                        </div>
-                    </div>
+                </a>
+              </h4>
             </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="btn-group-vertical center-block" role="group">
+                        <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('vender','')" do %>
+                            <%= "契約ベンダ" %>
+                        <% end %>
+                </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                  <span class="glyphicon glyphicon-chevron-up"></span>
+                    HARP基盤系
+                </a>
+              </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="btn-group-vertical center-block" role="group">
+                    <% @hservices.where(kibanRelation: [1, 2]).each do |i| %>
+                        <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i.keyName}','')" do %>
+                            <%= "#{i.serviceName}" %>
+                        <% end %>
+                    <% end %>
+                </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                  <span class="glyphicon glyphicon-chevron-up"></span>
+                    基盤関系なし
+                </a>
+              </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+                <div class="btn-group-vertical center-block" role="group">
+                    <% @hservices.where(kibanRelation: 0).each do |i| %>
+                        <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i.keyName}','')" do %>
+                            <%= "#{i.serviceName}" %>
+                        <% end %>
+                    <% end %>
+                </div>
+            </div>
+          </div>
         </div>
         <div class="btn-group-vertical" role="group" style = "margin: 10px 0px 0px 0px;">
             <%= link_to "自治体情報.xls", hokkaido_dl_jiti_info_path(format: "xls"), class: "btn btn-large btn-primary" %>
@@ -49,10 +65,8 @@
             <%= link_to "更新情報.csv", hokkaido_dl_update_info_path(format: "csv"), class: "btn btn-large btn-warning" %>
         </div>
     </div>
-    <div class="col-md-7" style="width:924px; height:760px;">
         <div class="col-md-7" id="map" style="width:924px; height:700px;"></div>
-    </div>
-    <div class="col-md-4" style="width:350px; height:750px;">
+    <div class="col-md-4" style="width:300px; height:750px;">
         <%= link_to '連絡先を新規作成', '#', class: "btn btn-primary", onclick: "createContactModal()" %>
         <%= form_tag '/hokkaido', :method => 'get' do %>
            <%= text_field_tag :search, params[:search] %>
@@ -75,10 +89,16 @@
     </div>
 </div>
 <script type="text/javascript">
-    $('.collapse').on('shown.bs.collapse', function(n){
-    $(n.target).parent().find(".glyphicon-chevron-up").toggleClass('glyphicon-chevron-up glyphicon-chevron-down');
-    }).on('hidden.bs.collapse', function(n){
-    $(n.target).parent().find(".glyphicon-chevron-down").toggleClass('glyphicon-chevron-up glyphicon-chevron-down');
+$('.collapse')
+    .on('shown.bs.collapse', function(){
+        $(this).parent().find(".glyphicon-chevron-up")
+            .removeClass("glyphicon-chevron-up")
+            .addClass("glyphicon-chevron-down");
+    })
+    .on('hidden.bs.collapse', function(){
+        $(this).parent().find(".glyphicon-chevron-down")
+            .removeClass("glyphicon-chevron-down")
+            .addClass("glyphicon-chevron-up");
     });
 
     var hservices = <%= raw @hservices_name %>
