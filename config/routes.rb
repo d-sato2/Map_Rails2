@@ -37,4 +37,5 @@ Rails.application.routes.draw do
   get 'hokkaido/:id/edit.js.erb' => 'hokkaido#edit'
 
   get 'hokkaido/dl' => 'hokkaido#dl'
+  get 'hokkaido/cluster' => 'hokkaido#cluster'
 end

@@ -37,6 +37,9 @@ class HokkaidoController < ApplicationController
   def info
   end
 
+  def cluster
+  end
+
   def dl_jiti_info
     @hvalues = Hvalue.all
     respond_to do |format|
