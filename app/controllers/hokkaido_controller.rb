@@ -5,7 +5,7 @@ class HokkaidoController < ApplicationController
     @hservices = Hservice.all
     @hservices_name = @hservices.to_json(only: [:keyName ,:serviceName, :comment])
     @hservices_name_array = JSON.parse(@hservices_name)
-    @versions = PaperTrail::Version.order('created_at DESC')
+    @versions = PaperTrail::Version.order('created_at DESC').limit(100)
     @oldVersionCount = 314
     @search = Hvalue.search(params[:search])
     @hselections = Hselection.all
