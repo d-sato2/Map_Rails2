@@ -6,8 +6,8 @@
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                    ベンダ情報<br>
                   <span class="glyphicon glyphicon-chevron-down"></span>
-                    ベンダ情報
                 </a>
               </h4>
             </div>
@@ -23,7 +23,7 @@
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                  <span class="glyphicon glyphicon-chevron-up"></span>
+                  <span class="glyphicon glyphicon-chevron-up"></span><br>
                     HARP基盤系
                 </a>
               </h4>
@@ -42,7 +42,7 @@
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                  <span class="glyphicon glyphicon-chevron-up"></span>
+                  <span class="glyphicon glyphicon-chevron-up"></span><br>
                     基盤関系なし
                 </a>
               </h4>
@@ -65,7 +65,9 @@
             <%= link_to "更新情報.csv", hokkaido_dl_update_info_path(format: "csv"), class: "btn btn-large btn-warning" %>
         </div>
     </div>
+    <div class="col-md-7" style="width:924px; height:760px;">
         <div class="col-md-7" id="map" style="width:924px; height:700px;"></div>
+    </div>
     <div class="col-md-4" style="width:300px; height:750px;">
         <%= link_to '連絡先を新規作成', '#', class: "btn btn-primary", onclick: "createContactModal()" %>
         <%= form_tag '/hokkaido', :method => 'get' do %>
@@ -89,16 +91,10 @@
     </div>
 </div>
 <script type="text/javascript">
-$('.collapse')
-    .on('shown.bs.collapse', function(){
-        $(this).parent().find(".glyphicon-chevron-up")
-            .removeClass("glyphicon-chevron-up")
-            .addClass("glyphicon-chevron-down");
-    })
-    .on('hidden.bs.collapse', function(){
-        $(this).parent().find(".glyphicon-chevron-down")
-            .removeClass("glyphicon-chevron-down")
-            .addClass("glyphicon-chevron-up");
+    $('.collapse').on('shown.bs.collapse', function(n){
+    $(n.target).parent().find(".glyphicon-chevron-up").toggleClass('glyphicon-chevron-up glyphicon-chevron-down');
+    }).on('hidden.bs.collapse', function(n){
+    $(n.target).parent().find(".glyphicon-chevron-down").toggleClass('glyphicon-chevron-up glyphicon-chevron-down');
     });
 
     var hservices = <%= raw @hservices_name %>
@@ -952,7 +948,7 @@ $('.collapse')
                         color: area_color[l]
                     });
                 }}
-console.log(attrHash[1])
+
         //data4からundefined以外を拾ってデータセットを作成
         var data3 = [];        for (var j = 0; j < data4.length; j++) {
             if (data4[j].value !== undefined) {
