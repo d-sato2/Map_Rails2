@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head style="background: linear-gradient(#FFFFFF, #E0F8F7) center center / cover no-repeat fixed">
   <title>HARP勢力図</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body style="background: linear-gradient(#FFFFFF, #E0F8F7) center center / cover no-repeat fixed">
+<body>
   <%= render 'layouts/header' %>
   <% flash.each do |key, value| %>
     <div class="alert alert-<%= key %>"><%= value %></div>

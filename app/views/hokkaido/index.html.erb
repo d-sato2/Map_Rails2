@@ -7,7 +7,7 @@
               <h4 class="panel-title">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                     ベンダ情報<br>
-                  <span class="glyphicon glyphicon-chevron-down"></span>
+                    <span class="glyphicon glyphicon-chevron-down"></span>
                 </a>
               </h4>
             </div>
@@ -23,8 +23,8 @@
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                  <span class="glyphicon glyphicon-chevron-up"></span><br>
-                    HARP基盤系
+                    HARP基盤系<br>
+                    <span class="glyphicon glyphicon-chevron-up"></span>
                 </a>
               </h4>
             </div>
@@ -42,8 +42,8 @@
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                  <span class="glyphicon glyphicon-chevron-up"></span><br>
-                    基盤関系なし
+                    基盤関系なし<br>
+                    <span class="glyphicon glyphicon-chevron-up"></span>
                 </a>
               </h4>
             </div>
@@ -58,22 +58,19 @@
             </div>
           </div>
         </div>
-        <div class="btn-group-vertical" role="group" style = "margin: 10px 0px 0px 0px;">
-            <%= link_to "自治体情報.xls", hokkaido_dl_jiti_info_path(format: "xls"), class: "btn btn-large btn-primary" %>
-            <%= link_to "自治体情報.csv", hokkaido_dl_jiti_info_path(format: "csv"), class: "btn btn-large btn-warning" %>
-            <%= link_to "更新情報.xls", hokkaido_dl_update_info_path(format: "xls"), class: "btn btn-large btn-primary" %>
-            <%= link_to "更新情報.csv", hokkaido_dl_update_info_path(format: "csv"), class: "btn btn-large btn-warning" %>
-        </div>
     </div>
     <div class="col-md-7" style="width:924px; height:760px;">
         <div class="col-md-7" id="map" style="width:924px; height:700px;"></div>
     </div>
     <div class="col-md-4" style="width:300px; height:750px;">
-        <%= link_to '連絡先を新規作成', '#', class: "btn btn-primary", onclick: "createContactModal()" %>
         <%= form_tag '/hokkaido', :method => 'get' do %>
-           <%= text_field_tag :search, params[:search] %>
+           <%= text_field_tag :search, params[:search], :size => '15' %>
            <%= submit_tag "自治体検索", :cityname => nil, class: "btn btn-primary" %>
         <% end %>
+        <div>
+        <%= link_to '連絡先を新規作成', '#', class: "btn btn-primary", onclick: "createContactModal()" %>
+        </div>
+        <br>
         <% if params.has_key?(:search) then %>
             <div>
                 <tbody>
@@ -85,8 +82,20 @@
                 </tbody>
             </div>
         <% end %>
-        <div id="info" style="width:350px;height:670px;overflow-y: auto" frameborder="0" scrolling="yes">
+        <div id="info" style="height:492px;overflow-y: auto" frameborder="0" scrolling="yes">
             <%= render 'info' %>
+        </div>
+        <br>
+        <div>
+            <h5>データのダウンロード</h5>
+            <div class="btn-group-vertical" role="group">
+                <%= link_to "自治体情報.xls", hokkaido_dl_jiti_info_path(format: "xls"), class: "btn btn-large btn-primary" %>
+                <%= link_to "自治体情報.csv", hokkaido_dl_jiti_info_path(format: "csv"), class: "btn btn-large btn-warning" %>
+            </div>
+            <div class="btn-group-vertical" role="group">
+                <%= link_to "更新履歴.xls", hokkaido_dl_update_info_path(format: "xls"), class: "btn btn-large btn-primary" %>
+                <%= link_to "更新履歴.csv", hokkaido_dl_update_info_path(format: "csv"), class: "btn btn-large btn-warning" %>
+            </div>
         </div>
     </div>
 </div>
