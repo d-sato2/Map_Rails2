@@ -62,12 +62,12 @@
     <div class="col-md-7" style="width:924px; height:760px;">
         <div class="col-md-7" id="map" style="width:924px; height:700px;"></div>
     </div>
-    <div class="col-md-4" style="width:300px; height:750px;">
+    <div class="col-md-4" style="width:300px; height:750px;" align="center">
         <%= form_tag '/hokkaido', :method => 'get' do %>
            <%= text_field_tag :search, params[:search], :size => '15' %>
            <%= submit_tag "自治体検索", :cityname => nil, class: "btn btn-primary" %>
         <% end %>
-        <div>
+        <div align="center" style = "margin: 10px 0px 0px 0px;">
         <%= link_to '連絡先を新規作成', '#', class: "btn btn-primary", onclick: "createContactModal()" %>
         </div>
         <br>
@@ -82,11 +82,11 @@
                 </tbody>
             </div>
         <% end %>
-        <div id="info" style="height:492px;overflow-y: auto" frameborder="0" scrolling="yes">
+        <div id="info" style="height:482px;overflow-y: auto" frameborder="0" scrolling="yes">
             <%= render 'info' %>
         </div>
         <br>
-        <div>
+        <div align="center">
             <h5>データのダウンロード</h5>
             <div class="btn-group-vertical" role="group">
                 <%= link_to "自治体情報.xls", hokkaido_dl_jiti_info_path(format: "xls"), class: "btn btn-large btn-primary" %>
