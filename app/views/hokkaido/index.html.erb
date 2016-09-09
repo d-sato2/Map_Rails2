@@ -130,9 +130,9 @@
 
     var vender_name = <%= raw @vender %>;
 
-    var area_color = ["#ffffff", "#29D2F3", "#ffffff", "#29D2F3", "#29D2F3", "#b3ffcc", "#ffffb3", "#ffb3d9"]
+    var area_color = ["#ffffff", "#29D2F3", "#ffffff", "#29D2F3", "#29D2F3", "#b3ffcc", "#ffffb3", "#ffb3d9", "#C9B3FF"]
     var areaColor = d3.scale.ordinal()
-            .domain(["未導入", "導入", "不参加", "参加", "改訂", "基準", "改訂（町村会）", "基準（町村会）"])
+            .domain(["未導入", "導入", "不参加", "参加", "改訂", "基準", "改訂（町村会）", "基準（町村会）", "統一的な基準"])
             .range(area_color);
 
     var vender_color = ["#ffffff", "#F3A229", "#b3ffff", "#b3fff2", "#b3ffd9", "#B3FFE5", "#FFB3F3",
@@ -785,6 +785,7 @@
                     var kokaike2 = ( e.kokaike == "基準" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
                     var kokaike3 = ( e.kokaike == "改訂（町村会）" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
                     var kokaike4 = ( e.kokaike == "基準（町村会）" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
+                    var kokaike5 = ( e.kokaike == "統一的な基準" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
                     var todoku = ( e.todoku == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "todoku"})[0].serviceName + "、" : "";
                     var gw = ( e.gw == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "gw"})[0].serviceName + "、" : "";
                     var cms = ( e.cms == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "cms"})[0].serviceName + "、" : "";
@@ -859,6 +860,7 @@
                     var kokaike2 = ( attrHash[d.properties.cityname].kokaike == "基準" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
                     var kokaike3 = ( attrHash[d.properties.cityname].kokaike == "改訂（町村会）" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
                     var kokaike4 = ( attrHash[d.properties.cityname].kokaike == "基準（町村会）" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
+                    var kokaike5 = ( attrHash[d.properties.cityname].kokaike == "統一的な基準" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
                     var todoku = ( attrHash[d.properties.cityname].todoku == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "todoku"})[0].serviceName + "、" : "";
                     var gw = ( attrHash[d.properties.cityname].gw == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "gw"})[0].serviceName + "、" : "";
                     var cms = ( attrHash[d.properties.cityname].cms == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "cms"})[0].serviceName + "、" : "";
@@ -927,7 +929,7 @@
         //データセットをループで作成
         if (showKey == "vender"){
                 var data4 = [];
-                for (var l = 0; l < 24; l++) {
+                for (var l = 0; l < vender_name.length; l++) {
                     data4.push({
                         name: vender_name[l],
                         value: legend[vender_name[l]],
@@ -935,10 +937,10 @@
                     });
                 }}
         else if (showKey == "kokaike"){
-                var kokaike_name = ["未導入", "改訂", "基準", "改訂（町村会）", "基準（町村会）"]
-                var kokaike_color = ["#ffffff", "#29D2F3", "#b3ffcc", "#ffffb3", "#ffb3d9"]
+                var kokaike_name = ["未導入", "改訂", "基準", "改訂（町村会）", "基準（町村会）", "統一的な基準"]
+                var kokaike_color = ["#ffffff", "#29D2F3", "#b3ffcc", "#ffffb3", "#ffb3d9", "#C9B3FF"]
                 var data4 = [];
-                for (var l = 0; l < 5; l++) {
+                for (var l = 0; l < kokaike_name.length; l++) {
                     data4.push({
                         name: kokaike_name[l],
                         value: legend[kokaike_name[l]],
@@ -948,7 +950,7 @@
         else if  (showKey == "kyougi"){
                 var others_name = ["不参加", "参加"]
                 var data4 = [];
-                for (var l = 0; l < 2; l++) {
+                for (var l = 0; l < others_name.length; l++) {
                     data4.push({
                         name: others_name[l],
                         value: legend[others_name[l]],
@@ -958,7 +960,7 @@
         else{
                 var others_name = ["未導入", "導入"]
                 var data4 = [];
-                for (var l = 0; l < 2; l++) {
+                for (var l = 0; l < others_name.length; l++) {
                     data4.push({
                         name: others_name[l],
                         value: legend[others_name[l]],
