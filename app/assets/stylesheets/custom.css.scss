@@ -87,7 +87,7 @@ p {
 
 /* form */
 .form-group {
-    margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 
 .panel-default > .panel-heading {
@@ -96,4 +96,8 @@ p {
 
 .panel-heading {
   padding: 5px 5px;
+}
+
+.panel-heading a { 
+  display:block;
 }
