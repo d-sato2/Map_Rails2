@@ -100,11 +100,19 @@
     </div>
 </div>
 <script type="text/javascript">
-    $('.collapse').on('shown.bs.collapse', function(n){
-    $(n.target).parent().find(".glyphicon-chevron-up").toggleClass('glyphicon-chevron-up glyphicon-chevron-down');
-    }).on('hidden.bs.collapse', function(n){
-    $(n.target).parent().find(".glyphicon-chevron-down").toggleClass('glyphicon-chevron-up glyphicon-chevron-down');
-    });
+    $('.collapse')
+    .on('shown.bs.collapse', function(n){
+            $(n.target)
+                .parent()
+                .find(".glyphicon-chevron-up")
+                .toggleClass('glyphicon-chevron-up glyphicon-chevron-down');
+        })
+    .on('hidden.bs.collapse', function(n){
+            $(n.target)
+                .parent()
+                .find(".glyphicon-chevron-down")
+                .toggleClass('glyphicon-chevron-up glyphicon-chevron-down');
+        });
 
     var hservices = <%= raw @hservices_name %>
 
