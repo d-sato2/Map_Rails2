@@ -105,6 +105,6 @@ class HokkaidoController < ApplicationController
   private
 
   def hvalue_params
-    params.require(:hvalue).permit(:cityname, :kyougi, :memo_service, :memo_kiban, :todoku, :koumu, :kokaike, :el_kyodo, :kiban, :vender, :eac, :frs, :eps, :ca, :pa, :gw, :cms, :mail, :bu, :rs, :ps, :fn, :ns, :ss, :ft, :et, :ib,)
+    params.require(:hvalue).permit(:cityname, :kyougi, :memo_service, :memo_kiban, :todoku, :koumu, :kokaike, :el_kyodo, :kiban, :vender, :eac, :frs, :eps, :ca, :pa, :gw, :cms, :mail, :bu, :rs, :ps, :fn, :ns, :ss, :ft, :et, :ib, :sc, :sc_op1, :sc_op2, :sc_op3, :sc_op4, :sc_op5, :sc_op6)
   end
 end

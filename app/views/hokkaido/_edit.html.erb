@@ -92,51 +92,95 @@
           <div class="tab-pane fade" id="tab2">
             <p><%= @hvalue.cityname %>の契約状況を編集する</p>
             <div class="row">
-                <div class="panel-group" id="accordion">
-              <div  class="col-md-6">
+              <div class="panel-group" id="accordion">
+                <div  style="float:left; width: 25%;">
                   <div class="panel panel-default">
                     <div class="panel-heading">
                       <h4 class="panel-title">
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEditOne">
-                            HARP基盤関連<br>
+                            SC関連<br>
                             <span class="glyphicon glyphicon-chevron-up"></span>
                         </a>
                       </h4>
                     </div>
                     <div id="collapseEditOne" class="panel-collapse collapse">
-                      <% @hservices.where(kibanRelation: 1).each do |i| %>
+                      <% @hservices.where(kibanRelation: 4).each do |i| %>
                         <div class="col-md-6">
-                          <%= f.label i.serviceName, {class: 'control-label', style: "width: 180px;"}%>
+                          <%= f.label i.serviceName, {class: 'control-label', style: "width: 85px;"}%>
                         </div>
                         <div class="col-md-6">
-                          <%= f.select i.keyName, @hselections.uniq.pluck(i.keyName), {:selected => @hvalue[i.keyName]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
+                          <%= f.select i.keyName, @hselections.uniq.pluck(i.keyName), {:selected => @hvalue[i.keyName]}, {class: "form-control", style: "width: 120px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
                         </div>
                       <% end %>
                     </div>
                   </div>
                 </div>
-              <div  class="col-md-6">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEditTwo">
-                          基盤関系なし<br>
-                          <span class="glyphicon glyphicon-chevron-up"></span>
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="collapseEditTwo" class="panel-collapse collapse">
-                    <% @hservices.where(kibanRelation: 0).each do |i| %>
-                      <div class="col-md-6">
-                        <%= f.label i.serviceName, {class: 'control-label', style: "width: 180px;"}%>
-                      </div>
-                      <div class="col-md-6">
-                        <%= f.select i.keyName, @hselections.uniq.pluck(i.keyName), {:selected => @hvalue[i.keyName]}, {class: "form-control", style: "width: 180px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
-                      </div>
-                    <% end %>
+                <div  style="float:left; width: 25%;">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEditTwo">
+                            ベンダ情報<br>
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseEditTwo" class="panel-collapse collapse">
+                      <% @hservices.where(kibanRelation: 5).each do |i| %>
+                        <div class="col-md-6">
+                          <%= f.label i.serviceName, {class: 'control-label', style: "width: 85px;"}%>
+                        </div>
+                        <div class="col-md-6">
+                          <%= f.select i.keyName, @hselections.uniq.pluck(i.keyName), {:selected => @hvalue[i.keyName]}, {class: "form-control", style: "width: 120px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
+                        </div>
+                      <% end %>
+                    </div>
                   </div>
                 </div>
-              </div>
+                <div  style="float:left; width: 25%;">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEditThree">
+                            HARP基盤関連<br>
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseEditThree" class="panel-collapse collapse">
+                      <% @hservices.where(kibanRelation: 1).each do |i| %>
+                        <div class="col-md-6">
+                          <%= f.label i.serviceName, {class: 'control-label', style: "width: 85px;"}%>
+                        </div>
+                        <div class="col-md-6">
+                          <%= f.select i.keyName, @hselections.uniq.pluck(i.keyName), {:selected => @hvalue[i.keyName]}, {class: "form-control", style: "width: 120px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+                <div  style="float:left; width: 25%;">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEditFour">
+                            基盤関系なし<br>
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseEditFour" class="panel-collapse collapse">
+                      <% @hservices.where(kibanRelation: 0).each do |i| %>
+                        <div class="col-md-6">
+                          <%= f.label i.serviceName, {class: 'control-label', style: "width: 85px;"}%>
+                        </div>
+                        <div class="col-md-6">
+                          <%= f.select i.keyName, @hselections.uniq.pluck(i.keyName), {:selected => @hvalue[i.keyName]}, {class: "form-control", style: "width: 120px; height: 2.2em; background-color:transparent; text-align-last:center;"} %>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160731070223) do
+ActiveRecord::Schema.define(version: 20160910015837) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string   "email",               default: "", null: false
@@ -74,6 +74,13 @@ ActiveRecord::Schema.define(version: 20160731070223) do
     t.string   "todoku"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "sc"
+    t.string   "sc_op1"
+    t.string   "sc_op2"
+    t.string   "sc_op3"
+    t.string   "sc_op4"
+    t.string   "sc_op5"
+    t.string   "sc_op6"
   end
 
   create_table "hservices", force: :cascade do |t|
@@ -119,6 +126,13 @@ ActiveRecord::Schema.define(version: 20160731070223) do
     t.text     "memo_kiban"
     t.text     "memo_service"
     t.string   "citynameKana"
+    t.string   "sc"
+    t.string   "sc_op1"
+    t.string   "sc_op2"
+    t.string   "sc_op3"
+    t.string   "sc_op4"
+    t.string   "sc_op5"
+    t.string   "sc_op6"
   end
 
   create_table "japans", force: :cascade do |t|

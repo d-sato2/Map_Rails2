@@ -57,6 +57,25 @@
                 </div>
             </div>
           </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                    SC<br>
+                    <span class="glyphicon glyphicon-chevron-up"></span>
+                </a>
+              </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+                <div class="btn-group-vertical center-block" role="group">
+                    <% @hservices.where(kibanRelation: 4).each do |i| %>
+                        <%= button_tag type: 'button', class: "btn btn-default", onclick: "changeShowKey('#{i.keyName}','')" do %>
+                            <%= "#{i.serviceName}" %>
+                        <% end %>
+                    <% end %>
+                </div>
+            </div>
+          </div>
         </div>
     </div>
     <div class="col-md-7" style="width:924px; height:760px;">
