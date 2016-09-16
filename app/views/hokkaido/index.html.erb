@@ -86,10 +86,6 @@
            <%= text_field_tag :search, params[:search], :size => '15' %>
            <%= submit_tag "自治体検索", :cityname => nil, class: "btn btn-primary" %>
         <% end %>
-        <div align="center" style = "margin: 10px 0px 0px 0px;">
-        <%= link_to '連絡先を新規作成', '#', class: "btn btn-primary", onclick: "createContactModal()" %>
-        </div>
-        <br>
         <% if params.has_key?(:search) then %>
             <div>
                 <tbody>
@@ -101,6 +97,10 @@
                 </tbody>
             </div>
         <% end %>
+        <div align="center" style = "margin: 10px 0px 0px 0px;">
+        <%= link_to '連絡先を新規作成', '#', class: "btn btn-primary", onclick: "createContactModal()" %>
+        </div>
+        <br>
         <div id="info" style="height:482px;overflow-y: auto" frameborder="0" scrolling="yes">
             <%= render 'info' %>
         </div>
@@ -149,9 +149,9 @@
 
     var vender_name = <%= raw @vender %>;
 
-    var area_color = ["#ffffff", "#29D2F3", "#ffffff", "#29D2F3", "#29D2F3", "#b3ffcc", "#ffffb3", "#ffb3d9", "#C9B3FF"]
+    var area_color = ["#ffffff", "#29D2F3", "#ffffff", "#29D2F3", "#29D2F3", "#b3ffcc", "#ffffb3", "#ffb3d9", "#C9B3FF", "#b3ffcc", "#ffffb3"]
     var areaColor = d3.scale.ordinal()
-            .domain(["未導入", "導入", "不参加", "参加", "改訂", "基準", "改訂（町村会）", "基準（町村会）", "統一的な基準"])
+            .domain(["未導入", "導入", "不参加", "参加", "改訂", "基準", "改訂（町村会）", "基準（町村会）", "統一的な基準", "H28開始","H29/6月開始"])
             .range(area_color);
 
     var vender_color = ["#ffffff", "#F3A229", "#b3ffff", "#b3fff2", "#b3ffd9", "#B3FFE5", "#FFB3F3",
@@ -800,18 +800,14 @@
                     var frs = ( e.frs == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "frs"})[0].serviceName + "、" : "";
                     var eps = ( e.eps == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "eps"})[0].serviceName + "、" : "";
                     var ca = ( e.ca == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "ca"})[0].serviceName + "、" : "";
-                    var kokaike = ( e.kokaike == "改訂" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
-                    var kokaike2 = ( e.kokaike == "基準" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
-                    var kokaike3 = ( e.kokaike == "改訂（町村会）" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
-                    var kokaike4 = ( e.kokaike == "基準（町村会）" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
-                    var kokaike5 = ( e.kokaike == "統一的な基準" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
+                    var kokaike = ( e.kokaike == "改訂" || e.kokaike == "基準" || e.kokaike == "改訂（町村会）" || e.kokaike == "基準（町村会）" || e.kokaike == "統一的な基準" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
                     var todoku = ( e.todoku == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "todoku"})[0].serviceName + "、" : "";
                     var gw = ( e.gw == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "gw"})[0].serviceName + "、" : "";
                     var cms = ( e.cms == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "cms"})[0].serviceName + "、" : "";
                     var rs = ( e.rs == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "rs"})[0].serviceName + "、" : "";
                     var ps = ( e.ps == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "ps"})[0].serviceName + "、" : "";
                     var fn = ( e.fn == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "fn"})[0].serviceName + "、" : "";
-                    var kiban_kei =  eac + frs + eps + ca + kokaike + kokaike2 + kokaike3 + kokaike4 + todoku + gw + cms + rs + ps + fn;
+                    var kiban_kei =  eac + frs + eps + ca + kokaike + todoku + gw + cms + rs + ps + fn;
 
                     var el_kyodo = ( e.el_kyodo== "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "el_kyodo"})[0].serviceName + "、" : "";
                     var koumu = ( e.koumu== "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "koumu"})[0].serviceName + "、" : "";
@@ -821,9 +817,21 @@
                     var ib = ( e.ib == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "ib"})[0].serviceName + "、" : "";
                     var vender = ( e.vender == "HARP" ) ? hservices.filter(function(i, index){ return i.keyName == "vender"})[0].serviceName + "、" : "";
                     var kiban_igai = el_kyodo + koumu + ns + mail + bu + ib + vender;
+
+                    var sc = ( e.sc == "H28開始" || e.sc == "H29/6月開始") ? "<text style='color:#DF7401;'>" + e.sc + "</text>" : "×";
+                    var sc_op1 = ( e.sc_op1 == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "sc_op1"})[0].serviceName + "、" : "";
+                    var sc_op2 = ( e.sc_op2 == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "sc_op2"})[0].serviceName + "、" : "";
+                    var sc_op3 = ( e.sc_op3 == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "sc_op3"})[0].serviceName + "、" : "";
+                    var sc_op4 = ( e.sc_op4 == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "sc_op4"})[0].serviceName + "、" : "";
+                    var sc_op5 = ( e.sc_op5 == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "sc_op5"})[0].serviceName + "、" : "";
+                    var sc_op6 = ( e.sc_op6 == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "sc_op6"})[0].serviceName + "、" : "";
+                    var sc_ops = sc_op1 + sc_op2 + sc_op3 + sc_op4 + sc_op5 + sc_op6
+
                     // の末尾に"、"がある場合は削除
                     var kiban_keiAfter = ( kiban_kei.substr( (kiban_kei.length-1) )  == "、" ) ? kiban_kei.substr( 0 , (kiban_kei.length-1) ) : kiban_kei;
                     var kiban_igaiAfter = ( kiban_igai.substr( (kiban_igai.length-1) )  == "、" ) ? kiban_igai.substr( 0 , (kiban_igai.length-1) ) : kiban_igai;
+                    var sc_opsAfter = ( sc_ops.substr( (sc_ops.length-1) )  == "、" ) ? sc_ops.substr( 0 , (sc_ops.length-1) ) : sc_ops;
+
                     var content = "";
                     content += "<center style='color:#DF7401;'>"+ e.cityname + "</center>";
                     content += "<center style='color:#BDBDBD;'>" + "【HARP基盤負担】" + kiban + "</center>";
@@ -834,6 +842,11 @@
                     content += "<center style='color:#DF7401;'>" + kiban_igaiAfter + "</center>";
                     content += "<center style='color:#BDBDBD;'>"+ "--------------------契約ベンダー--------------------" + "</center>"
                     content += "<center style='color:#DF7401;'>" + e.vender + "</center>";
+                    content += "<center style='color:#BDBDBD;'>" + "【SC加入】" + sc + "</center>";
+                    if (sc !== "×"){
+                        content += "<center style='color:#BDBDBD;'>"+ "--------------------SC option--------------------" + "</center>"
+                        content += "<center style='color:#DF7401;'>"+ sc_opsAfter + "</center>";
+                    }
                     svg.selectAll(".hokkaido." + e.cityid)
                     .transition().duration(100).attr("fill", "red")
                     .style("opacity", 1);div.transition().duration(100)
@@ -875,18 +888,14 @@
                     var frs = ( attrHash[d.properties.cityname].frs == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "frs"})[0].serviceName + "、" : "";
                     var eps = ( attrHash[d.properties.cityname].eps == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "eps"})[0].serviceName + "、" : "";
                     var ca = ( attrHash[d.properties.cityname].ca == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "ca"})[0].serviceName + "、" : "";
-                    var kokaike = ( attrHash[d.properties.cityname].kokaike == "改訂" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
-                    var kokaike2 = ( attrHash[d.properties.cityname].kokaike == "基準" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
-                    var kokaike3 = ( attrHash[d.properties.cityname].kokaike == "改訂（町村会）" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
-                    var kokaike4 = ( attrHash[d.properties.cityname].kokaike == "基準（町村会）" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
-                    var kokaike5 = ( attrHash[d.properties.cityname].kokaike == "統一的な基準" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
+                    var kokaike = ( attrHash[d.properties.cityname].kokaike == "改訂" || attrHash[d.properties.cityname].kokaike == "基準" || attrHash[d.properties.cityname].kokaike == "改訂（町村会）" || attrHash[d.properties.cityname].kokaike == "基準（町村会）" || attrHash[d.properties.cityname].kokaike == "統一的な基準" ) ? hservices.filter(function(i, index){ return i.keyName == "kokaike"})[0].serviceName + "、" : "";
                     var todoku = ( attrHash[d.properties.cityname].todoku == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "todoku"})[0].serviceName + "、" : "";
                     var gw = ( attrHash[d.properties.cityname].gw == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "gw"})[0].serviceName + "、" : "";
                     var cms = ( attrHash[d.properties.cityname].cms == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "cms"})[0].serviceName + "、" : "";
                     var rs = ( attrHash[d.properties.cityname].rs == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "rs"})[0].serviceName + "、" : "";
                     var ps = ( attrHash[d.properties.cityname].ps == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "ps"})[0].serviceName + "、" : "";
                     var fn = ( attrHash[d.properties.cityname].fn == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "fn"})[0].serviceName + "、" : "";
-                    var kiban_kei =  eac + frs + eps + ca + kokaike + kokaike2 + kokaike3 + kokaike4 + todoku + gw + cms + rs + ps + fn;
+                    var kiban_kei =  eac + frs + eps + ca + kokaike + todoku + gw + cms + rs + ps + fn;
 
                     var el_kyodo = ( attrHash[d.properties.cityname].el_kyodo== "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "el_kyodo"})[0].serviceName + "、" : "";
                     var koumu = ( attrHash[d.properties.cityname].koumu== "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "koumu"})[0].serviceName + "、" : "";
@@ -896,9 +905,21 @@
                     var ib = ( attrHash[d.properties.cityname].ib == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "ib"})[0].serviceName + "、" : "";
                     var vender = ( attrHash[d.properties.cityname].vender == "HARP" ) ? hservices.filter(function(i, index){ return i.keyName == "vender"})[0].serviceName + "、" : "";
                     var kiban_igai = el_kyodo + koumu + ns + mail + bu + ib + vender;
+
+                    var sc = ( attrHash[d.properties.cityname].sc == "H28開始" || attrHash[d.properties.cityname].sc == "H29/6月開始") ? "<text style='color:#DF7401;'>" + attrHash[d.properties.cityname].sc + "</text>" : "×";
+                    var sc_op1 = ( attrHash[d.properties.cityname].sc_op1 == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "sc_op1"})[0].serviceName + "、" : "";
+                    var sc_op2 = ( attrHash[d.properties.cityname].sc_op2 == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "sc_op2"})[0].serviceName + "、" : "";
+                    var sc_op3 = ( attrHash[d.properties.cityname].sc_op3 == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "sc_op3"})[0].serviceName + "、" : "";
+                    var sc_op4 = ( attrHash[d.properties.cityname].sc_op4 == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "sc_op4"})[0].serviceName + "、" : "";
+                    var sc_op5 = ( attrHash[d.properties.cityname].sc_op5 == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "sc_op5"})[0].serviceName + "、" : "";
+                    var sc_op6 = ( attrHash[d.properties.cityname].sc_op6 == "導入" ) ? hservices.filter(function(i, index){ return i.keyName == "sc_op6"})[0].serviceName + "、" : "";
+                    var sc_ops = sc_op1 + sc_op2 + sc_op3 + sc_op4 + sc_op5 + sc_op6
+
                     // の末尾に"、"がある場合は削除
                     var kiban_keiAfter = ( kiban_kei.substr( (kiban_kei.length-1) )  == "、" ) ? kiban_kei.substr( 0 , (kiban_kei.length-1) ) : kiban_kei;
                     var kiban_igaiAfter = ( kiban_igai.substr( (kiban_igai.length-1) )  == "、" ) ? kiban_igai.substr( 0 , (kiban_igai.length-1) ) : kiban_igai;
+                    var sc_opsAfter = ( sc_ops.substr( (sc_ops.length-1) )  == "、" ) ? sc_ops.substr( 0 , (sc_ops.length-1) ) : sc_ops;
+
                     var content = "";
                     content += "<center style='color:#DF7401;'>"+ attrHash[d.properties.cityname].cityname + "</center>";
                     content += "<center style='color:#BDBDBD;'>" + "【HARP基盤負担】" + kiban + "</center>";
@@ -909,6 +930,11 @@
                     content += "<center style='color:#DF7401;'>"+ kiban_igaiAfter + "</center>";
                     content += "<center style='color:#BDBDBD;'>"+ "--------------------契約ベンダー--------------------" + "</center>"
                     content += "<center style='color:#DF7401;'>"+ attrHash[d.properties.cityname].vender + "</center>";
+                    content += "<center style='color:#BDBDBD;'>" + "【SC加入】" + sc + "</center>";
+                    if (sc !== "×"){
+                        content += "<center style='color:#BDBDBD;'>"+ "--------------------SC option--------------------" + "</center>"
+                        content += "<center style='color:#DF7401;'>"+ sc_opsAfter + "</center>";
+                    }
                     svg.selectAll(".hokkaido." + attrHash[d.properties.cityname].cityid)
                     .transition().duration(100).attr("fill", "red")
                     .style("opacity", 1);div.transition().duration(100)
